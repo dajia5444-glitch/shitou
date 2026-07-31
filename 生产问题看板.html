@@ -105,7 +105,7 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   <div class="hero-top">
     <div>
       <h1><span class="mark"></span>生产问题看板</h1>
-      <div class="sub">最后更新 · 北京时间 2026-07-31 22:34</div>
+      <div class="sub">最后更新 · 北京时间 2026-07-31 23:51</div>
     </div>
     <div class="nums" style="color:var(--ink-3);font-size:12px;background:var(--surface);border:1px solid var(--line);padding:5px 14px;border-radius:999px;">10 个问题</div>
   </div>
@@ -265,7 +265,7 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
       <span class="dot-sep">·</span>
       <span>上报 周子然</span>
       <span class="dot-sep">·</span>
-      <span>36 条沟通</span>
+      <span>37 条沟通</span>
     </div>
   </div>
   <div class="card-detail">
@@ -301,10 +301,10 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
 后端
 开始时间：7/29（260729更新）
 完成时间：7/30（260729更新）
-工作</div></div></div></div></div>
+工作</div></div></div><div class="t-row"><div class="t-time">07-31 22:29</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">石头-TYZX-CN</span><span class="t-channel">周秀山-TY-VN</span></div><div class="t-text">dx-069 更新后测试服与线上不一致：业务影响=分享到社媒的链接丢失封面预览图，影响用户分享体验与站点流量导入；根因=后台配置项缺失/未生效，测试服因独立环境配置完整所以正常，正式服部署时配置未同步导致功能不渲染。后续改进：1、上线前配置核对清单 2、线上环境回归（石头 PMO 日报复盘）</div></div></div></div></div>
     <div class="detail-grid">
       <div class="detail-section"><div class="detail-label">🛠 处理方案</div><div class="detail-body">需排查更新包部署是否一致、确认测试服务器与线上版本号同步</div></div>
-      <div class="detail-section"><div class="detail-label">📊 当前结果</div><div class="detail-body">需要更新服务器后端沟通</div></div>
+      <div class="detail-section"><div class="detail-label">📊 当前结果</div><div class="detail-body">根因已定位（7/31 22:29 PMO 日报复盘）：正式服部署时后台配置项未同步（缺失/未生效），测试服独立环境配置完整故正常，导致线上功能不渲染（分享到社媒链接丢失封面预览图）。待同步配置后重新部署验证线上回归</div></div>
     </div>
     <div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">环境一致性是发布质量的基础，长期不解决会导致"测试通过线上出问题"的恶性循环</div></div>
     <div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">建议周子然拉一个 FE/BE 同学对齐部署流程，加入自动化测试验证</div></div>
