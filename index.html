@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星河无界</title>
+<style>
+body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #303133; background: #f5f6fa; }
+h1 { color: #1a1a2e; font-size: 24px; margin-bottom: 8px; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.card { background: #fff; border: 1px solid #e4e7ed; border-radius: 8px; padding: 20px; transition: all 0.15s; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-color: #1d4ed8; }
+.card-title { font-size: 16px; font-weight: 600; color: #1a1a2e; margin-bottom: 12px; }
+.card-desc { font-size: 13px; color: #606266; line-height: 1.6; margin-bottom: 14px; }
+.card-link { display: inline-block; padding: 8px 16px; background: #1a1a2e; color: #fff; text-decoration: none; border-radius: 4px; font-size: 13px; }
+.card-link:hover { background: #000; }
+.card-link.disabled { background: #c0c4cc; cursor: not-allowed; }
+</style>
+</head>
+<body>
+<h1>🎯 星河无界</h1>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">排期看板</div>
+    <div class="card-desc">
+      • 产品视角 / 运营视角 / 研发视角<br>
+      • 今日重点跟进：节点命中 5 条 + 新增 4 条（22:34 更新）<br>
+      • GSCE-150 排期顺延：后端 0803-0805 / 测试 0807 / 验收 0807-0808（朔月、飞策、史强确认）<br>
+      • GSCE-217 禁漫GPT升级：后端 0806-0807（鹏程）/ 测试 0810（飞策）<br>
+      • GSCE-219 91Hub / GSCE-220 KISSAV GPT升级：后端 0803-0804（厉飞雨）/ 测试 0810（飞策），验收待确认；GSCE-218 抖阴 待排期
+    </div>
+    <a class="card-link" href="项目需求排期看板.html">打开 →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">资源甘特图</div>
+    <div class="card-desc">
+      • 11 位研发 · 45 项任务<br>
+      • 前端 / 后端 / 测试资源负载<br>
+      • 无排期人员也展示（便于追踪）
+    </div>
+    <a class="card-link" href="资源甘特图.html">打开 →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">生产问题看板</div>
+    <div class="card-desc">
+      • 10 个生产问题 · 6 个处理中 / 1 个已修复<br>
+      • DX-999 中转页/直链打不开：排查为域名过户 DNS 解析被重置，22:11 重新解析恢复，持续观察<br>
+      • 严重度筛选（严重 / 高 / 中）<br>
+      • 状态跟踪：处理中 / 待修复 / 已修复
+    </div>
+    <a class="card-link" href="生产问题看板.html">打开 →</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星河无界 · 项目-需求-排期看板</title>
+<style>
+:root { --border: #e4e7ed; --bg: #f5f6fa; --text: #303133; --text-secondary: #909399; --header-bg: #fafafa; --hover-row: #f8f9fb; }
+* { box-sizing: border-box; margin: 0; }
+body { margin: 0; padding: 20px 24px; background: var(--bg); color: var(--text); font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif; font-size: 13px; line-height: 1.5; }
+.sheet { max-width: 1600px; margin: 0 auto; }
+
+.global-header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; }
+.global-header h1 { font-size: 22px; font-weight: 600; color: #1a1a2e; letter-spacing: 0.5px; }
+.global-header .meta { font-size: 12px; color: var(--text-secondary); text-align: right; }
+.global-header .meta span { display: inline-block; margin-left: 14px; }
+.global-header .meta strong { font-weight: 600; color: var(--text); }
+
+.persp-bar { display: flex; gap: 0; margin-bottom: 16px; }
+.persp-btn { display: inline-block; padding: 6px 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: #fff; color: var(--text-secondary); transition: all .15s ease; user-select: none; }
+.persp-btn:first-child { border-radius: 4px 0 0 4px; }
+.persp-btn:last-child { border-radius: 0 4px 4px 0; }
+.persp-btn + .persp-btn { border-left: none; }
+.persp-btn:hover { color: var(--text); }
+.persp-btn.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+
+.stats { display: flex; gap: 24px; padding: 12px 0; font-size: 13px; color: var(--text-secondary); }
+.stats strong { font-size: 18px; font-weight: 600; color: #1a1a2e; margin-right: 4px; }
+
+.filter-bar { display: flex; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; flex-wrap: wrap; }
+.filter-bar .label { font-size: 12px; color: var(--text-secondary); margin-right: 4px; }
+.filter-btn { display: inline-block; padding: 4px 14px; border-radius: 4px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: #fff; color: var(--text); transition: all .15s ease; user-select: none; }
+.filter-btn:hover { border-color: #2563eb; color: #2563eb; }
+.filter-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+.pm-block { margin-bottom: 16px; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.pm-block-header { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 10px 16px; background: var(--header-bg); border-bottom: 1px solid var(--border); }
+.pm-block-header .pm-name { font-size: 15px; font-weight: 600; color: #1a1a2e; }
+.pm-block-header .pm-count { font-size: 11px; color: var(--text-secondary); font-weight: 400; }
+.pm-block-header .tag-list { display: flex; gap: 6px; flex-wrap: wrap; width: 100%; margin-top: 4px; }
+
+/* 项目切换按钮 */
+.proj-toggle { display: inline-block; padding: 3px 10px; border-radius: 3px; font-size: 11px; font-weight: 500; cursor: pointer; border: 1px solid transparent; transition: all 0.15s ease; user-select: none; background: #f0f1f5; color: var(--text-secondary); }
+.proj-toggle.on { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+.proj-toggle.on::before { content: "●"; display: inline-block; margin-right: 4px; font-size: 8px; vertical-align: middle; color: #10b981; }
+.proj-toggle:hover { border-color: #2563eb; }
+
+.pm-block.bao { border-left: 3px solid #d97706; }
+.pm-block.bo { border-left: 3px solid #2563eb; }
+.pm-block.da { border-left: 3px solid #ea580c; }
+.pm-block.xiao { border-left: 3px solid #059669; }
+.pm-block.op-qiuye { border-left: 3px solid #7c3aed; }
+.pm-block.op-linxc { border-left: 3px solid #0891b2; }
+.pm-block.op-anjing { border-left: 3px solid #2563eb; }
+.pm-block.op-zhouzr { border-left: 3px solid #dc2626; }
+.pm-block.op-shiqiang { border-left: 3px solid #059669; }
+
+.filter-btn.qiuye.active { background: #7c3aed; border-color: #7c3aed; }
+.filter-btn.linxc.active { background: #0891b2; border-color: #0891b2; }
+.filter-btn.anjing.active { background: #2563eb; border-color: #2563eb; }
+.filter-btn.zhouzr.active { background: #dc2626; border-color: #dc2626; }
+.filter-btn.shiqiang.active { background: #059669; border-color: #059669; }
+
+.view-section { display: none; }
+.view-section.active { display: block; }
+
+.proj-card { border-bottom: 1px solid #f0f1f5; }
+.proj-card:last-child { border-bottom: none; }
+.proj-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--text); background: #fff; }
+.proj-title .num { font-family: "SF Mono", "Fira Code", monospace; font-size: 11px; color: var(--text-secondary); font-weight: 500; }
+.proj-title .people-tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 1px 7px; border-radius: 3px; background: #f0f1f5; color: #606266; }
+.proj-title .people-tag.be { background: #fff8f0; color: #c2410c; }
+.proj-title .people-tag.fe { background: #f0f5ff; color: #1d4ed8; }
+.proj-title .people-tag.qa { background: #f0faf5; color: #15803d; }
+
+/* 今日重点跟进内容板块 */
+.today-panel { background:#fff; border:1px solid #e4e7ed; border-radius:6px; padding:12px 16px; margin:8px 0 16px; }
+.today-panel-header { display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:#1a1a2e; margin-bottom:10px; padding-bottom:8px; border-bottom:1px dashed #e4e7ed; }
+.today-panel-header .today-date { background:#1a1a2e; color:#fff; padding:2px 8px; border-radius:3px; font-size:11px; font-weight:500; }
+.today-panel-body { display:flex; gap:16px; flex-wrap:wrap; }
+.today-col { flex:1; min-width:320px; }
+.today-col-title { font-size:12px; font-weight:600; color:#909399; margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+.today-col-title .dot { width:6px; height:6px; border-radius:50%; }
+.today-list { max-height:180px; overflow-y:auto; padding-right:6px; }
+.today-list::-webkit-scrollbar { width:4px; }
+.today-list::-webkit-scrollbar-thumb { background:#c0c4cc; border-radius:2px; }
+.today-item { display:flex; align-items:flex-start; gap:8px; padding:6px 8px; border-radius:4px; font-size:12px; line-height:1.5; color:#303133; transition:background .15s; }
+.today-item:hover { background:#f5f7fa; }
+.today-item .gsc { font-weight:600; color:#1d4ed8; flex-shrink:0; min-width:68px; }
+.today-item .gsc a { color:inherit; text-decoration:none; }
+.today-item .gsc a:hover { text-decoration:underline; }
+.today-item .desc { flex:1; }
+.today-item .meta { font-size:10px; color:#909399; margin-top:1px; }
+.today-item .meta .tag-fe { color:#1d4ed8; } .today-item .meta .tag-be { color:#15803d; } .today-item .meta .tag-qa { color:#7c3aed; } .today-item .meta .tag-acc { color:#dc2626; }
+.today-item .date-badge { display:inline-block; padding:1px 5px; background:#fef3c7; color:#92400e; border-radius:3px; font-size:10px; margin-left:4px; flex-shrink:0; }
+
+.req-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+.req-table col.c-gsc { width: 8%; }
+.req-table col.c-req { width: 18%; }
+.req-table col.c-fe  { width: 11%; }
+.req-table col.c-be  { width: 11%; }
+.req-table col.c-qa  { width: 9%; }
+.req-table col.c-acc { width: 12%; }
+.req-table col.c-tl  { width: 31%; }
+.req-table th { padding: 7px 8px; text-align: center; font-weight: 600; font-size: 11px; color: var(--text-secondary); background: var(--header-bg); border-bottom: 1px solid var(--border); letter-spacing: 0.3px; }
+.req-table td { padding: 6px 8px; border-bottom: 1px solid #f0f1f5; vertical-align: middle; word-wrap: break-word; }
+.req-table tr:last-child td { border-bottom: none; }
+.req-table tr:hover td { background: var(--hover-row); }
+.req-table td:nth-child(1) { text-align: center; font-size: 11px; }
+.req-table td:last-child  { text-align: center; }
+
+.gsc-link { font-family: "SF Mono", "Fira Code", monospace; font-size: 11px; color: #2563eb; text-decoration: none; font-weight: 600; }
+.gsc-link:hover { text-decoration: underline; }
+.role-cell { font-weight: 500; font-size: 11px; line-height: 1.6; }
+.role-cell small { display: block; font-weight: 400; font-size: 10px; color: var(--text-secondary); }
+.role-cell.be { color: #c2410c; }
+.role-cell.fe { color: #1d4ed8; }
+.role-cell.qa { color: #15803d; }
+.role-cell.na { color: var(--text-secondary); font-weight: 400; }
+.tl-date { font-family: "SF Mono", "Fira Code", monospace; font-size: 11px; color: #606266; }
+.tl-date.empty { color: #cdd0d6; }
+.no-data { padding: 14px; text-align: center; font-size: 12px; color: #cdd0d6; }
+
+@media (max-width: 900px) { body { padding: 12px; } .global-header { flex-direction: column; align-items: flex-start; gap: 4px; } .global-header .meta span { margin-left: 0; margin-right: 12px; } }
+
+/* ── Dev View ── */
+.role-section {
+  margin-bottom: 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.role-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+.role-header .role-icon { font-size: 16px; line-height: 1; }
+.role-header .role-count { font-size: 11px; color: var(--text-secondary); font-weight: 400; }
+.dev-block { border-bottom: 1px solid #f0f1f5; }
+.dev-block:last-child { border-bottom: none; }
+.dev-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 16px;
+  background: #fafbfc;
+  border-bottom: 1px solid #f0f1f5;
+}
+.dev-header .dev-name { font-size: 13px; font-weight: 600; color: #1a1a2e; }
+.dev-header .dev-count { font-size: 11px; color: var(--text-secondary); font-weight: 400; }
+.dev-header .tag-list { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+.filter-btn.dev-be.active { background: #ea580c; border-color: #ea580c; }
+.filter-btn.dev-fe.active { background: #2563eb; border-color: #2563eb; }
+.filter-btn.dev-qa.active { background: #059669; border-color: #059669; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<div class="global-header">
+  <div>
+    <h1>星河无界 · 项目-需求-排期看板</h1>
+  </div>
+  <div class="meta" style="display:flex;align-items:center;gap:8px;">
+    <label for="date-picker" style="font-size:12px;color:#909399;">历史版本</label>
+    <select id="date-picker" onchange="switchDate(this.value)" style="padding:4px 10px;font-size:13px;border:1px solid #e4e7ed;border-radius:4px;background:#fff;color:#303133;cursor:pointer;outline:none;font-family:inherit;">
+      <option value="2026-07-30" selected>2026-07-30 (当前)</option>
+      <option value="2026-07-31">2026-07-31</option>
+    </select>
+  </div>
+</div>
+
+<div class="persp-bar">
+  <span class="persp-btn active" onclick="switchView('product')">📋 产品视角</span>
+  <span class="persp-btn" onclick="switchView('operations')">📌 运营视角</span>
+  <span class="persp-btn" onclick="switchView('dev')">🔧 研发视角</span>
+</div>
+
+<div class="today-panel">
+  <div class="today-panel-header">
+    <span>🎯 今日重点跟进内容</span>
+    <span class="today-date">2026-07-30 (周四)</span>
+    <span style="font-size:11px;font-weight:400;color:#909399;margin-left:auto;">节点命中 13 · 新增 0</span>
+  </div>
+  <div class="today-panel-body">
+    <div class="today-col">
+      <div class="today-col-title">
+        <span class="dot" style="background:#f59e0b;"></span>
+        <span>节点日期 = 今日 (0730)</span>
+      </div>
+      <div class="today-list">
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-153" target="_blank">GSCE-153</a></span><span class="desc">51凤楼web｜技术seo优化<div class="meta"><span class="tag-qa">测试</span> 飞策</div></span><span class="date-badge">0730</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-195" target="_blank">GSCE-195</a></span><span class="desc">51凤楼web｜顶部菜单调整<div class="meta"><span class="tag-qa">测试</span> 飞策</div></span><span class="date-badge">0730</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-196" target="_blank">GSCE-196</a></span><span class="desc">51凤楼web｜探花社区列表增加时间、标签信息<div class="meta"><span class="tag-qa">测试</span> 飞策</div></span><span class="date-badge">0730</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-197" target="_blank">GSCE-197</a></span><span class="desc">51凤楼web｜m端凤妹详情页预览图调整<div class="meta"><span class="tag-qa">测试</span> 飞策</div></span><span class="date-badge">0730</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-198" target="_blank">GSCE-198</a></span><span class="desc">51凤楼web｜注册并登录优化<div class="meta"><span class="tag-qa">测试</span> 飞策</div></span><span class="date-badge">0730</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-199" target="_blank">GSCE-199</a></span><span class="desc">51凤楼web｜缩略图查看大图优化<div class="meta"><span class="tag-qa">测试</span> 飞策</div></span><span class="date-badge">0730</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-203" target="_blank">GSCE-203</a></span><span class="desc">精品APP接入广告中心<div class="meta"><span class="tag-be">后端</span> 鹏程</div></span><span class="date-badge">0729-0730</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-186" target="_blank">GSCE-186</a></span><span class="desc">帖子分享到社媒时展示帖子封面图<div class="meta"><span class="tag-be">后端</span> 厉飞雨</div></span><span class="date-badge">0728-0730</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-157" target="_blank">GSCE-157</a></span><span class="desc">抖阴展示逻辑修改<div class="meta"><span class="tag-qa">测试</span> 飞策</div></span><span class="date-badge">0728-0730</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-191" target="_blank">GSCE-191</a></span><span class="desc">后端新增标签筛选功能<div class="meta"><span class="tag-acc">验收</span> 波林、周子然、高睿</div></span><span class="date-badge">0730 验收</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-193" target="_blank">GSCE-193</a></span><span class="desc">[后台]推广渠道统计优化<div class="meta"><span class="tag-be">后端</span> 李瑞</div></span><span class="date-badge">0730-0731</span></div>
+        <div class="today-item"><span class="gsc"><a href="https://jumpjump9988.atlassian.net/browse/GSCE-166" target="_blank">GSCE-166</a></span><span class="desc">51品茶 web 前端开发（MVP）<div class="meta"><span class="tag-fe">前端</span> 卡比 · <span class="tag-be">后端</span> 厉飞雨</div></span><span class="date-badge">0730-0829</span></div>
+      </div>
+    </div>
+    <div class="today-col">
+      <div class="today-col-title">
+        <span class="dot" style="background:#94a3b8;"></span>
+        <span>今日新增需求 (待排期)</span>
+      </div>
+      <div class="today-list">
+        <div style="padding:20px 8px;text-align:center;color:#909399;font-size:12px;">7/30 当日无新增需求<br><span style="font-size:10px;">(NEW 标注是 7/31 起加入)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="view-product" class="view-section active">
+<div class="stats">
+  <div><strong>20</strong> 个项目</div>
+  <div><strong>4</strong> 位产品经理</div>
+  <div><strong>22</strong> 条在途需求</div>
+  <div><strong>10</strong> 项有排期</div>
+</div>
+
+<div class="filter-bar">
+  <span class="label">筛选：</span>
+  <span class="filter-btn active" data-filter="all" onclick="filterPM('all')">全部</span>
+  <span class="filter-btn bao" data-filter="bao" onclick="filterPM('bao')">🟠 鲍勃</span>
+  <span class="filter-btn bo" data-filter="bo" onclick="filterPM('bo')">🔵 波林</span>
+  <span class="filter-btn da" data-filter="da" onclick="filterPM('da')">🟠 大藜</span>
+  <span class="filter-btn xiao" data-filter="xiao" onclick="filterPM('xiao')">🟢 小宜</span>
+</div>
+
+<div class="pm-block bao">
+  <div class="pm-block-header">
+    <span class="pm-name">鲍勃</span>
+    <span class="pm-count">5 个项目</span>
+    <div class="tag-list">
+      <span class="proj-toggle" data-pid="DX-013" onclick="toggleProj(this, 'DX-013')">滴滴（APP）</span>
+      <span class="proj-toggle" data-pid="JHG-056" onclick="toggleProj(this, 'JHG-056')">91楼凤（APP）</span>
+      <span class="proj-toggle on" data-pid="TJ-062" onclick="toggleProj(this, 'TJ-062')">51凤楼（WEB）</span>
+      <span class="proj-toggle" data-pid="TJ-063" onclick="toggleProj(this, 'TJ-063')">51凤楼（APP）</span>
+      <span class="proj-toggle" data-pid="JHG-039" onclick="toggleProj(this, 'JHG-039')">陌陌1v1（APP）</span>
+    </div>
+  </div>
+  <div class="proj-card" data-card="DX-013" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">DX-013</span> 滴滴（APP）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 天辰(主) 风间(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="JHG-056" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">JHG-056</span> 91楼凤（APP）
+      <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span>
+      <span class="people-tag fe">FE: 阿秋(主) 风间(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="TJ-062" style="">
+    <div class="proj-title">
+      <span class="num">TJ-062</span> 51凤楼（WEB）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 风间(主) 阿秋(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-150" target="_blank">GSCE-150</a></td><td>51凤楼web| seo项 TDK配置</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0803</small></td><td class="role-cell qa">飞策<small>0804-0804</small></td><td class="role-cell be">鲍勃、史强<small>0804-0805</small></td><td><span class="tl-date">0731-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-153" target="_blank">GSCE-153</a></td><td>51凤楼web| 技术seo优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、史强<small>0804-0805</small></td><td><span class="tl-date">0729-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-195" target="_blank">GSCE-195</a></td><td>51凤楼web| 顶部菜单调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-196" target="_blank">GSCE-196</a></td><td>51凤楼web| 探花社区列表增加时间、标签信息</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-197" target="_blank">GSCE-197</a></td><td>51凤楼web| m端凤妹详情页预览图位置大小调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-198" target="_blank">GSCE-198</a></td><td>51凤楼web| 注册并登录优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-199" target="_blank">GSCE-199</a></td><td>51凤楼web| 缩略图查看大图的图片位置优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="TJ-063" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">TJ-063</span> 51凤楼（APP）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 风间(主) 阿秋(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="JHG-039" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">JHG-039</span> 陌陌1v1（APP）
+      <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span>
+      <span class="people-tag fe">FE: 阿秋(主) 天辰(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+</div>
+<div class="pm-block bo">
+  <div class="pm-block-header">
+    <span class="pm-name">波林</span>
+    <span class="pm-count">7 个项目</span>
+    <div class="tag-list">
+      <span class="proj-toggle" data-pid="DX-048" onclick="toggleProj(this, 'DX-048')">海角社区（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-073" onclick="toggleProj(this, 'DX-073')">91成人导航（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-062" onclick="toggleProj(this, 'DX-062')">KISSAV（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-069" onclick="toggleProj(this, 'DX-069')">91Hub（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-070" onclick="toggleProj(this, 'DX-070')">禁漫天堂（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-119" onclick="toggleProj(this, 'DX-119')">抖阴（WEB）</span>
+      <span class="proj-toggle" data-pid="XHWJ-002" onclick="toggleProj(this, 'XHWJ-002')">禁漫天堂（APP）</span>
+    </div>
+  </div>
+  <div class="proj-card" data-card="DX-048" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">DX-048</span> 海角社区（WEB）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 卡比(主) 鲁子敬(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="DX-073" style="">
+    <div class="proj-title">
+      <span class="num">DX-073</span> 91成人导航（WEB）
+      <span class="people-tag be">BE: 鹏程(主) 厉飞雨(备)</span>
+      <span class="people-tag fe">FE: 卡比(主) (备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-203" target="_blank">GSCE-203</a></td><td>精品APP接入广告中心</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0729-0730</small></td><td class="role-cell qa">飞策<small>0803</small></td><td class="role-cell be">波林、安靖<small>0804-0804</small></td><td><span class="tl-date">0729-0804</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="DX-062" style="">
+    <div class="proj-title">
+      <span class="num">DX-062</span> KISSAV（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 鲁子敬(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-185" target="_blank">GSCE-185</a></td><td>网站采集及发布功能优化</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0804-0804</small></td><td class="role-cell be">波林、周子然<small>0805-0805</small></td><td><span class="tl-date">0801-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-187" target="_blank">GSCE-187</a></td><td>网站seo 需求优化</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0804-0806</small></td><td class="role-cell qa">飞策<small>0808-0808</small></td><td class="role-cell be">波林、周子然<small>0810-0810</small></td><td><span class="tl-date">0804-0810</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-192" target="_blank">GSCE-192</a></td><td>后端新增标签筛选功能，支持按标签进行筛选与管理</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0806-0806</small></td><td class="role-cell qa">飞策<small>0810-0810</small></td><td class="role-cell be">波林、周子然<small>0811-0811</small></td><td><span class="tl-date">0806-0811</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="DX-069" style="">
+    <div class="proj-title">
+      <span class="num">DX-069</span> 91Hub（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 卡比(主) 景天(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-186" target="_blank">GSCE-186</a></td><td>帖子分享到社媒时展示帖子封面图</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0728-0730</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、安靖<small>0803-0803</small></td><td><span class="tl-date">0728-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-202" target="_blank">GSCE-202</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0808-0810</small></td><td class="role-cell qa">飞策<small>0811-0812</small></td><td class="role-cell be">波林、周子然、高睿<small>0813-0813</small></td><td><span class="tl-date">0808-0813</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="DX-070" style="">
+    <div class="proj-title">
+      <span class="num">DX-070</span> 禁漫天堂（WEB）
+      <span class="people-tag be">BE: 鹏程(主) 厉飞雨(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-206" target="_blank">GSCE-206</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0731-0805</small></td><td class="role-cell qa">飞策<small>0806-0806</small></td><td class="role-cell be">波林、周子然<small>0806-0807</small></td><td><span class="tl-date">0731-0807</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="DX-119" style="">
+    <div class="proj-title">
+      <span class="num">DX-119</span> 抖阴（WEB）
+      <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-157" target="_blank">GSCE-157</a></td><td>抖阴展示逻辑修改</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0725-0727</small></td><td class="role-cell qa">飞策<small>0728-0730</small></td><td class="role-cell be">波林、周子然<small>0731-0803</small></td><td><span class="tl-date">0725-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-191" target="_blank">GSCE-191</a></td><td>后端新增标签筛选功能，支持按标签进行筛选与管理</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0728-0728</small></td><td class="role-cell qa">飞策<small>0729-0729</small></td><td class="role-cell be">波林、周子然、高睿<small>0730-0730</small></td><td><span class="tl-date">0728-0730</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-200" target="_blank">GSCE-200</a></td><td>视频列表中的发布者 ID 显示为 0的调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0731</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、周子然<small>0803-0803</small></td><td><span class="tl-date">0731-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-201" target="_blank">GSCE-201</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0806-0806</small></td><td><span class="tl-date">0801-0806</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="XHWJ-002" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">XHWJ-002</span> 禁漫天堂（APP）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 风间(主) 天辰(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+</div>
+<div class="pm-block da">
+  <div class="pm-block-header">
+    <span class="pm-name">大藜</span>
+    <span class="pm-count">3 个项目</span>
+    <div class="tag-list">
+      <span class="proj-toggle on" data-pid="DX-055" onclick="toggleProj(this, 'DX-055')">茶馆（APP）</span>
+      <span class="proj-toggle on" data-pid="DX-064" onclick="toggleProj(this, 'DX-064')">51青楼（WEB）</span>
+      <span class="proj-toggle on" data-pid="XHWJ-001" onclick="toggleProj(this, 'XHWJ-001')">茶馆（WEB）</span>
+    </div>
+  </div>
+  <div class="proj-card" data-card="DX-055" style="">
+    <div class="proj-title">
+      <span class="num">DX-055</span> 茶馆（APP）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 天辰(主) 风间(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-193" target="_blank">GSCE-193</a></td><td>[后台]推广渠道统计优化</td><td class="role-cell na">不需要</td><td class="role-cell be">李瑞<small>0730-0731</small></td><td class="role-cell qa">飞策<small>0802-0802</small></td><td class="role-cell be">大藜、周肥、秋野<small>0802-0803</small></td><td><span class="tl-date">0730-0803</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="DX-064" style="">
+    <div class="proj-title">
+      <span class="num">DX-064</span> 51青楼（WEB）
+      <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span>
+      <span class="people-tag fe">FE: 鲁子敬(主) 景天(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-184" target="_blank">GSCE-184</a></td><td>51青楼｜产品优化(SEO + 交互)</td><td class="role-cell fe">鲁子敬<small>0727-0804</small></td><td class="role-cell be">朔月<small>0727-0804</small></td><td class="role-cell qa">飞策<small>0825-0827</small></td><td class="role-cell be">大藜、史强<small>0828-0829</small></td><td><span class="tl-date">0727-0829</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="XHWJ-001" style="">
+    <div class="proj-title">
+      <span class="num">XHWJ-001</span> 茶馆（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 卡比(主) 鲁子敬(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-166" target="_blank">GSCE-166</a></td><td>51 品茶 web 前端开发（MVP）</td><td class="role-cell fe">卡比<small>0730-0829</small></td><td class="role-cell be">厉飞雨<small>0730-0829</small></td><td class="role-cell qa">飞策<small>0830-0905</small></td><td class="role-cell be">大藜、史强<small>0905-0906</small></td><td><span class="tl-date">0730-0906</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="pm-block xiao">
+  <div class="pm-block-header">
+    <span class="pm-name">小宜</span>
+    <span class="pm-count">5 个项目</span>
+    <div class="tag-list">
+      <span class="proj-toggle" data-pid="DX-999" onclick="toggleProj(this, 'DX-999')">51漫画（WEB）</span>
+      <span class="proj-toggle on" data-pid="XHWJ-003" onclick="toggleProj(this, 'XHWJ-003')">91吃瓜网（WEB）</span>
+      <span class="proj-toggle" data-pid="XHWJ-004" onclick="toggleProj(this, 'XHWJ-004')">黑料头条（WEB）</span>
+      <span class="proj-toggle" data-pid="XHWJ-005" onclick="toggleProj(this, 'XHWJ-005')">每日大赛（WEB）</span>
+      <span class="proj-toggle" data-pid="XHWJ-006" onclick="toggleProj(this, 'XHWJ-006')">51探花（WEB）</span>
+    </div>
+  </div>
+  <div class="proj-card" data-card="DX-999" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">DX-999</span> 51漫画（WEB）
+      <span class="people-tag be">BE: 鹏程(主) 厉飞雨(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="XHWJ-003" style="">
+    <div class="proj-title">
+      <span class="num">XHWJ-003</span> 91吃瓜网（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-135" target="_blank">GSCE-135</a></td><td>91吃瓜网 - 产品重做(原型+规格)</td><td class="role-cell fe">景天<small>0801-0810</small></td><td class="role-cell be">历飞雨<small>0801-0810</small></td><td class="role-cell qa">飞策<small>0812-0815</small></td><td class="role-cell be">小宜、白檀、周子然<small>0816-0816</small></td><td><span class="tl-date">0801-0816</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="XHWJ-004" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">XHWJ-004</span> 黑料头条（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="XHWJ-005" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">XHWJ-005</span> 每日大赛（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="XHWJ-006" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">XHWJ-006</span> 51探花（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+</div>
+
+</div>
+
+<div id="view-operations" class="view-section">
+<div class="stats">
+  <div><strong>20</strong> 个项目</div>
+  <div><strong>5</strong> 位运营负责人</div>
+  <div><strong>22</strong> 条在途需求</div>
+  <div><strong>10</strong> 项有排期</div>
+</div>
+
+<div class="filter-bar">
+  <span class="label">筛选：</span>
+  <span class="filter-btn active" data-filter="all" onclick="filterOp('all')">全部</span>
+  <span class="filter-btn qiuye" data-filter="qiuye" onclick="filterOp('qiuye')">🟣 秋野</span>
+  <span class="filter-btn linxc" data-filter="linxc" onclick="filterOp('linxc')">🩵 林笑尘</span>
+  <span class="filter-btn anjing" data-filter="anjing" onclick="filterOp('anjing')">🔵 安靖</span>
+  <span class="filter-btn zhouzr" data-filter="zhouzr" onclick="filterOp('zhouzr')">🔴 周子然</span>
+  <span class="filter-btn shiqiang" data-filter="shiqiang" onclick="filterOp('shiqiang')">🟢 史强</span>
+</div>
+
+<div class="pm-block op-qiuye">
+  <div class="pm-block-header">
+    <span class="pm-name">秋野</span>
+    <span class="pm-count">2 个项目</span>
+    <div class="tag-list">
+      <span class="proj-toggle" data-pid="DX-013" onclick="toggleProj(this, 'DX-013')">滴滴（APP）</span>
+      <span class="proj-toggle on" data-pid="DX-055" onclick="toggleProj(this, 'DX-055')">茶馆（APP）</span>
+    </div>
+  </div>
+  <div class="proj-card" data-card="DX-013" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">DX-013</span> 滴滴（APP）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 天辰(主) 风间(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="DX-055" style="">
+    <div class="proj-title">
+      <span class="num">DX-055</span> 茶馆（APP）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 天辰(主) 风间(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-193" target="_blank">GSCE-193</a></td><td>[后台]推广渠道统计优化</td><td class="role-cell na">不需要</td><td class="role-cell be">李瑞<small>0730-0731</small></td><td class="role-cell qa">飞策<small>0802-0802</small></td><td class="role-cell be">大藜、周肥、秋野<small>0802-0803</small></td><td><span class="tl-date">0730-0803</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="pm-block op-linxc">
+  <div class="pm-block-header">
+    <span class="pm-name">林笑尘</span>
+    <span class="pm-count">4 个项目</span>
+    <div class="tag-list">
+      <span class="proj-toggle" data-pid="JHG-056" onclick="toggleProj(this, 'JHG-056')">91楼凤（APP）</span>
+      <span class="proj-toggle on" data-pid="TJ-062" onclick="toggleProj(this, 'TJ-062')">51凤楼（WEB）</span>
+      <span class="proj-toggle" data-pid="TJ-063" onclick="toggleProj(this, 'TJ-063')">51凤楼（APP）</span>
+      <span class="proj-toggle" data-pid="JHG-039" onclick="toggleProj(this, 'JHG-039')">陌陌1v1（APP）</span>
+    </div>
+  </div>
+  <div class="proj-card" data-card="JHG-056" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">JHG-056</span> 91楼凤（APP）
+      <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span>
+      <span class="people-tag fe">FE: 阿秋(主) 风间(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="TJ-062" style="">
+    <div class="proj-title">
+      <span class="num">TJ-062</span> 51凤楼（WEB）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 风间(主) 阿秋(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-150" target="_blank">GSCE-150</a></td><td>51凤楼web| seo项 TDK配置</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0803</small></td><td class="role-cell qa">飞策<small>0804-0804</small></td><td class="role-cell be">鲍勃、史强<small>0804-0805</small></td><td><span class="tl-date">0731-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-153" target="_blank">GSCE-153</a></td><td>51凤楼web| 技术seo优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、史强<small>0804-0805</small></td><td><span class="tl-date">0729-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-195" target="_blank">GSCE-195</a></td><td>51凤楼web| 顶部菜单调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-196" target="_blank">GSCE-196</a></td><td>51凤楼web| 探花社区列表增加时间、标签信息</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-197" target="_blank">GSCE-197</a></td><td>51凤楼web| m端凤妹详情页预览图位置大小调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-198" target="_blank">GSCE-198</a></td><td>51凤楼web| 注册并登录优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-199" target="_blank">GSCE-199</a></td><td>51凤楼web| 缩略图查看大图的图片位置优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="TJ-063" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">TJ-063</span> 51凤楼（APP）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 风间(主) 阿秋(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="JHG-039" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">JHG-039</span> 陌陌1v1（APP）
+      <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span>
+      <span class="people-tag fe">FE: 阿秋(主) 天辰(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+</div>
+<div class="pm-block op-anjing">
+  <div class="pm-block-header">
+    <span class="pm-name">安靖</span>
+    <span class="pm-count">4 个项目</span>
+    <div class="tag-list">
+      <span class="proj-toggle" data-pid="DX-048" onclick="toggleProj(this, 'DX-048')">海角社区（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-073" onclick="toggleProj(this, 'DX-073')">91成人导航（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-069" onclick="toggleProj(this, 'DX-069')">91Hub（WEB）</span>
+      <span class="proj-toggle on" data-pid="XHWJ-003" onclick="toggleProj(this, 'XHWJ-003')">91吃瓜网（WEB）</span>
+    </div>
+  </div>
+  <div class="proj-card" data-card="DX-048" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">DX-048</span> 海角社区（WEB）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 卡比(主) 鲁子敬(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="DX-073" style="">
+    <div class="proj-title">
+      <span class="num">DX-073</span> 91成人导航（WEB）
+      <span class="people-tag be">BE: 鹏程(主) 厉飞雨(备)</span>
+      <span class="people-tag fe">FE: 卡比(主) (备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-203" target="_blank">GSCE-203</a></td><td>精品APP接入广告中心</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0729-0730</small></td><td class="role-cell qa">飞策<small>0803</small></td><td class="role-cell be">波林、安靖<small>0804-0804</small></td><td><span class="tl-date">0729-0804</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="DX-069" style="">
+    <div class="proj-title">
+      <span class="num">DX-069</span> 91Hub（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 卡比(主) 景天(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-186" target="_blank">GSCE-186</a></td><td>帖子分享到社媒时展示帖子封面图</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0728-0730</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、安靖<small>0803-0803</small></td><td><span class="tl-date">0728-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-202" target="_blank">GSCE-202</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0808-0810</small></td><td class="role-cell qa">飞策<small>0811-0812</small></td><td class="role-cell be">波林、周子然、高睿<small>0813-0813</small></td><td><span class="tl-date">0808-0813</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="XHWJ-003" style="">
+    <div class="proj-title">
+      <span class="num">XHWJ-003</span> 91吃瓜网（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-135" target="_blank">GSCE-135</a></td><td>91吃瓜网 - 产品重做(原型+规格)</td><td class="role-cell fe">景天<small>0801-0810</small></td><td class="role-cell be">历飞雨<small>0801-0810</small></td><td class="role-cell qa">飞策<small>0812-0815</small></td><td class="role-cell be">小宜、白檀、周子然<small>0816-0816</small></td><td><span class="tl-date">0801-0816</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="pm-block op-zhouzr">
+  <div class="pm-block-header">
+    <span class="pm-name">周子然</span>
+    <span class="pm-count">6 个项目</span>
+    <div class="tag-list">
+      <span class="proj-toggle on" data-pid="DX-062" onclick="toggleProj(this, 'DX-062')">KISSAV（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-070" onclick="toggleProj(this, 'DX-070')">禁漫天堂（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-119" onclick="toggleProj(this, 'DX-119')">抖阴（WEB）</span>
+      <span class="proj-toggle" data-pid="XHWJ-002" onclick="toggleProj(this, 'XHWJ-002')">禁漫天堂（APP）</span>
+      <span class="proj-toggle" data-pid="XHWJ-004" onclick="toggleProj(this, 'XHWJ-004')">黑料头条（WEB）</span>
+      <span class="proj-toggle" data-pid="XHWJ-005" onclick="toggleProj(this, 'XHWJ-005')">每日大赛（WEB）</span>
+    </div>
+  </div>
+  <div class="proj-card" data-card="DX-062" style="">
+    <div class="proj-title">
+      <span class="num">DX-062</span> KISSAV（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 鲁子敬(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-185" target="_blank">GSCE-185</a></td><td>网站采集及发布功能优化</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0804-0804</small></td><td class="role-cell be">波林、周子然<small>0805-0805</small></td><td><span class="tl-date">0801-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-187" target="_blank">GSCE-187</a></td><td>网站seo 需求优化</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0804-0806</small></td><td class="role-cell qa">飞策<small>0808-0808</small></td><td class="role-cell be">波林、周子然<small>0810-0810</small></td><td><span class="tl-date">0804-0810</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-192" target="_blank">GSCE-192</a></td><td>后端新增标签筛选功能，支持按标签进行筛选与管理</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0806-0806</small></td><td class="role-cell qa">飞策<small>0810-0810</small></td><td class="role-cell be">波林、周子然<small>0811-0811</small></td><td><span class="tl-date">0806-0811</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="DX-070" style="">
+    <div class="proj-title">
+      <span class="num">DX-070</span> 禁漫天堂（WEB）
+      <span class="people-tag be">BE: 鹏程(主) 厉飞雨(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-206" target="_blank">GSCE-206</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0731-0805</small></td><td class="role-cell qa">飞策<small>0806-0806</small></td><td class="role-cell be">波林、周子然<small>0806-0807</small></td><td><span class="tl-date">0731-0807</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="DX-119" style="">
+    <div class="proj-title">
+      <span class="num">DX-119</span> 抖阴（WEB）
+      <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-157" target="_blank">GSCE-157</a></td><td>抖阴展示逻辑修改</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0725-0727</small></td><td class="role-cell qa">飞策<small>0728-0730</small></td><td class="role-cell be">波林、周子然<small>0731-0803</small></td><td><span class="tl-date">0725-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-191" target="_blank">GSCE-191</a></td><td>后端新增标签筛选功能，支持按标签进行筛选与管理</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0728-0728</small></td><td class="role-cell qa">飞策<small>0729-0729</small></td><td class="role-cell be">波林、周子然、高睿<small>0730-0730</small></td><td><span class="tl-date">0728-0730</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-200" target="_blank">GSCE-200</a></td><td>视频列表中的发布者 ID 显示为 0的调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0731</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、周子然<small>0803-0803</small></td><td><span class="tl-date">0731-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-201" target="_blank">GSCE-201</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0806-0806</small></td><td><span class="tl-date">0801-0806</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="XHWJ-002" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">XHWJ-002</span> 禁漫天堂（APP）
+      <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span>
+      <span class="people-tag fe">FE: 风间(主) 天辰(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="XHWJ-004" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">XHWJ-004</span> 黑料头条（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+  <div class="proj-card" data-card="XHWJ-005" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">XHWJ-005</span> 每日大赛（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+</div>
+<div class="pm-block op-shiqiang">
+  <div class="pm-block-header">
+    <span class="pm-name">史强</span>
+    <span class="pm-count">3 个项目</span>
+    <div class="tag-list">
+      <span class="proj-toggle on" data-pid="DX-064" onclick="toggleProj(this, 'DX-064')">51青楼（WEB）</span>
+      <span class="proj-toggle on" data-pid="XHWJ-001" onclick="toggleProj(this, 'XHWJ-001')">茶馆（WEB）</span>
+      <span class="proj-toggle" data-pid="XHWJ-006" onclick="toggleProj(this, 'XHWJ-006')">51探花（WEB）</span>
+    </div>
+  </div>
+  <div class="proj-card" data-card="DX-064" style="">
+    <div class="proj-title">
+      <span class="num">DX-064</span> 51青楼（WEB）
+      <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span>
+      <span class="people-tag fe">FE: 鲁子敬(主) 景天(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-184" target="_blank">GSCE-184</a></td><td>51青楼｜产品优化(SEO + 交互)</td><td class="role-cell fe">鲁子敬<small>0727-0804</small></td><td class="role-cell be">朔月<small>0727-0804</small></td><td class="role-cell qa">飞策<small>0825-0827</small></td><td class="role-cell be">大藜、史强<small>0828-0829</small></td><td><span class="tl-date">0727-0829</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="XHWJ-001" style="">
+    <div class="proj-title">
+      <span class="num">XHWJ-001</span> 茶馆（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 卡比(主) 鲁子敬(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-166" target="_blank">GSCE-166</a></td><td>51 品茶 web 前端开发（MVP）</td><td class="role-cell fe">卡比<small>0730-0829</small></td><td class="role-cell be">厉飞雨<small>0730-0829</small></td><td class="role-cell qa">飞策<small>0830-0905</small></td><td class="role-cell be">大藜、史强<small>0905-0906</small></td><td><span class="tl-date">0730-0906</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="proj-card" data-card="XHWJ-006" style=" display:none;">
+    <div class="proj-title">
+      <span class="num">XHWJ-006</span> 51探花（WEB）
+      <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span>
+      <span class="people-tag fe">FE: 景天(主) 卡比(备)</span>
+      <span class="people-tag qa">QA: 飞策</span>
+    </div>
+    <div class="no-data">暂无排期数据</div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="view-dev" class="view-section">
+<div class="stats">
+  <div><strong>20</strong> 个项目</div>
+  <div><strong>8</strong> 位开发人员</div>
+  <div><strong>22</strong> 条在途需求</div>
+  <div><strong>1</strong> 位测试</div>
+</div>
+
+<div class="filter-bar">
+  <span class="label">筛选：</span>
+  <span class="filter-btn active" data-filter="all" onclick="filterDev('all')">全部</span>
+  <span class="filter-btn dev-be" data-filter="dev-be" onclick="filterDev('dev-be')">🔶 后端</span>
+  <span class="filter-btn dev-fe" data-filter="dev-fe" onclick="filterDev('dev-fe')">🔷 前端</span>
+  <span class="filter-btn dev-qa" data-filter="dev-qa" onclick="filterDev('dev-qa')">🟢 测试(飞策)</span>
+</div>
+
+<div class="role-section dev-be">
+  <div class="role-header"><span class="role-icon">🔶</span> 后端开发 <span class="role-count">4 人</span></div>
+  <div class="dev-block">
+    <div class="dev-header"><span class="dev-name">厉飞雨</span><span class="dev-count">4 个项目</span> <span class="tag-list">
+      <span class="proj-toggle on" data-pid="DX-062" onclick="toggleDevProj(this,'DX-062')">KISSAV（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-069" onclick="toggleDevProj(this,'DX-069')">91Hub（WEB）</span>
+      <span class="proj-toggle on" data-pid="XHWJ-001" onclick="toggleDevProj(this,'XHWJ-001')">茶馆（WEB）</span>
+      <span class="proj-toggle on" data-pid="XHWJ-003" onclick="toggleDevProj(this,'XHWJ-003')">91吃瓜网（WEB）</span>
+    </span></div>
+    <div class="proj-card" data-card="DX-062" style="">
+      <div class="proj-title">
+        <span class="num">DX-062</span> KISSAV（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 鲁子敬(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-185" target="_blank">GSCE-185</a></td><td>网站采集及发布功能优化</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0804-0804</small></td><td class="role-cell be">波林、周子然<small>0805-0805</small></td><td><span class="tl-date">0801-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-187" target="_blank">GSCE-187</a></td><td>网站seo 需求优化</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0804-0806</small></td><td class="role-cell qa">飞策<small>0808-0808</small></td><td class="role-cell be">波林、周子然<small>0810-0810</small></td><td><span class="tl-date">0804-0810</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-192" target="_blank">GSCE-192</a></td><td>后端新增标签筛选功能，支持按标签进行筛选与管理</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0806-0806</small></td><td class="role-cell qa">飞策<small>0810-0810</small></td><td class="role-cell be">波林、周子然<small>0811-0811</small></td><td><span class="tl-date">0806-0811</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-069" style="">
+      <div class="proj-title">
+        <span class="num">DX-069</span> 91Hub（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 卡比(主) 景天(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-186" target="_blank">GSCE-186</a></td><td>帖子分享到社媒时展示帖子封面图</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0728-0730</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、安靖<small>0803-0803</small></td><td><span class="tl-date">0728-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-202" target="_blank">GSCE-202</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0808-0810</small></td><td class="role-cell qa">飞策<small>0811-0812</small></td><td class="role-cell be">波林、周子然、高睿<small>0813-0813</small></td><td><span class="tl-date">0808-0813</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="XHWJ-001" style="">
+      <div class="proj-title">
+        <span class="num">XHWJ-001</span> 茶馆（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 卡比(主) 鲁子敬(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-166" target="_blank">GSCE-166</a></td><td>51 品茶 web 前端开发（MVP）</td><td class="role-cell fe">卡比<small>0730-0829</small></td><td class="role-cell be">厉飞雨<small>0730-0829</small></td><td class="role-cell qa">飞策<small>0830-0905</small></td><td class="role-cell be">大藜、史强<small>0905-0906</small></td><td><span class="tl-date">0730-0906</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="XHWJ-003" style="">
+      <div class="proj-title">
+        <span class="num">XHWJ-003</span> 91吃瓜网（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 景天(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-135" target="_blank">GSCE-135</a></td><td>91吃瓜网 - 产品重做(原型+规格)</td><td class="role-cell fe">景天<small>0801-0810</small></td><td class="role-cell be">历飞雨<small>0801-0810</small></td><td class="role-cell qa">飞策<small>0812-0815</small></td><td class="role-cell be">小宜、白檀、周子然<small>0816-0816</small></td><td><span class="tl-date">0801-0816</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="dev-block">
+    <div class="dev-header"><span class="dev-name">朔月</span><span class="dev-count">3 个项目</span> <span class="tag-list">
+      <span class="proj-toggle on" data-pid="DX-064" onclick="toggleDevProj(this,'DX-064')">51青楼（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-119" onclick="toggleDevProj(this,'DX-119')">抖阴（WEB）</span>
+      <span class="proj-toggle on" data-pid="TJ-062" onclick="toggleDevProj(this,'TJ-062')">51凤楼（WEB）</span>
+    </span></div>
+    <div class="proj-card" data-card="DX-064" style="">
+      <div class="proj-title">
+        <span class="num">DX-064</span> 51青楼（WEB）
+        <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span> <span class="people-tag fe">FE: 鲁子敬(主) 景天(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-184" target="_blank">GSCE-184</a></td><td>51青楼｜产品优化(SEO + 交互)</td><td class="role-cell fe">鲁子敬<small>0727-0804</small></td><td class="role-cell be">朔月<small>0727-0804</small></td><td class="role-cell qa">飞策<small>0825-0827</small></td><td class="role-cell be">大藜、史强<small>0828-0829</small></td><td><span class="tl-date">0727-0829</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-119" style="">
+      <div class="proj-title">
+        <span class="num">DX-119</span> 抖阴（WEB）
+        <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span> <span class="people-tag fe">FE: 景天(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-157" target="_blank">GSCE-157</a></td><td>抖阴展示逻辑修改</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0725-0727</small></td><td class="role-cell qa">飞策<small>0728-0730</small></td><td class="role-cell be">波林、周子然<small>0731-0803</small></td><td><span class="tl-date">0725-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-191" target="_blank">GSCE-191</a></td><td>后端新增标签筛选功能，支持按标签进行筛选与管理</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0728-0728</small></td><td class="role-cell qa">飞策<small>0729-0729</small></td><td class="role-cell be">波林、周子然、高睿<small>0730-0730</small></td><td><span class="tl-date">0728-0730</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-200" target="_blank">GSCE-200</a></td><td>视频列表中的发布者 ID 显示为 0的调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0731</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、周子然<small>0803-0803</small></td><td><span class="tl-date">0731-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-201" target="_blank">GSCE-201</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0806-0806</small></td><td><span class="tl-date">0801-0806</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="TJ-062" style="">
+      <div class="proj-title">
+        <span class="num">TJ-062</span> 51凤楼（WEB）
+        <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span> <span class="people-tag fe">FE: 风间(主) 阿秋(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-150" target="_blank">GSCE-150</a></td><td>51凤楼web| seo项 TDK配置</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0803</small></td><td class="role-cell qa">飞策<small>0804-0804</small></td><td class="role-cell be">鲍勃、史强<small>0804-0805</small></td><td><span class="tl-date">0731-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-153" target="_blank">GSCE-153</a></td><td>51凤楼web| 技术seo优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、史强<small>0804-0805</small></td><td><span class="tl-date">0729-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-195" target="_blank">GSCE-195</a></td><td>51凤楼web| 顶部菜单调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-196" target="_blank">GSCE-196</a></td><td>51凤楼web| 探花社区列表增加时间、标签信息</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-197" target="_blank">GSCE-197</a></td><td>51凤楼web| m端凤妹详情页预览图位置大小调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-198" target="_blank">GSCE-198</a></td><td>51凤楼web| 注册并登录优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-199" target="_blank">GSCE-199</a></td><td>51凤楼web| 缩略图查看大图的图片位置优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="dev-block">
+    <div class="dev-header"><span class="dev-name">鹏程</span><span class="dev-count">3 个项目</span> <span class="tag-list">
+      <span class="proj-toggle on" data-pid="DX-070" onclick="toggleDevProj(this,'DX-070')">禁漫天堂（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-073" onclick="toggleDevProj(this,'DX-073')">91成人导航（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-119" onclick="toggleDevProj(this,'DX-119')">抖阴（WEB）</span>
+    </span></div>
+    <div class="proj-card" data-card="DX-070" style="">
+      <div class="proj-title">
+        <span class="num">DX-070</span> 禁漫天堂（WEB）
+        <span class="people-tag be">BE: 鹏程(主) 厉飞雨(备)</span> <span class="people-tag fe">FE: 景天(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-206" target="_blank">GSCE-206</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0731-0805</small></td><td class="role-cell qa">飞策<small>0806-0806</small></td><td class="role-cell be">波林、周子然<small>0806-0807</small></td><td><span class="tl-date">0731-0807</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-073" style="">
+      <div class="proj-title">
+        <span class="num">DX-073</span> 91成人导航（WEB）
+        <span class="people-tag be">BE: 鹏程(主) 厉飞雨(备)</span> <span class="people-tag fe">FE: 卡比(主) (备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-203" target="_blank">GSCE-203</a></td><td>精品APP接入广告中心</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0729-0730</small></td><td class="role-cell qa">飞策<small>0803</small></td><td class="role-cell be">波林、安靖<small>0804-0804</small></td><td><span class="tl-date">0729-0804</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-119" style="">
+      <div class="proj-title">
+        <span class="num">DX-119</span> 抖阴（WEB）
+        <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span> <span class="people-tag fe">FE: 景天(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-157" target="_blank">GSCE-157</a></td><td>抖阴展示逻辑修改</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0725-0727</small></td><td class="role-cell qa">飞策<small>0728-0730</small></td><td class="role-cell be">波林、周子然<small>0731-0803</small></td><td><span class="tl-date">0725-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-191" target="_blank">GSCE-191</a></td><td>后端新增标签筛选功能，支持按标签进行筛选与管理</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0728-0728</small></td><td class="role-cell qa">飞策<small>0729-0729</small></td><td class="role-cell be">波林、周子然、高睿<small>0730-0730</small></td><td><span class="tl-date">0728-0730</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-200" target="_blank">GSCE-200</a></td><td>视频列表中的发布者 ID 显示为 0的调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0731</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、周子然<small>0803-0803</small></td><td><span class="tl-date">0731-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-201" target="_blank">GSCE-201</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0806-0806</small></td><td><span class="tl-date">0801-0806</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="dev-block">
+    <div class="dev-header"><span class="dev-name">李瑞</span><span class="dev-count">1 个项目</span> <span class="tag-list">
+      <span class="proj-toggle on" data-pid="DX-055" onclick="toggleDevProj(this,'DX-055')">茶馆（APP）</span>
+    </span></div>
+    <div class="proj-card" data-card="DX-055" style="">
+      <div class="proj-title">
+        <span class="num">DX-055</span> 茶馆（APP）
+        <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span> <span class="people-tag fe">FE: 天辰(主) 风间(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-193" target="_blank">GSCE-193</a></td><td>[后台]推广渠道统计优化</td><td class="role-cell na">不需要</td><td class="role-cell be">李瑞<small>0730-0731</small></td><td class="role-cell qa">飞策<small>0802-0802</small></td><td class="role-cell be">大藜、周肥、秋野<small>0802-0803</small></td><td><span class="tl-date">0730-0803</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<div class="role-section dev-fe">
+  <div class="role-header"><span class="role-icon">🔷</span> 前端开发 <span class="role-count">3 人</span></div>
+  <div class="dev-block">
+    <div class="dev-header"><span class="dev-name">景天</span><span class="dev-count">1 个项目</span> <span class="tag-list">
+      <span class="proj-toggle on" data-pid="XHWJ-003" onclick="toggleDevProj(this,'XHWJ-003')">91吃瓜网（WEB）</span>
+    </span></div>
+    <div class="proj-card" data-card="XHWJ-003" style="">
+      <div class="proj-title">
+        <span class="num">XHWJ-003</span> 91吃瓜网（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 景天(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-135" target="_blank">GSCE-135</a></td><td>91吃瓜网 - 产品重做(原型+规格)</td><td class="role-cell fe">景天<small>0801-0810</small></td><td class="role-cell be">历飞雨<small>0801-0810</small></td><td class="role-cell qa">飞策<small>0812-0815</small></td><td class="role-cell be">小宜、白檀、周子然<small>0816-0816</small></td><td><span class="tl-date">0801-0816</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="dev-block">
+    <div class="dev-header"><span class="dev-name">鲁子敬</span><span class="dev-count">1 个项目</span> <span class="tag-list">
+      <span class="proj-toggle on" data-pid="DX-064" onclick="toggleDevProj(this,'DX-064')">51青楼（WEB）</span>
+    </span></div>
+    <div class="proj-card" data-card="DX-064" style="">
+      <div class="proj-title">
+        <span class="num">DX-064</span> 51青楼（WEB）
+        <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span> <span class="people-tag fe">FE: 鲁子敬(主) 景天(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-184" target="_blank">GSCE-184</a></td><td>51青楼｜产品优化(SEO + 交互)</td><td class="role-cell fe">鲁子敬<small>0727-0804</small></td><td class="role-cell be">朔月<small>0727-0804</small></td><td class="role-cell qa">飞策<small>0825-0827</small></td><td class="role-cell be">大藜、史强<small>0828-0829</small></td><td><span class="tl-date">0727-0829</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="dev-block">
+    <div class="dev-header"><span class="dev-name">卡比</span><span class="dev-count">1 个项目</span> <span class="tag-list">
+      <span class="proj-toggle on" data-pid="XHWJ-001" onclick="toggleDevProj(this,'XHWJ-001')">茶馆（WEB）</span>
+    </span></div>
+    <div class="proj-card" data-card="XHWJ-001" style="">
+      <div class="proj-title">
+        <span class="num">XHWJ-001</span> 茶馆（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 卡比(主) 鲁子敬(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-166" target="_blank">GSCE-166</a></td><td>51 品茶 web 前端开发（MVP）</td><td class="role-cell fe">卡比<small>0730-0829</small></td><td class="role-cell be">厉飞雨<small>0730-0829</small></td><td class="role-cell qa">飞策<small>0830-0905</small></td><td class="role-cell be">大藜、史强<small>0905-0906</small></td><td><span class="tl-date">0730-0906</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<div class="role-section dev-qa">
+  <div class="role-header"><span class="role-icon">🟢</span> 测试 <span class="role-count">1 人</span></div>
+  <div class="dev-block">
+    <div class="dev-header"><span class="dev-name">飞策</span><span class="dev-count">10 个项目</span> <span class="tag-list">
+      <span class="proj-toggle on" data-pid="TJ-062" onclick="toggleDevProj(this,'TJ-062')">51凤楼（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-055" onclick="toggleDevProj(this,'DX-055')">茶馆（APP）</span>
+      <span class="proj-toggle on" data-pid="DX-064" onclick="toggleDevProj(this,'DX-064')">51青楼（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-062" onclick="toggleDevProj(this,'DX-062')">KISSAV（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-069" onclick="toggleDevProj(this,'DX-069')">91Hub（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-070" onclick="toggleDevProj(this,'DX-070')">禁漫天堂（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-119" onclick="toggleDevProj(this,'DX-119')">抖阴（WEB）</span>
+      <span class="proj-toggle on" data-pid="XHWJ-001" onclick="toggleDevProj(this,'XHWJ-001')">茶馆（WEB）</span>
+      <span class="proj-toggle on" data-pid="XHWJ-003" onclick="toggleDevProj(this,'XHWJ-003')">91吃瓜网（WEB）</span>
+      <span class="proj-toggle on" data-pid="DX-073" onclick="toggleDevProj(this,'DX-073')">91成人导航（WEB）</span>
+    </span></div>
+    <div class="proj-card" data-card="DX-055" style="">
+      <div class="proj-title">
+        <span class="num">DX-055</span> 茶馆（APP）
+        <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span> <span class="people-tag fe">FE: 天辰(主) 风间(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-193" target="_blank">GSCE-193</a></td><td>[后台]推广渠道统计优化</td><td class="role-cell na">不需要</td><td class="role-cell be">李瑞<small>0730-0731</small></td><td class="role-cell qa">飞策<small>0802-0802</small></td><td class="role-cell be">大藜、周肥、秋野<small>0802-0803</small></td><td><span class="tl-date">0730-0803</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-062" style="">
+      <div class="proj-title">
+        <span class="num">DX-062</span> KISSAV（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 鲁子敬(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-185" target="_blank">GSCE-185</a></td><td>网站采集及发布功能优化</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0804-0804</small></td><td class="role-cell be">波林、周子然<small>0805-0805</small></td><td><span class="tl-date">0801-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-187" target="_blank">GSCE-187</a></td><td>网站seo 需求优化</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0804-0806</small></td><td class="role-cell qa">飞策<small>0808-0808</small></td><td class="role-cell be">波林、周子然<small>0810-0810</small></td><td><span class="tl-date">0804-0810</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-192" target="_blank">GSCE-192</a></td><td>后端新增标签筛选功能，支持按标签进行筛选与管理</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0806-0806</small></td><td class="role-cell qa">飞策<small>0810-0810</small></td><td class="role-cell be">波林、周子然<small>0811-0811</small></td><td><span class="tl-date">0806-0811</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-064" style="">
+      <div class="proj-title">
+        <span class="num">DX-064</span> 51青楼（WEB）
+        <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span> <span class="people-tag fe">FE: 鲁子敬(主) 景天(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-184" target="_blank">GSCE-184</a></td><td>51青楼｜产品优化(SEO + 交互)</td><td class="role-cell fe">鲁子敬<small>0727-0804</small></td><td class="role-cell be">朔月<small>0727-0804</small></td><td class="role-cell qa">飞策<small>0825-0827</small></td><td class="role-cell be">大藜、史强<small>0828-0829</small></td><td><span class="tl-date">0727-0829</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-069" style="">
+      <div class="proj-title">
+        <span class="num">DX-069</span> 91Hub（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 卡比(主) 景天(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-186" target="_blank">GSCE-186</a></td><td>帖子分享到社媒时展示帖子封面图</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0728-0730</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、安靖<small>0803-0803</small></td><td><span class="tl-date">0728-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-202" target="_blank">GSCE-202</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">厉飞雨<small>0808-0810</small></td><td class="role-cell qa">飞策<small>0811-0812</small></td><td class="role-cell be">波林、周子然、高睿<small>0813-0813</small></td><td><span class="tl-date">0808-0813</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-070" style="">
+      <div class="proj-title">
+        <span class="num">DX-070</span> 禁漫天堂（WEB）
+        <span class="people-tag be">BE: 鹏程(主) 厉飞雨(备)</span> <span class="people-tag fe">FE: 景天(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-206" target="_blank">GSCE-206</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0731-0805</small></td><td class="role-cell qa">飞策<small>0806-0806</small></td><td class="role-cell be">波林、周子然<small>0806-0807</small></td><td><span class="tl-date">0731-0807</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-073" style="">
+      <div class="proj-title">
+        <span class="num">DX-073</span> 91成人导航（WEB）
+        <span class="people-tag be">BE: 鹏程(主) 厉飞雨(备)</span> <span class="people-tag fe">FE: 卡比(主) (备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-203" target="_blank">GSCE-203</a></td><td>精品APP接入广告中心</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0729-0730</small></td><td class="role-cell qa">飞策<small>0803</small></td><td class="role-cell be">波林、安靖<small>0804-0804</small></td><td><span class="tl-date">0729-0804</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="DX-119" style="">
+      <div class="proj-title">
+        <span class="num">DX-119</span> 抖阴（WEB）
+        <span class="people-tag be">BE: 朔月(主) 李瑞(备)</span> <span class="people-tag fe">FE: 景天(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-157" target="_blank">GSCE-157</a></td><td>抖阴展示逻辑修改</td><td class="role-cell na">不需要</td><td class="role-cell be">鹏程<small>0725-0727</small></td><td class="role-cell qa">飞策<small>0728-0730</small></td><td class="role-cell be">波林、周子然<small>0731-0803</small></td><td><span class="tl-date">0725-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-191" target="_blank">GSCE-191</a></td><td>后端新增标签筛选功能，支持按标签进行筛选与管理</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0728-0728</small></td><td class="role-cell qa">飞策<small>0729-0729</small></td><td class="role-cell be">波林、周子然、高睿<small>0730-0730</small></td><td><span class="tl-date">0728-0730</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-200" target="_blank">GSCE-200</a></td><td>视频列表中的发布者 ID 显示为 0的调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0731</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、周子然<small>0803-0803</small></td><td><span class="tl-date">0731-0803</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-201" target="_blank">GSCE-201</a></td><td>网站seo 需求优化 260728</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0806-0806</small></td><td><span class="tl-date">0801-0806</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="TJ-062" style="">
+      <div class="proj-title">
+        <span class="num">TJ-062</span> 51凤楼（WEB）
+        <span class="people-tag be">BE: 李瑞(主) 朔月(备)</span> <span class="people-tag fe">FE: 风间(主) 阿秋(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-150" target="_blank">GSCE-150</a></td><td>51凤楼web| seo项 TDK配置</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0803</small></td><td class="role-cell qa">飞策<small>0804-0804</small></td><td class="role-cell be">鲍勃、史强<small>0804-0805</small></td><td><span class="tl-date">0731-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-153" target="_blank">GSCE-153</a></td><td>51凤楼web| 技术seo优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、史强<small>0804-0805</small></td><td><span class="tl-date">0729-0805</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-195" target="_blank">GSCE-195</a></td><td>51凤楼web| 顶部菜单调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-196" target="_blank">GSCE-196</a></td><td>51凤楼web| 探花社区列表增加时间、标签信息</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-197" target="_blank">GSCE-197</a></td><td>51凤楼web| m端凤妹详情页预览图位置大小调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-198" target="_blank">GSCE-198</a></td><td>51凤楼web| 注册并登录优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-199" target="_blank">GSCE-199</a></td><td>51凤楼web| 缩略图查看大图的图片位置优化</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0729-0729</small></td><td class="role-cell qa">飞策<small>0730-0730</small></td><td class="role-cell be">鲍勃、林笑尘<small>0731-0731</small></td><td><span class="tl-date">0729-0731</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="XHWJ-001" style="">
+      <div class="proj-title">
+        <span class="num">XHWJ-001</span> 茶馆（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 卡比(主) 鲁子敬(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-166" target="_blank">GSCE-166</a></td><td>51 品茶 web 前端开发（MVP）</td><td class="role-cell fe">卡比<small>0730-0829</small></td><td class="role-cell be">厉飞雨<small>0730-0829</small></td><td class="role-cell qa">飞策<small>0830-0905</small></td><td class="role-cell be">大藜、史强<small>0905-0906</small></td><td><span class="tl-date">0730-0906</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="proj-card" data-card="XHWJ-003" style="">
+      <div class="proj-title">
+        <span class="num">XHWJ-003</span> 91吃瓜网（WEB）
+        <span class="people-tag be">BE: 厉飞雨(主) 鹏程(备)</span> <span class="people-tag fe">FE: 景天(主) 卡比(备)</span> <span class="people-tag qa">QA: 飞策</span>
+      </div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-135" target="_blank">GSCE-135</a></td><td>91吃瓜网 - 产品重做(原型+规格)</td><td class="role-cell fe">景天<small>0801-0810</small></td><td class="role-cell be">历飞雨<small>0801-0810</small></td><td class="role-cell qa">飞策<small>0812-0815</small></td><td class="role-cell be">小宜、白檀、周子然<small>0816-0816</small></td><td><span class="tl-date">0801-0816</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+function toggleProj(btn, pid) {
+  btn.classList.toggle('on');
+  // Find the matching proj-card in the same pm-block
+  const block = btn.closest('.pm-block');
+  const card = block.querySelector(`.proj-card[data-card="${pid}"]`);
+  if (card) {
+    card.style.display = btn.classList.contains('on') ? '' : 'none';
+  }
+}
+
+function toggleDevProj(btn, pid) {
+  btn.classList.toggle('on');
+  const section = btn.closest('.role-section') || btn.closest('.dev-block');
+  const card = section.querySelector(`.proj-card[data-card="${pid}"]`);
+  if (card) card.style.display = btn.classList.contains('on') ? '' : 'none';
+}
+function filterDev(cls) {
+  document.querySelectorAll('#view-dev .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`#view-dev .filter-btn[data-filter="${cls}"]`).classList.add('active');
+  document.querySelectorAll('#view-dev .role-section').forEach(s => {
+    if (cls === 'all') { s.style.display = ''; return; }
+    s.style.display = s.classList.contains(cls) ? '' : 'none';
+  });
+}
+
+function filterPM(cls) {
+  document.querySelectorAll('#view-product .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`#view-product .filter-btn[data-filter="${cls}"]`).classList.add('active');
+  document.querySelectorAll('#view-product .pm-block').forEach(b => {
+    b.style.display = (cls === 'all') ? '' : (b.classList.contains(cls) ? '' : 'none');
+  });
+}
+function filterOp(cls) {
+  document.querySelectorAll('#view-operations .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`#view-operations .filter-btn[data-filter="${cls}"]`).classList.add('active');
+  document.querySelectorAll('#view-operations .pm-block').forEach(b => {
+    b.style.display = (cls === 'all') ? '' : (b.classList.contains('op-' + cls) ? '' : 'none');
+  });
+}
+function switchView(view) {
+  document.querySelectorAll('.persp-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+  if (view === 'product') {
+    document.querySelector('.persp-btn:first-child').classList.add('active');
+    document.getElementById('view-product').classList.add('active');
+  } else if (view === 'operations') {
+    document.querySelector('.persp-btn:nth-child(2)').classList.add('active');
+    document.getElementById('view-operations').classList.add('active');
+  } else {
+    document.querySelector('.persp-btn:last-child').classList.add('active');
+    document.getElementById('view-dev').classList.add('active');
+  }
+}
+function switchDate(date) {
+  if (date === '2026-07-30') return;
+  window.location.href = '项目需求排期看板_' + date + '.html';
+}
+</script>
+</body>
+</html>
