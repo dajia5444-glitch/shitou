@@ -17,7 +17,18 @@ if ! git diff --cached --quiet; then
 fi
 
 # 首次推送（远端已有无关历史）时自动回退 force push；之后均为增量推送
-git push "$REMOTE" main 2>&1 | sed 's/x-access-token:[^@]*/x-access-token:***/g' || \
-  git push -f "$REMOTE" main 2>&1 | sed 's/x-access-token:[^@]*/x-access-token:***/g'
+set +e
+OUT=$(git push "$REMOTE" main 2>&1)
+RC=$?
+set -e
+echo "$OUT" | sed 's/x-access-token:[^@]*/x-access-token:***/g'
+if [ $RC -ne 0 ]; then
+  set +e
+  OUT2=$(git push -f "$REMOTE" main 2>&1)
+  RC2=$?
+  set -e
+  echo "$OUT2" | sed 's/x-access-token:[^@]*/x-access-token:***/g'
+  if [ $RC2 -ne 0 ]; then echo "PUSH_FAILED"; exit 1; fi
+fi
 
 echo "PUSHED"
