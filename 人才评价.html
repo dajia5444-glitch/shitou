@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星河无界 · 人才评价</title>
+<style>
+/* ============ Design Tokens（与三看板一致） ============ */
+:root {
+  --ink: #334155; --ink-2: #64748b; --ink-3: #94a3b8;
+  --paper: #f8fafc; --surface: #ffffff; --surface-2: #f8fafc;
+  --line: #e2e8f0; --brand: #6366f1; --brand-2: #4f46e5;
+  --accent: #d97706; --good: #059669; --warn: #dc2626;
+  --ops: #d97706; --tech: #2563eb;
+  --ease: cubic-bezier(.25,1,.5,1);
+  --shadow-sm: 0 1px 3px rgba(51,65,85,.06);
+  --shadow-md: 0 4px 16px rgba(51,65,85,.08);
+}
+* { box-sizing:border-box; margin:0; }
+body { background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI","Microsoft YaHei",sans-serif; font-size:13px; line-height:1.5; padding:28px clamp(16px,4vw,40px) 60px; }
+.nums { font-variant-numeric:tabular-nums; }
+button { font-family:inherit; }
+
+/* ============ Hero Header ============ */
+.hero { background:linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); border:1px solid var(--line); border-radius:16px; padding:26px 30px 22px; position:relative; overflow:hidden; margin-bottom:18px; box-shadow:var(--shadow-sm); }
+.hero::after { content:""; position:absolute; right:-60px; top:-60px; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle, rgba(99,102,241,.08), transparent 65%); pointer-events:none; }
+.hero-top { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; position:relative; z-index:1; }
+.hero h1 { font-size:clamp(20px,2.4vw,26px); font-weight:700; letter-spacing:.01em; color:#0f172a; display:flex; align-items:center; gap:10px; }
+.hero h1 .mark { width:6px; height:20px; border-radius:3px; background:var(--brand); display:inline-block; }
+.hero .sub { color:var(--ink-3); font-size:11.5px; margin-top:8px; display:flex; gap:16px; flex-wrap:wrap; }
+.hero .sub span { display:inline-flex; align-items:center; gap:5px; }
+.hero .sub .k { color:var(--ink-3); opacity:.7; }
+.hero-stats { display:flex; margin-top:18px; border-top:1px solid var(--line); padding-top:14px; flex-wrap:wrap; position:relative; z-index:1; }
+.hero-stat { flex:1; min-width:90px; padding:0 4px; }
+.hero-stat .v { font-size:24px; font-weight:700; letter-spacing:-.02em; color:#0f172a; }
+.hero-stat .l { font-size:11px; color:var(--ink-3); margin-top:2px; }
+.hero-stat .v.ops { color:var(--ops); } .hero-stat .v.tech { color:var(--tech); }
+.hero-stat .v.good { color:var(--good); } .hero-stat .v.warn { color:var(--warn); }
+.hero-stat .v.brand { color:var(--brand-2); }
+
+/* ============ 月份切换 ============ */
+.month-bar { display:flex; align-items:center; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+.month-btn { padding:7px 16px; font-size:13px; font-weight:500; border-radius:999px; background:var(--surface); color:var(--ink-2); border:1px solid var(--line); cursor:pointer; transition:all 150ms var(--ease); }
+.month-btn:hover { border-color:#c9c5bc; color:var(--ink); }
+.month-btn.active { background:var(--brand); color:#fff; border-color:var(--brand); box-shadow:var(--shadow-sm); }
+.month-hint { margin-left:auto; font-size:11.5px; color:var(--ink-3); }
+
+/* ============ 规则卡片 ============ */
+.rules { background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow-sm); margin-bottom:16px; overflow:hidden; }
+.rules-head { display:flex; align-items:center; gap:10px; padding:14px 18px; cursor:pointer; user-select:none; }
+.rules-head:hover { background:var(--surface-2); }
+.rules-head .ttl { font-size:14px; font-weight:600; color:#0f172a; display:flex; align-items:center; gap:8px; }
+.rules-head .ttl .ico { width:26px; height:26px; border-radius:7px; background:linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.rules-head .arrow { margin-left:auto; color:var(--ink-3); transition:transform 200ms var(--ease); font-size:12px; }
+.rules.open .rules-head .arrow { transform:rotate(180deg); }
+.rules-body { display:none; padding:4px 18px 18px; border-top:1px dashed var(--line); }
+.rules.open .rules-body { display:block; }
+.rule-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; margin-top:14px; }
+.rule-col { background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+.rule-col h4 { font-size:12.5px; font-weight:600; margin-bottom:10px; color:#0f172a; display:flex; align-items:center; gap:7px; }
+.rule-col h4 .d { width:8px; height:8px; border-radius:3px; flex-shrink:0; }
+.rule-col h4 .d.ops { background:var(--ops); } .rule-col h4 .d.tech { background:var(--tech); }
+.rule-col ol { padding-left:18px; margin:0; }
+.rule-col li { font-size:12px; color:var(--ink-2); line-height:1.7; margin-bottom:4px; }
+.rule-col li b { color:var(--ink); font-weight:600; }
+.rule-note { margin-top:14px; background:#fffbeb; border:1px solid #fde68a; color:#92400e; border-radius:10px; padding:12px 16px; font-size:12px; line-height:1.8; }
+.rule-note b { color:#78350f; }
+
+/* ============ 分组区块 ============ */
+.group { margin-bottom:20px; }
+.group-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.group-head .g-ico { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; flex-shrink:0; }
+.group-head .g-ico.ops { background:linear-gradient(135deg,#f59e0b,#d97706); }
+.group-head .g-ico.tech { background:linear-gradient(135deg,#3b82f6,#2563eb); }
+.group-head h2 { font-size:16px; font-weight:700; color:#0f172a; }
+.group-head .g-sub { font-size:11.5px; color:var(--ink-3); }
+.group-head .g-cnt { margin-left:auto; font-size:11.5px; color:var(--ink-3); }
+
+/* ============ 人员卡片 ============ */
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:12px; }
+.pcard { background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow-sm); transition:all 150ms var(--ease); position:relative; }
+.pcard:hover { box-shadow:var(--shadow-md); transform:translateY(-1px); }
+.pcard.na { opacity:.55; background:var(--surface-2); }
+.pcard .top { display:flex; align-items:center; gap:10px; }
+.pcard .avatar { width:34px; height:34px; border-radius:50%; color:#fff; font-size:14px; font-weight:600; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.pcard .avatar.ops { background:linear-gradient(135deg,#f59e0b,#d97706); }
+.pcard .avatar.tech { background:linear-gradient(135deg,#3b82f6,#2563eb); }
+.pcard .who { flex:1; min-width:0; }
+.pcard .who b { font-size:13.5px; color:#0f172a; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pcard .who small { color:var(--ink-3); font-size:11px; }
+.pcard .who .lead-tag { display:inline-block; margin-left:6px; background:#fef3c7; color:#92400e; font-size:10px; padding:1px 7px; border-radius:999px; font-weight:500; vertical-align:1px; }
+.pcard .na-toggle { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--ink-2); cursor:pointer; user-select:none; white-space:nowrap; }
+.pcard .na-toggle input { accent-color:var(--ink-3); width:14px; height:14px; cursor:pointer; }
+.pcard .na-label { font-size:10.5px; color:var(--warn); font-weight:500; }
+
+/* 分数输入 */
+.scores { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; }
+.score-item { text-align:center; }
+.score-item .lab { font-size:10.5px; color:var(--ink-3); margin-bottom:4px; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.score-item input { width:100%; padding:6px 2px; text-align:center; font-size:14px; font-weight:600; border:1px solid var(--line); border-radius:7px; background:var(--surface); color:var(--ink); outline:none; transition:border-color 150ms var(--ease), box-shadow 150ms var(--ease); -moz-appearance:textfield; }
+.score-item input::-webkit-outer-spin-button, .score-item input::-webkit-inner-spin-button { -webkit-appearance:none; }
+.score-item input:focus { border-color:var(--brand); box-shadow:0 0 0 3px rgba(99,102,241,.12); }
+.score-item input.hi { border-color:#dc2626; color:#dc2626; background:#fef2f2; }
+.score-item input.lo { border-color:#059669; color:#059669; background:#ecfdf5; }
+
+.avg-row { display:flex; align-items:center; gap:8px; margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); }
+.avg { font-size:20px; font-weight:700; color:#0f172a; letter-spacing:-.02em; }
+.avg.hi { color:#dc2626; } .avg.lo { color:#059669; } .avg.na { color:var(--ink-3); font-size:13px; font-weight:500; }
+.avg-state { font-size:10.5px; padding:2px 8px; border-radius:999px; font-weight:500; }
+.avg-state.hi { background:#fef2f2; color:#dc2626; }
+.avg-state.lo { background:#ecfdf5; color:#059669; }
+.avg-state.ok { background:#f1f5f9; color:var(--ink-2); }
+.avg-state.na { background:#f1f5f9; color:var(--ink-3); }
+.avg-hint { margin-left:auto; font-size:10.5px; color:var(--ink-3); }
+
+/* 备注 */
+.notes { margin-top:10px; }
+.notes input { width:100%; padding:7px 10px; font-size:11.5px; border:1px solid var(--line); border-radius:7px; background:var(--surface); color:var(--ink); outline:none; margin-bottom:6px; transition:border-color 150ms var(--ease); }
+.notes input:focus { border-color:var(--brand); }
+.notes input.required-note { border-color:#dc2626; background:#fff7f7; }
+.notes .note-tag { font-size:10px; color:var(--ink-3); display:block; margin-bottom:2px; }
+
+/* ============ 底部操作条 ============ */
+.action-bar { position:sticky; bottom:16px; margin-top:8px; display:flex; gap:10px; justify-content:flex-end; align-items:center; flex-wrap:wrap; }
+.btn { padding:9px 20px; font-size:13px; font-weight:600; border-radius:10px; cursor:pointer; transition:all 150ms var(--ease); border:none; }
+.btn.primary { background:var(--brand-2); color:#fff; box-shadow:var(--shadow-sm); }
+.btn.primary:hover { background:#4338ca; transform:translateY(-1px); }
+.btn.ghost { background:var(--surface); color:var(--ink-2); border:1px solid var(--line); }
+.btn.ghost:hover { border-color:var(--brand); color:var(--brand-2); }
+.save-state { font-size:12px; color:var(--good); font-weight:500; margin-right:auto; }
+.save-state.err { color:var(--warn); }
+
+/* 导出弹层 */
+.modal-mask { display:none; position:fixed; inset:0; background:rgba(15,23,42,.45); z-index:100; align-items:center; justify-content:center; padding:20px; }
+.modal-mask.open { display:flex; }
+.modal { background:#fff; border-radius:14px; max-width:720px; width:100%; max-height:80vh; display:flex; flex-direction:column; box-shadow:var(--shadow-md); }
+.modal-head { display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid var(--line); }
+.modal-head b { font-size:15px; color:#0f172a; flex:1; }
+.modal-head button { background:none; border:none; font-size:18px; color:var(--ink-3); cursor:pointer; }
+.modal-body { padding:16px 20px; overflow:auto; }
+#exportOut { width:100%; min-height:300px; border:1px solid var(--line); border-radius:8px; padding:12px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; color:var(--ink); line-height:1.7; resize:vertical; background:var(--surface-2); white-space:pre-wrap; }
+.modal-foot { display:flex; justify-content:flex-end; gap:10px; padding:14px 20px; border-top:1px solid var(--line); }
+
+/* 响应式 */
+@media (max-width:640px){ .grid { grid-template-columns:1fr; } .scores { grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<!-- ============ Hero ============ -->
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <h1><span class="mark"></span>星河无界 · 人才评价</h1>
+      <div class="sub">
+        <span><span class="k">口径</span> 月度人才评价</span>
+        <span><span class="k">基准分</span> 80 分 = 表现普通</span>
+        <span><span class="k">必填</span> ≥90 或 ≤60 需填写可见优缺点</span>
+        <span id="lastSave" style="display:none"><span class="k">上次保存</span> <span id="lastSaveT"></span></span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="v nums" id="stTotal">0</div><div class="l">评价总人数</div></div>
+    <div class="hero-stat"><div class="v nums ops" id="stOps">0</div><div class="l">运营条线</div></div>
+    <div class="hero-stat"><div class="v nums tech" id="stTech">0</div><div class="l">技术条线</div></div>
+    <div class="hero-stat"><div class="v nums" id="stDone">0</div><div class="l">已完成</div></div>
+    <div class="hero-stat"><div class="v nums" id="stNa">0</div><div class="l">无法评价</div></div>
+    <div class="hero-stat"><div class="v nums warn" id="stHi">0</div><div class="l">高分(≥90)</div></div>
+    <div class="hero-stat"><div class="v nums good" id="stLo">0</div><div class="l">低分(≤60)</div></div>
+  </div>
+</div>
+
+<!-- ============ 月份切换 ============ -->
+<div class="month-bar" id="monthBar"></div>
+
+<!-- ============ 规则卡片 ============ -->
+<div class="rules open" id="rulesCard">
+  <div class="rules-head" onclick="document.getElementById('rulesCard').classList.toggle('open')">
+    <div class="ttl"><span class="ico">规</span>评价规则</div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="rules-body">
+    <div class="rule-grid">
+      <div class="rule-col">
+        <h4><span class="d ops"></span>运营评价维度</h4>
+        <ol>
+          <li><b>洞察力</b>：看问题的能力。是否想得到？是否根据某些线索意识到应该怎么做。</li>
+          <li><b>决策力</b>：选择方向的能力。比如 A 方案还是 B 方案。</li>
+          <li><b>推动力</b>：解决问题的能力。确定 A 方案之后是否能推动至上线。</li>
+          <li><b>经营意识</b>：在日常工作中在项目侧进行经营思考。</li>
+        </ol>
+      </div>
+      <div class="rule-col">
+        <h4><span class="d tech"></span>技术评价维度</h4>
+        <ol>
+          <li><b>业务理解能力</b>：看问题的能力。是否想得到？是否根据某些线索意识到应该怎么做。</li>
+          <li><b>技术判断力</b>：选择方向的能力。比如 A 方案还是 B 方案。</li>
+          <li><b>问题分析能力</b>：解决问题的能力。确定 A 方案之后是否能推动至上线。</li>
+          <li><b>交付可靠性</b>：在预计的时间进行保质保量交付的能力，重点在于时间、质量两个维度。</li>
+        </ol>
+      </div>
+    </div>
+    <div class="rule-note">
+      <b>规则综述：</b>① 人才评价每月一次，月底前填写当月表格；② 每月可能调整评价维度/范围，日常多关注部门情况更重要；③ 每维度 80 分为表现普通，可上下 5 分浮动作细微调整，表现较好/较差可更大幅度改变分数，<b>90 分以上和 60 分以下必须填写「可见优点\优事」「可见缺点\劣事」「对有升职或降职可能的同事简述原因」</b>；④ 运营、技术的组长必须评价，当月未与其沟通可不评价；⑤ 组员有亮点或待提高时，单独新增一行填写。
+    </div>
+  </div>
+</div>
+
+<!-- ============ 评价主体 ============ -->
+<div id="groups"></div>
+
+<!-- ============ 底部操作 ============ -->
+<div class="action-bar">
+  <span class="save-state" id="saveState"></span>
+  <button class="btn ghost" onclick="exportText()">导出评价文本</button>
+  <button class="btn primary" onclick="saveAll()">保存本月评价</button>
+</div>
+
+<!-- ============ 导出弹层 ============ -->
+<div class="modal-mask" id="exportModal" onclick="if(event.target===this)closeExport()">
+  <div class="modal">
+    <div class="modal-head"><b>导出评价文本</b><button onclick="closeExport()">✕</button></div>
+    <div class="modal-body"><textarea id="exportOut" spellcheck="false"></textarea></div>
+    <div class="modal-foot">
+      <button class="btn ghost" onclick="copyExport()">复制全部</button>
+      <button class="btn primary" onclick="closeExport()">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ 人员清单（星河无界） ============ */
+const DIMS_OPS = ['洞察力','决策力','推动力','经营意识'];
+const DIMS_TECH = ['业务理解能力','技术判断力','问题分析能力','交付可靠性'];
+
+const PEOPLE = {
+  ops: [
+    { name:'豆腐',   role:'产品负责人', lead:true },
+    { name:'小宜',   role:'产品经理' },
+    { name:'波林',   role:'产品经理' },
+    { name:'大藜',   role:'产品经理' },
+    { name:'鲍勃',   role:'产品经理' },
+    { name:'卡门',   role:'产品经理·试岗', na:true, naReason:'新入职试岗，暂无充分观察样本' },
+    { name:'史强',   role:'运营OL·验收' },
+    { name:'秋野',   role:'运营OL' },
+    { name:'林笑尘', role:'运营OL' },
+    { name:'高睿',   role:'运营OL' },
+    { name:'安靖',   role:'运营OL' },
+    { name:'曜宝',   role:'UI设计师' },
+    { name:'白檀',   role:'UI设计师' },
+    { name:'宫茉莉', role:'UI设计师' },
+    { name:'科巴',   role:'UI设计师' },
+    { name:'林心玥', role:'项目助理' },
+    { name:'不悔',   role:'项目助理' },
+    { name:'林欣怡', role:'账号管理员' }
+  ],
+  tech: [
+    { name:'岳红香', role:'技术负责人', lead:true },
+    { name:'文龙',   role:'技术TL',     lead:true },
+    { name:'鲁子敬', role:'前端' },
+    { name:'景天',   role:'前端' },
+    { name:'卡比',   role:'前端' },
+    { name:'风间',   role:'前端' },
+    { name:'阿秋',   role:'前端' },
+    { name:'天辰',   role:'前端' },
+    { name:'朔月',   role:'后端' },
+    { name:'厉飞雨', role:'后端' },
+    { name:'鹏程',   role:'后端' },
+    { name:'李瑞',   role:'后端' },
+    { name:'飞策',   role:'测试' }
+  ]
+};
+
+/* ============ 月份 ============ */
+const MONTHS = ['2026-06','2026-07','2026-08'];
+const DEFAULT_MONTH = '2026-07';
+let currentMonth = DEFAULT_MONTH;
+
+const KEY = m => 'xhwj_review_' + m;
+
+function loadState(month) {
+  try { return JSON.parse(localStorage.getItem(KEY(month))) || {}; }
+  catch(e){ return {}; }
+}
+function saveState(month, state) {
+  localStorage.setItem(KEY(month), JSON.stringify(state));
+}
+
+/* 默认单个人状态 */
+function defaultPerson(p, line) {
+  const scores = {};
+  (line === 'ops' ? DIMS_OPS : DIMS_TECH).forEach(d => scores[d] = 80);
+  return {
+    na: !!p.na,
+    naReason: p.naReason || '',
+    scores,
+    notes: { good:'', bad:'', career:'' }
+  };
+}
+
+function buildAll() {
+  const st = loadState(currentMonth);
+  const all = {};
+  ['ops','tech'].forEach(line => {
+    all[line] = PEOPLE[line].map((p,i) => {
+      const saved = (st[line]||[])[i];
+      return Object.assign(defaultPerson(p, line), saved || {});
+    });
+  });
+  return all;
+}
+
+/* ============ 渲染 ============ */
+const GRP_META = {
+  ops:  { ttl:'运营条线', sub:'产品 / 运营 / UI / 助理', ico:'营', color:'ops',  dims: DIMS_OPS },
+  tech: { ttl:'技术条线', sub:'前端 / 后端 / 测试 / 管理', ico:'技', color:'tech', dims: DIMS_TECH }
+};
+
+function avatarChar(name){ return name ? name.slice(-2) : '?'; }
+
+function avgOf(scores){
+  const vs = Object.values(scores);
+  if(!vs.length) return 0;
+  return vs.reduce((a,b)=>a+(+b||0),0)/vs.length;
+}
+
+function render() {
+  const st = loadState(currentMonth);
+  const all = buildAll();
+  const groupsEl = document.getElementById('groups');
+  groupsEl.innerHTML = '';
+
+  ['ops','tech'].forEach(line => {
+    const meta = GRP_META[line];
+    const items = all[line];
+    const g = document.createElement('div');
+    g.className = 'group';
+
+    const head = document.createElement('div');
+    head.className = 'group-head';
+    head.innerHTML = `
+      <div class="g-ico ${meta.color}">${meta.ico}</div>
+      <h2>${meta.ttl}</h2>
+      <span class="g-sub">${meta.sub}</span>
+      <span class="g-cnt">${items.length} 人</span>`;
+    g.appendChild(head);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+
+    items.forEach((person, i) => {
+      const dims = meta.dims;
+      const avg = person.na ? null : avgOf(person.scores);
+      const needsNote = avg !== null && (avg >= 90 || avg <= 60);
+
+      const card = document.createElement('div');
+      card.className = 'pcard' + (person.na ? ' na' : '');
+      card.id = `card-${line}-${i}`;
+
+      let scoresHtml = '';
+      dims.forEach((d, di) => {
+        const v = person.scores[d] == null ? '' : person.scores[d];
+        const cls = person.na ? '' : (+v >= 90 ? 'hi' : (+v <= 60 ? 'lo' : ''));
+        scoresHtml += `
+          <div class="score-item">
+            <span class="lab">${d}</span>
+            <input type="number" min="0" max="100" value="${v}" data-line="${line}" data-idx="${i}" data-dim="${d}" ${person.na?'disabled':''} class="nums ${cls}">
+          </div>`;
+      });
+
+      const avgHtml = person.na
+        ? `<span class="avg na">无法评价</span><span class="avg-state na">${person.naReason||'未接触/样本不足'}</span>`
+        : (avg >= 90 ? `<span class="avg hi nums">${avg.toFixed(1)}</span><span class="avg-state hi">优（≥90 必填说明）</span>`
+          : (avg <= 60 ? `<span class="avg lo nums">${avg.toFixed(1)}</span><span class="avg-state lo">待提高（≤60 必填说明）</span>`
+            : `<span class="avg nums">${avg.toFixed(1)}</span><span class="avg-state ok">普通区间</span>`));
+
+      const needGood = avg !== null && avg >= 90;
+      const needBad  = avg !== null && avg <= 60;
+
+      card.innerHTML = `
+        <div class="top">
+          <div class="avatar ${meta.color}">${avatarChar(person.name)}</div>
+          <div class="who">
+            <b>${person.name}${person.lead ? '<span class="lead-tag">组长</span>' : ''}</b>
+            <small>${person.role}</small>
+          </div>
+          <label class="na-toggle">
+            <input type="checkbox" ${person.na?'checked':''} data-line="${line}" data-idx="${i}" data-toggle="na">
+            无法评价
+          </label>
+        </div>
+        <div class="scores">${scoresHtml}</div>
+        <div class="avg-row">
+          ${avgHtml}
+          <span class="avg-hint">默认 80 分</span>
+        </div>
+        <div class="notes">
+          <span class="note-tag">可见优点\优事 ${needGood ? '<b style="color:#dc2626">(必填)</b>' : ''}</span>
+          <input type="text" placeholder="亮点、优事…" value="${(person.notes.good||'').replace(/"/g,'&quot;')}" data-line="${line}" data-idx="${i}" data-note="good" class="${needGood?'required-note':''}" ${person.na?'disabled':''}>
+          <span class="note-tag">可见缺点\劣事 ${needBad ? '<b style="color:#dc2626">(必填)</b>' : ''}</span>
+          <input type="text" placeholder="不足、待改进…" value="${(person.notes.bad||'').replace(/"/g,'&quot;')}" data-line="${line}" data-idx="${i}" data-note="bad" class="${needBad?'required-note':''}" ${person.na?'disabled':''}>
+          <span class="note-tag">升职/降职可能简述</span>
+          <input type="text" placeholder="如有升职或降职可能，简述原因…" value="${(person.notes.career||'').replace(/"/g,'&quot;')}" data-line="${line}" data-idx="${i}" data-note="career" ${person.na?'disabled':''}>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    g.appendChild(grid);
+    groupsEl.appendChild(g);
+  });
+
+  /* 事件绑定 */
+  groupsEl.querySelectorAll('input[type="number"]').forEach(inp => {
+    inp.addEventListener('input', onScore);
+    inp.addEventListener('change', onScore);
+  });
+  groupsEl.querySelectorAll('input[data-toggle="na"]').forEach(cb => {
+    cb.addEventListener('change', onToggleNa);
+  });
+  groupsEl.querySelectorAll('input[data-note]').forEach(inp => {
+    inp.addEventListener('input', onNote);
+  });
+
+  updateStats();
+}
+
+/* ============ 交互 ============ */
+function onScore(e){
+  const t = e.target;
+  const line = t.dataset.line, idx = +t.dataset.idx, dim = t.dataset.dim;
+  const st = loadState(currentMonth);
+  if(!st[line]) st[line] = [];
+  if(!st[line][idx]) st[line][idx] = defaultPerson(PEOPLE[line][idx], line);
+  st[line][idx].scores[dim] = +t.value;
+  saveState(currentMonth, st);
+  refreshCard(line, idx);
+}
+function onToggleNa(e){
+  const t = e.target;
+  const line = t.dataset.line, idx = +t.dataset.idx;
+  const st = loadState(currentMonth);
+  if(!st[line]) st[line] = [];
+  if(!st[line][idx]) st[line][idx] = defaultPerson(PEOPLE[line][idx], line);
+  st[line][idx].na = t.checked;
+  if(!t.checked && !st[line][idx].naReason) st[line][idx].naReason = '';
+  saveState(currentMonth, st);
+  refreshCard(line, idx);
+}
+function onNote(e){
+  const t = e.target;
+  const line = t.dataset.line, idx = +t.dataset.idx, note = t.dataset.note;
+  const st = loadState(currentMonth);
+  if(!st[line]) st[line] = [];
+  if(!st[line][idx]) st[line][idx] = defaultPerson(PEOPLE[line][idx], line);
+  st[line][idx].notes[note] = t.value;
+  saveState(currentMonth, st);
+}
+function refreshCard(line, idx){
+  const st = loadState(currentMonth);
+  const person = (st[line]||[])[idx] || defaultPerson(PEOPLE[line][idx], line);
+  const meta = GRP_META[line];
+  const dims = meta.dims;
+  const avg = person.na ? null : avgOf(person.scores);
+  const card = document.getElementById(`card-${line}-${idx}`);
+  if(!card) return;
+
+  card.className = 'pcard' + (person.na ? ' na' : '');
+  const avgs = card.querySelector('.avg-row');
+  if(person.na){
+    avgs.innerHTML = `<span class="avg na">无法评价</span><span class="avg-state na">${person.naReason||'未接触/样本不足'}</span><span class="avg-hint">默认 80 分</span>`;
+  } else {
+    const state = avg >= 90 ? `<span class="avg hi nums">${avg.toFixed(1)}</span><span class="avg-state hi">优（≥90 必填说明）</span>`
+      : (avg <= 60 ? `<span class="avg lo nums">${avg.toFixed(1)}</span><span class="avg-state lo">待提高（≤60 必填说明）</span>`
+        : `<span class="avg nums">${avg.toFixed(1)}</span><span class="avg-state ok">普通区间</span>`);
+    avgs.innerHTML = state + `<span class="avg-hint">默认 80 分</span>`;
+  }
+
+  /* 分数输入框高亮与禁用 */
+  card.querySelectorAll('input[type="number"]').forEach(inp => {
+    const v = person.scores[inp.dataset.dim];
+    inp.value = person.na ? '' : v;
+    inp.disabled = person.na;
+    inp.className = 'nums' + (person.na ? '' : (+v >= 90 ? ' hi' : (+v <= 60 ? ' lo' : '')));
+  });
+  /* 备注必填高亮 */
+  const needGood = avg !== null && avg >= 90;
+  const needBad  = avg !== null && avg <= 60;
+  card.querySelectorAll('input[data-note]').forEach(inp => {
+    inp.disabled = person.na;
+    if(inp.dataset.note === 'good'){ inp.className = needGood ? 'required-note' : ''; }
+    if(inp.dataset.note === 'bad'){  inp.className = needBad ? 'required-note' : ''; }
+  });
+  const naCb = card.querySelector('input[data-toggle="na"]');
+  if(naCb) naCb.checked = person.na;
+  updateStats();
+}
+
+function updateStats(){
+  const all = buildAll();
+  const total = all.ops.length + all.tech.length;
+  let naCnt = 0, hiCnt = 0, loCnt = 0, doneCnt = 0;
+  ['ops','tech'].forEach(line => {
+    all[line].forEach(p => {
+      if(p.na){ naCnt++; return; }
+      const avg = avgOf(p.scores);
+      if(avg >= 90) hiCnt++;
+      if(avg <= 60) loCnt++;
+      const filled = Object.values(p.scores).filter(v => v != null && v !== '').length === GRP_META[line].dims.length;
+      if(filled) doneCnt++;
+    });
+  });
+  document.getElementById('stTotal').textContent = total;
+  document.getElementById('stOps').textContent = all.ops.length;
+  document.getElementById('stTech').textContent = all.tech.length;
+  document.getElementById('stDone').textContent = doneCnt;
+  document.getElementById('stNa').textContent = naCnt;
+  document.getElementById('stHi').textContent = hiCnt;
+  document.getElementById('stLo').textContent = loCnt;
+}
+
+/* ============ 月份 ============ */
+function renderMonths(){
+  const bar = document.getElementById('monthBar');
+  bar.innerHTML = '';
+  MONTHS.forEach(m => {
+    const b = document.createElement('button');
+    b.className = 'month-btn' + (m === currentMonth ? ' active' : '');
+    b.textContent = m + ' 月';
+    b.onclick = () => { currentMonth = m; renderMonths(); render(); };
+    bar.appendChild(b);
+  });
+  const hint = document.createElement('span');
+  hint.className = 'month-hint';
+  hint.textContent = '每月评价独立保存 · 月底前完成填写';
+  bar.appendChild(hint);
+}
+
+/* ============ 保存 ============ */
+function saveAll(){
+  const st = loadState(currentMonth);
+  /* 校验必填：90+/60- 需填写说明 */
+  const all = buildAll();
+  const warns = [];
+  ['ops','tech'].forEach(line => {
+    all[line].forEach((p,i) => {
+      if(p.na) return;
+      const avg = avgOf(p.scores);
+      if(avg >= 90 && !(p.notes.good||'').trim()) warns.push(`【${p.name}】均分 ${avg.toFixed(1)} ≥90，需填写「可见优点\\优事」`);
+      if(avg >= 90 && !(p.notes.career||'').trim()) warns.push(`【${p.name}】均分 ${avg.toFixed(1)} ≥90，建议填写「升职/降职可能简述」`);
+      if(avg <= 60 && !(p.notes.bad||'').trim()) warns.push(`【${p.name}】均分 ${avg.toFixed(1)} ≤60，需填写「可见缺点\\劣事」`);
+      if(avg <= 60 && !(p.notes.career||'').trim()) warns.push(`【${p.name}】均分 ${avg.toFixed(1)} ≤60，建议填写「升职/降职可能简述」`);
+    });
+  });
+  const stEl = document.getElementById('saveState');
+  if(warns.length){
+    stEl.className = 'save-state err';
+    stEl.textContent = '⚠ ' + warns.length + ' 项必填未完成：' + warns.slice(0,2).join('；') + (warns.length>2 ? '…' : '');
+    return;
+  }
+  stEl.className = 'save-state';
+  stEl.textContent = '✅ 已保存 ' + currentMonth + ' 月评价';
+  const t = new Date();
+  document.getElementById('lastSave').style.display = 'inline-flex';
+  document.getElementById('lastSaveT').textContent = t.toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+  setTimeout(()=>{ stEl.textContent = ''; }, 3000);
+}
+
+/* ============ 导出 ============ */
+function exportText(){
+  const all = buildAll();
+  const monthLabel = currentMonth.replace('-','年') + '月';
+  let out = `【星河无界 · 人才评价】${monthLabel}\n\n`;
+
+  ['ops','tech'].forEach(line => {
+    const meta = GRP_META[line];
+    out += `═══ ${meta.ttl}（${meta.dims.join(' / ')}）═══\n\n`;
+    all[line].forEach(p => {
+      if(p.na){
+        out += `▪ ${p.name}（${p.role}）：无法评价${p.naReason ? '（' + p.naReason + '）' : ''}\n\n`;
+        return;
+      }
+      const avg = avgOf(p.scores);
+      const scoresStr = meta.dims.map(d => `${d} ${p.scores[d]}`).join(' | ');
+      out += `▪ ${p.name}（${p.role}）：均分 ${avg.toFixed(1)}\n  ${scoresStr}\n`;
+      if((p.notes.good||'').trim())   out += `  可见优点：${p.notes.good}\n`;
+      if((p.notes.bad||'').trim())    out += `  可见缺点：${p.notes.bad}\n`;
+      if((p.notes.career||'').trim()) out += `  升职/降职：${p.notes.career}\n`;
+      out += '\n';
+    });
+  });
+  out += `\n—— 生成时间：${new Date().toLocaleString('zh-CN')} ——\n`;
+  document.getElementById('exportOut').value = out;
+  document.getElementById('exportModal').classList.add('open');
+}
+function closeExport(){ document.getElementById('exportModal').classList.remove('open'); }
+function copyExport(){
+  const ta = document.getElementById('exportOut');
+  ta.select();
+  try { document.execCommand('copy'); }
+  catch(e){ navigator.clipboard && navigator.clipboard.writeText(ta.value); }
+  ta.setSelectionRange(0,0);
+}
+
+/* ============ 初始化 ============ */
+renderMonths();
+render();
+</script>
+</body>
+</html>
