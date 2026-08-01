@@ -1,0 +1,414 @@
+{
+ "2026-08": {
+  "tech": {
+   "10": [
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] @zhouziran1919 @Tw13711 @jiaziya 这里有几个问题需要看一下，确定这几个问题，就可以开工了",
+     "src": 2840,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-119】抖阴（WEB）｜项目群] 展示逻辑 还有问题吗 ？",
+     "src": 2848,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-069】91Hub（WEB）｜项目群] 这个问题和上一个 一起",
+     "src": 5926,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 这个 先换 Safari 浏览器试一下，后续更新把这个问题处理一下。",
+     "src": 2882,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 昨天排查 那个 发布端的问题 ，忘记说了 ，搞好了 在测试服务器",
+     "src": 2904,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 这个问题 在测试环境 没有定位到，不是很好处理，做了一部分优化，不知道能不能 解决线上的问题 。 提前告知风险",
+     "src": 2924,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 我加一下日志 再次排查一下问题 ，这个是 尽可能优化之后 ，做的兜底",
+     "src": 2927,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 如果优化吧问题处理掉了 那就没事了，如果没处理 在排查日志",
+     "src": 2929,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "good",
+     "text": "[【DX-119】抖阴（WEB）｜项目群] 是的是的 ，我提前告知一下。",
+     "src": 2937,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 好的 我现在提交到测试服",
+     "src": 2940,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-119】抖阴（WEB）｜项目群] 那再 整体验收一下，如果没问题就 发版了",
+     "src": 2943,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-069】91Hub（WEB）｜项目群] 这个问题好了",
+     "src": 5934,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 发现了一点相关问题，正在处理",
+     "src": 2949,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-073】91成人导航（WEB）｜项目群] @anjing1212 精品app的广告 可以提前配置，避免上线显示异常广告，无广告，兜底默认为现在线上版本",
+     "src": 780,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-069】91Hub（WEB）｜项目群] 好的 问题我在看，和redis 优化部分 一起处理",
+     "src": 5942,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-073】91成人导航（WEB）｜项目群] 上完了我这 可以安排上线了",
+     "src": 782,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 这个 服务器配置的 问题",
+     "src": 2974,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    }
+   ],
+   "12": [
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-064】51青楼（WEB）｜项目群] 测试通过，有劳进行验收下",
+     "src": 830,
+     "src_sender": "飞策-QA-XHWJ-CN"
+    }
+   ],
+   "23": [
+    {
+     "date": "2026-08-01",
+     "tag": "risk",
+     "text": "[【DX-055】茶馆（APP）｜项目群] @luzijing573 @ding_2656 两位老师，落地页项目很紧急，当前的时间安排太长了，请修改时间。",
+     "src": 6271,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-064】51青楼（WEB）｜项目群] @qingqing0001111 @shiqiang3337 那可以上线了吧",
+     "src": 845,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    }
+   ],
+   "8": [
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 有些问题想沟通一下",
+     "src": 6277,
+     "src_sender": "李瑞-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 就是通过 aff 来查询用户元宝数量的",
+     "src": 6295,
+     "src_sender": "李瑞-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 这里逻辑是不是有问题,你传的是 游客的aff",
+     "src": 6298,
+     "src_sender": "李瑞-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 现在的问题是,游客也会有aff ,但是当我登录后,应该传新的登录后的账号的aff 过去",
+     "src": 6300,
+     "src_sender": "李瑞-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 这样才对吧 ,没有登录之前,这个应该没问题",
+     "src": 6301,
+     "src_sender": "李瑞-BE-XHWJ-VN"
+    }
+   ],
+   "1": [
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-055】茶馆（APP）｜项目群] @qiuye456 @huioleng4 @qiyu_151 @zexi22 @luzijing573 落地页这个需求插播个临时状况，测试这边 @ding_2656 下午要请个假，今天没办法上线了，延期到下周一",
+     "src": 6286,
+     "src_sender": "文龙-TL-XHWJ-CN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 加一下，测试环境测试没问题，可以安排紧急上个线",
+     "src": 2972,
+     "src_sender": "文龙-TL-XHWJ-CN"
+    }
+   ],
+   "9": [
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【TJ-062/063】51凤楼（APP/WEB] 已经发了，忘了阿秋不在群里",
+     "src": 8320,
+     "src_sender": "朔月-BE-XHWJ-CN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-064】51青楼（WEB）｜项目群] 发布完成，请先上验收",
+     "src": 847,
+     "src_sender": "朔月-BE-XHWJ-CN"
+    }
+   ],
+   "24": [
+    {
+     "date": "2026-08-01",
+     "tag": "risk",
+     "text": "[【TJ-062/063】51凤楼（APP/WEB] @qingqing0001111 阿秋反馈 这个后端返回的图片打不开 朔月老师麻烦看下",
+     "src": 8326,
+     "src_sender": "鲍勃-PM-XHWJ-CN"
+    }
+   ],
+   "6": [
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 我的 aff 是23684003， aff 是通过/api/user/getCustomerService 接口返回的，关键是aff 会影响元宝判断？",
+     "src": 6294,
+     "src_sender": "天辰-FE-XHWJ-CN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 前端代码确实有这个问题",
+     "src": 6306,
+     "src_sender": "天辰-FE-XHWJ-CN"
+    }
+   ]
+  },
+  "ops": {
+   "48": [
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] @jili1889 @blockingb935 这个还是不行，禁慢天堂",
+     "src": 2789,
+     "src_sender": "高睿-OL-XHWJ- VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-119】抖阴（WEB）｜项目群] 展示逻辑上次看是没有啥问题，就是置顶的值显示无效，你们修复好了吗",
+     "src": 2856,
+     "src_sender": "高睿-OL-XHWJ- VN"
+    }
+   ],
+   "9": [
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【TJ-062/063】51凤楼（APP/WEB] app 可以进去了 后台还是不行",
+     "src": 8301,
+     "src_sender": "林笑尘-OL-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【TJ-062/063】51凤楼（APP/WEB] 很多用户都是使用的华为或者OPPO 一个两个的话 让用户换手机或者换网络问题不大",
+     "src": 8309,
+     "src_sender": "林笑尘-OL-XHWJ-VN"
+    }
+   ],
+   "19": [
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] @ding_2656 测试老哥 你那边看看能不能复现这个问题",
+     "src": 2890,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] @jili1889 这个视频分享的图片 bug 还未修复",
+     "src": 2900,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 这个分享图片 bug 和 后台 保存的bug 一起修复上线吗",
+     "src": 2920,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 还是单独休息上线",
+     "src": 2921,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 上线在观察吗",
+     "src": 2926,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 这个翻页的 bug 可以一起修复一下吧 下午的时候 一起在验收一下",
+     "src": 2939,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-069】91Hub（WEB）｜项目群] 帮忙追溯一下问题来源吧 近期也没做这方面的需求 @blockingb935 文龙老师",
+     "src": 5940,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 可以了 bug 先修复上线吧 @jili1889 @ding_2656",
+     "src": 2956,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-070】禁漫天堂（WEB）｜项目群] 这个分享图片的 功能 在线上好像不行",
+     "src": 2976,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    }
+   ],
+   "34": [
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-073】91成人导航（WEB）｜项目群] @jili1889 已提测完毕",
+     "src": 779,
+     "src_sender": "安靖--OL-XHWJ-MY"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "risk",
+     "text": "[【DX-069】91Hub（WEB）｜项目群] @jili1889 老哥这里帮忙紧急修复下吧",
+     "src": 5939,
+     "src_sender": "安靖--OL-XHWJ-MY"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "risk",
+     "text": "[【DX-069】91Hub（WEB）｜项目群] 因为什么原因宕机的啊",
+     "src": 5949,
+     "src_sender": "安靖--OL-XHWJ-MY"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "risk",
+     "text": "[【DX-069】91Hub（WEB）｜项目群] 不是网络波动 直接就打不开了",
+     "src": 5951,
+     "src_sender": "安靖--OL-XHWJ-MY"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "risk",
+     "text": "[【DX-069】91Hub（WEB）｜项目群] 中转页打不开了 @jili1889",
+     "src": 5957,
+     "src_sender": "安靖--OL-XHWJ-MY"
+    }
+   ],
+   "32": [
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【DX-062】KISSAV（WEB）｜项目群] kissav个人中心的“稍后观看”和“影片收藏”有问题，视频封面全部加载不出来，只显示标题和时长。麻烦前端帮忙检查一下封面图片的显示和地址处理。",
+     "src": 2138,
+     "src_sender": "陈洛-OP-XHWJ-CN"
+    }
+   ],
+   "43": [
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【XHWJ-006】51探花（WEB）｜项目群] 进群信息：豆腐 ｜ @dofu0683 ｜ 产品经理 ｜ 主要职责：帮助部门完成项目产品流程上面所有问题的梳理,推进产品进度.",
+     "src": 39,
+     "src_sender": "史强-OL-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "delivery",
+     "text": "[【DX-064】51青楼（WEB）｜项目群] 测试环境验收通过",
+     "src": 844,
+     "src_sender": "史强-OL-XHWJ-VN"
+    },
+    {
+     "date": "2026-08-01",
+     "tag": "bad",
+     "text": "[【XHWJ-001】茶馆（WEB）｜项目群] 你看下是不是原型有问题,这个攻略页面筛选的怎么变成这个了",
+     "src": 472,
+     "src_sender": "史强-OL-XHWJ-VN"
+    }
+   ]
+  }
+ }
+}

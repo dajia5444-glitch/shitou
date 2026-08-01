@@ -272,6 +272,7 @@ button { font-family:inherit; }
 <!-- ============ 底部 ============ -->
 <div class="action-bar">
   <span class="save-state" id="saveState"></span>
+  <button class="btn ghost" onclick="refreshTGMats()">↻ 重新抓取 TG 素材</button>
   <button class="btn ghost" onclick="overviewMats()">素材总览</button>
   <button class="btn ghost" onclick="exportText()">导出评价文本</button>
   <button class="btn primary" onclick="saveAll()">保存本月评价</button>
@@ -438,7 +439,8 @@ function esc(s){ return (s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 
 function matItemHtml(m){
   const t = TAG_LABEL[m.tag] || '其他';
-  return `<div class="mat-item"><span class="mat-date">${esc(m.date)}</span><span class="mat-tag ${m.tag}">${t}</span><span class="mat-txt">${esc(m.text)}</span><button class="mat-del" data-line="${m.line}" data-idx="${m.idx}" data-mi="${m.mi}">✕</button></div>`;
+  const tgMark = m.src ? '<span class="mat-src" title="来自 TG 聊天记录" style="font-size:9px;color:var(--ink-3);background:#eef2ff;padding:0 5px;border-radius:999px;margin-right:4px">TG</span>' : '';
+  return `<div class="mat-item"><span class="mat-date">${esc(m.date)}</span>${tgMark}<span class="mat-tag ${m.tag}">${t}</span><span class="mat-txt">${esc(m.text)}</span><button class="mat-del" data-line="${m.line}" data-idx="${m.idx}" data-mi="${m.mi}">✕</button></div>`;
 }
 
 function render() {
@@ -787,6 +789,57 @@ function copyExport(){
 /* ============ 初始化 ============ */
 renderMonths();
 render();
+/* 自动从 TG 缓存 JSON 抓取素材(异步,不阻塞) */
+autoFetchTGMats();
+
+async function autoFetchTGMats(){
+  const n = await mergeTGMats(currentMonth, /*silent*/ true);
+  if(n>0){ render(); }
+}
+
+async function mergeTGMats(month, silent){
+  try {
+    const r = await fetch(`mats/mats_${month}.json?ts=${Date.now()}`);
+    if(!r.ok) return 0;
+    const data = (await r.json())[month];
+    if(!data) return 0;
+    const st = loadState(month);
+    let added = 0;
+    ['tech','ops'].forEach(line => {
+      if(!st[line]) st[line] = [];
+      for (const idxStr in data[line]) {
+        const i = +idxStr;
+        if(!st[line][i]) st[line][i] = defaultPerson(PEOPLE[line][i], line);
+        if(!st[line][i].mats) st[line][i].mats = [];
+        const existing = new Set(st[line][i].mats.map(m => (m.src||'') + '|' + m.text));
+        data[line][i].forEach(m => {
+          const key = (m.src||'') + '|' + m.text;
+          if(!existing.has(key)){ st[line][i].mats.push(m); added++; }
+        });
+      }
+    });
+    saveState(month, st);
+    if(!silent){
+      const stEl = document.getElementById('saveState');
+      stEl.className = added ? 'save-state' : 'save-state';
+      stEl.textContent = added ? `✅ 已从 TG 抓取 ${added} 条新素材` : 'TG 素材已是最新';
+      setTimeout(()=>{ stEl.textContent=''; }, 3000);
+    }
+    return added;
+  } catch(e){ return 0; }
+}
+
+async function refreshTGMats(){
+  const stEl = document.getElementById('saveState');
+  stEl.className = 'save-state';
+  stEl.textContent = '⏳ 正在抓取 TG 素材…';
+  const n = await mergeTGMats(currentMonth, false);
+  render();
+  if(n === 0){
+    stEl.textContent = '✅ TG 素材已是最新';
+    setTimeout(()=>{ stEl.textContent=''; }, 2500);
+  }
+}
 </script>
 </body>
 </html>

@@ -1,0 +1,555 @@
+{
+ "2026-07": {
+  "tech": {
+   "23": [
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] OK，了解",
+     "src": 2152,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] 1、 这个需求还是你跟进吗？现在什么进度了，了解下 2、 这个需求测试说排期改到了0825-0827。我后进群，不知道前面的各端是什么样的排期，你这有吗？ 3、 这个我看到是0803上线 除了这三个需求以外，你这还有在途的需求吗？",
+     "src": 2193,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] OK，那在开发的就两个",
+     "src": 2249,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] OK...",
+     "src": 2255,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] OK OK",
+     "src": 2318,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "bad",
+     "text": "[大藜-PM-XHWJ-CN] 那不行，我也得跟进",
+     "src": 2319,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "bad",
+     "text": "[大藜-PM-XHWJ-CN] 放心，有问题，我都是私聊",
+     "src": 2326,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] OK，好的～",
+     "src": 1743,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] 等会都搞定了，我们组织个zoom会议，一起看看",
+     "src": 1789,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] 你ok了就说，随时可以开启。",
+     "src": 1833,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] 你这边ok不",
+     "src": 1852,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "bad",
+     "text": "[大藜-PM-XHWJ-CN] 应该没问题",
+     "src": 1863,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[大藜-PM-XHWJ-CN] 前端前面沟通过",
+     "src": 1871,
+     "src_sender": "大藜-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-27",
+     "tag": "delivery",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 验收 开始时间：7月27日 完成时间：7月27日 工作人员：大藜、周肥，秋野",
+     "src": 5971,
+     "src_sender": "【DX-055】茶馆（APP）｜项目群"
+    }
+   ],
+   "24": [
+    {
+     "date": "2026-07-31",
+     "tag": "delivery",
+     "text": "[【TJ-062/063】51凤楼（APP/WEB] 验收 开始时间：2026-08-07 完成时间：2026-08-08 工作人员：鲍勃、史强",
+     "src": 8276,
+     "src_sender": "【TJ-062/063】51凤楼（APP/WEB）｜项目群"
+    },
+    {
+     "date": "2026-07-27",
+     "tag": "bad",
+     "text": "[鲍勃-PM-XHWJ-CN] 平时我们产品这边开需求评审会议是固定时间呢，还是临时组局。刚才我差点没赶上😂",
+     "src": 1407,
+     "src_sender": "鲍勃-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-27",
+     "tag": "good",
+     "text": "[鲍勃-PM-XHWJ-CN] 一般是提前组局，我也是第一次开🙈",
+     "src": 1409,
+     "src_sender": "鲍勃-PM-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-27",
+     "tag": "good",
+     "text": "[鲍勃-PM-XHWJ-CN] 下次如果要评审的话，提前给我说一声哟，我差点错过。 感谢",
+     "src": 1421,
+     "src_sender": "鲍勃-PM-XHWJ-CN"
+    }
+   ],
+   "20": [
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[豆腐-PL-XHWJ-TW] 哈喽，麻烦你一下哟～ dajia5444@gmail.com 我的工作邮箱发下来了，麻烦通过下jira",
+     "src": 2102,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[豆腐-PL-XHWJ-TW] 通过了，同步下我哦，谢谢",
+     "src": 2115,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[豆腐-PL-XHWJ-TW] ok了！ dajia5444@gmail.com 处理完毕, 旧mail我排除了",
+     "src": 2119,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[豆腐-PL-XHWJ-TW] 哈喽哈喽，目前我这边了解到的信息是一共有6位产品经理。 豆腐、小宜、波林、大藜、鲍勃、红雨 我有以下疑问，麻烦解答 1、平时产品主要工作还是需求设计，出对应的原型设计方案。组织需求评审及过程中的需求答疑，以及上线前的需求验收。对吗？ 2、对应的产品会议有哪些呢？比如需求评审、设计",
+     "src": 1509,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "bad",
+     "text": "[豆腐-PL-XHWJ-TW] 豆腐是我, 目前负责产品经理算是组长. 那职称是产品负责人 小宜跟波林的话是台湾这边的伙伴, 算是比较资深的两人 大藜 鲍勃 都是七月刚入职的新远程伙伴 红雨 已经离职了. 他刚入职当天觉得不适应就离去了. 还有位新人「卡门」昨天入职. 正在做七天试岗. 没问题才会正式加入团队.",
+     "src": 1563,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[豆腐-PL-XHWJ-TW] 平常主要的工作. 就两大项：「既有产品的需求迭代」与「新产品的立项调研需求」 a. 既有产品的需求迭代: 已经上线的产品. 运营伙伴会丢过来各种需求. 产品经理这边负责判断需求是否为真, 是否描述详细. 没有的话每个项目都有负责PM 会去追提案人. 把需求清楚. 后面就是有需要设",
+     "src": 1564,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "bad",
+     "text": "[豆腐-PL-XHWJ-TW] 1. [ 产品需求确认 ] : 产品需求, 基本上收到需求后. 都会跟运营拉会确认. 内容 2. [ 产品技术评审 ] : 确认后可执行的需求需要原型. 就会开力技术评审会议. 招 UI / 前后端 / 运营 . 开原型的技术评审会议. 没问题后 就会把原型需求 交付给 UI. ",
+     "src": 1565,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[豆腐-PL-XHWJ-TW] Ok，感谢！非常详尽。。 如果有技术评审会议什么的，麻烦邀请我参加下",
+     "src": 1570,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-27",
+     "tag": "bad",
+     "text": "[豆腐-PL-XHWJ-TW] 好的 没问题 给我 mail 地址我开给权限",
+     "src": 1412,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-27",
+     "tag": "delivery",
+     "text": "[豆腐-PL-XHWJ-TW] ok 目前主要就是jira 需要权限, 其他的话没有的",
+     "src": 1423,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-27",
+     "tag": "delivery",
+     "text": "[豆腐-PL-XHWJ-TW] ok 完成了的 用 cdsniper829@gmail.com, 就都可见了的",
+     "src": 1426,
+     "src_sender": "豆腐-PL-XHWJ-TW"
+    }
+   ],
+   "12": [
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[飞策-QA-XHWJ-CN] 这两天都在面，也有一面通过的",
+     "src": 2068,
+     "src_sender": "飞策-QA-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[飞策-QA-XHWJ-CN] 后端新增标签筛选功能，支持按标签进行筛选与管理DX-119 抖阴（WEB） 这个上线了吗？",
+     "src": 2465,
+     "src_sender": "飞策-QA-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[飞策-QA-XHWJ-CN] 今天应该上线的",
+     "src": 2467,
+     "src_sender": "飞策-QA-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[【XHWJ-001】茶馆（WEB）｜项目群] 应该是提测时间，后面的测试还得着飞策单独整体回归下。 不过他没在群里，能加他进来吗？",
+     "src": 403,
+     "src_sender": "【XHWJ-001】茶馆（WEB）｜项目群"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[【DX-119】抖阴（WEB）｜项目群] @Tw13711 该需求已提测，测试时间变更，请知悉 测试+Bug回归 开始时间：7/28 完成时间：7/30 工作人员：飞策",
+     "src": 1475,
+     "src_sender": "【DX-119】抖阴（WEB）｜项目群"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[飞策-QA-XHWJ-CN] 测试中任务： 1、DX-119 抖阴 web（展示逻辑修改） 提测时间：7/28，测试时间：7/28-7/30 2、H265升级（所有项目升级） 提测时间：持续，测试时间：持续 开发中项目： 1、DX-064 51青楼 后台优化迭代（纯后端，无需原型/UI） 提测时间：7/30，",
+     "src": 1535,
+     "src_sender": "飞策-QA-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[飞策-QA-XHWJ-CN] ok,我根据你的去整理下这13个需求的归属项目及排期。这样就能更快的了解团队情况了。感谢",
+     "src": 1536,
+     "src_sender": "飞策-QA-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "bad",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 等飞策验证好这个问题，就打包吧",
+     "src": 5994,
+     "src_sender": "【DX-055】茶馆（APP）｜项目群"
+    }
+   ],
+   "22": [
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[波林-PM-XHWJ-TW] 1、 0803上线 2、 0805上线 3、 0803上线 4、 0810上线 5、 0730上线 6、5、 0811上线 7、5、 0803上线 8、5、 0806上线 9、5、 0813上线 10、5、 暂时还未出排期 除了以上10条，还有我没统计到的需求吗？？",
+     "src": 2198,
+     "src_sender": "波林-PM-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[波林-PM-XHWJ-TW] 喔是的！因为前端CDN不支援webp。 如果现在要加的话，工期又会拉长，影响到今天上线",
+     "src": 1516,
+     "src_sender": "波林-PM-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[波林-PM-XHWJ-TW] 就是确认下，之后还会继续优化，目前只是为了上线，暂时用jpg",
+     "src": 1520,
+     "src_sender": "波林-PM-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[波林-PM-XHWJ-TW] 我看到dx-119目前有三个需求，分别是 1、展示逻辑修改 2、发布者ID=0 3、标签筛选 是要放在一个迭代上线吗？",
+     "src": 1604,
+     "src_sender": "波林-PM-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[波林-PM-XHWJ-TW] 那就是分三次，各自迭代上线",
+     "src": 1609,
+     "src_sender": "波林-PM-XHWJ-TW"
+    }
+   ],
+   "14": [
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[曜宝-PD-XHWJ-TW] 嗯，等产品时间，应该是ok的",
+     "src": 1831,
+     "src_sender": "曜宝-PD-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[曜宝-PD-XHWJ-TW] 平时我们这里出了设计稿以后，需要跟产品经理或者是运营同事核对设计是否满足需求吗？是通过会议方式？还是其他什么方式呢",
+     "src": 1524,
+     "src_sender": "曜宝-PD-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[曜宝-PD-XHWJ-TW] OK，好的，感谢！以后如果有交付的会议麻烦邀请我一下",
+     "src": 1540,
+     "src_sender": "曜宝-PD-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "bad",
+     "text": "[曜宝-PD-XHWJ-TW] 白檀 / 宫茉莉 / 科巴 这三位还没看到他们在做什么需求，也没在群里。你知道他们在做什么吗？",
+     "src": 1547,
+     "src_sender": "曜宝-PD-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "delivery",
+     "text": "[曜宝-PD-XHWJ-TW] 白檀 目前在DX-132 91吃瓜网迭代 宫茉莉 目前新產品有局APP UI 科巴 目前黑料頭條已交付 在處理運營平面需求gif以及51app落地頁",
+     "src": 1553,
+     "src_sender": "曜宝-PD-XHWJ-TW"
+    }
+   ],
+   "4": [
+    {
+     "date": "2026-07-29",
+     "tag": "good",
+     "text": "[卡比-FE-XHWJ-CN] Ui那边需要提前到18点，目前就看产品那边的进度",
+     "src": 1832,
+     "src_sender": "卡比-FE-XHWJ-CN"
+    }
+   ],
+   "9": [
+    {
+     "date": "2026-07-31",
+     "tag": "delivery",
+     "text": "[【DX-119】抖阴（WEB）｜项目群] @qingqing0001111 @ding_2656 一样请两位哥哥确认排期有没有要调整唷！ ——————————————— 开发类型：同步管理员ID并与视频绑定 需求卡： 后端 开始时间：7/31 完成时间：7/31 工作人员：朔月 测试+Bug回归 开始时间：8/1 完成时",
+     "src": 2633,
+     "src_sender": "【DX-119】抖阴（WEB）｜项目群"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[朔月-BE-XHWJ-CN] 后端 开始时间：7/28 完成时间：7/28 工作人员：朔月 测试+Bug回归 开始时间：7/29 完成时间：7/29 工作人员：飞策 验收 开始时间：7/30 完成时间：7/30 工作人员：波林、周子然、高睿",
+     "src": 1967,
+     "src_sender": "朔月-BE-XHWJ-CN"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[朔月-BE-XHWJ-CN] 这个前面没有提到支持输入搜索功能，测试环境验收不通过，但是不影响整体的排期",
+     "src": 1968,
+     "src_sender": "朔月-BE-XHWJ-CN"
+    }
+   ],
+   "10": [
+    {
+     "date": "2026-07-31",
+     "tag": "bad",
+     "text": "[【DX-999】51漫画（WEB）｜项目群] @jili1889 鹏程哥～中转页打不开的问题 赶紧救救他 着急😭😭😭",
+     "src": 4472,
+     "src_sender": "【DX-999】51漫画（WEB）｜项目群"
+    },
+    {
+     "date": "2026-07-31",
+     "tag": "risk",
+     "text": "[鹏程-BE-XHWJ-VN] dx999今天的中转页打不开，我看已经解决了。 但是下午又打不开了 是什么原因呢？",
+     "src": 2704,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-07-31",
+     "tag": "bad",
+     "text": "[鹏程-BE-XHWJ-VN] 这个流程 我看看梳理下，下次遇到这样的情况 尽量避免这样的问题",
+     "src": 2720,
+     "src_sender": "鹏程-BE-XHWJ-VN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[【DX-119】抖阴（WEB）｜项目群] 这个昨天测试验收的时候提出了需要修改一下，所以改了一下还在自测。展示逻辑我问问鹏程",
+     "src": 2077,
+     "src_sender": "【DX-119】抖阴（WEB）｜项目群"
+    }
+   ],
+   "21": [
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[小宜-PM-XHWJ-TW] 我看目前就一个需求排期，91吃瓜的新项目0816验收 黑料头条的还在设计吗？？",
+     "src": 2178,
+     "src_sender": "小宜-PM-XHWJ-TW"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[小宜-PM-XHWJ-TW] ok,麻烦之后要需求评审的时候告知我一下，我也参加下",
+     "src": 2190,
+     "src_sender": "小宜-PM-XHWJ-TW"
+    }
+   ],
+   "1": [
+    {
+     "date": "2026-07-31",
+     "tag": "risk",
+     "text": "[文龙-TL-XHWJ-CN] DX999解析出来的直链打不开，是因为什么呢？了解下",
+     "src": 2707,
+     "src_sender": "文龙-TL-XHWJ-CN"
+    }
+   ]
+  },
+  "ops": {
+   "2": [
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[秋野-OL-XHWJ-VN] 嗯，统计优化...0803上线。 滴滴项目完全没启动 你看我的统计有出入吗？",
+     "src": 2379,
+     "src_sender": "秋野-OL-XHWJ-VN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[秋野-OL-XHWJ-VN] OK，那有进度更新啥的，我到时候跟你同步。",
+     "src": 2400,
+     "src_sender": "秋野-OL-XHWJ-VN"
+    },
+    {
+     "date": "2026-07-27",
+     "tag": "delivery",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 验收 开始时间：7月27日 完成时间：7月27日 工作人员：大藜、周肥，秋野",
+     "src": 5971,
+     "src_sender": "【DX-055】茶馆（APP）｜项目群"
+    }
+   ],
+   "6": [
+    {
+     "date": "2026-07-27",
+     "tag": "delivery",
+     "text": "[【DX-055】茶馆（APP）｜项目群] 验收 开始时间：7月27日 完成时间：7月27日 工作人员：大藜、周肥，秋野",
+     "src": 5971,
+     "src_sender": "【DX-055】茶馆（APP）｜项目群"
+    }
+   ],
+   "19": [
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[郭立青-TY-KH] 目前看是周子然，待确认。等上线后确认",
+     "src": 1678,
+     "src_sender": "郭立青-TY-KH"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "bad",
+     "text": "[周子然-OM-XHWJ-VN] 完全没问题，把我当成你们项目上的人就行。😀",
+     "src": 1705,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[周子然-OM-XHWJ-VN] 不是的 上线有一段时间了",
+     "src": 1716,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "bad",
+     "text": "[周子然-OM-XHWJ-VN] 哈喽，我想了解下 前端组人员清单里有一个“风间”，这位同事我在群里没看到呢",
+     "src": 1546,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    },
+    {
+     "date": "2026-07-28",
+     "tag": "bad",
+     "text": "[周子然-OM-XHWJ-VN] 有他的tg吗？我在群聊里都没看到，目前正在梳理每个人的需求内容",
+     "src": 1559,
+     "src_sender": "周子然-OM-XHWJ-VN"
+    }
+   ],
+   "21": [
+    {
+     "date": "2026-07-29",
+     "tag": "delivery",
+     "text": "[郭立青-TY-KH] 目前看是周子然，待确认。等上线后确认",
+     "src": 1678,
+     "src_sender": "郭立青-TY-KH"
+    }
+   ],
+   "34": [
+    {
+     "date": "2026-07-30",
+     "tag": "good",
+     "text": "[【DX-069】91Hub（WEB）｜项目群] @ding_2656 飞葛格～～跟你确认一下，由于这个需求，飞雨葛格已经如期今天完成了。 由于不是很大的功能，因此 @anjing1212 安靖葛格跟我在讨论有没有可能提前测试 🥹 你这边评估有可能吗～～？？",
+     "src": 5889,
+     "src_sender": "【DX-069】91Hub（WEB）｜项目群"
+    }
+   ],
+   "9": [
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[林笑尘-OL-XHWJ-VN] OK，我等会给拆分一下。 主要分不清。。群都是一个😂",
+     "src": 2409,
+     "src_sender": "林笑尘-OL-XHWJ-VN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[林笑尘-OL-XHWJ-VN] 明天应该有验收",
+     "src": 2430,
+     "src_sender": "林笑尘-OL-XHWJ-VN"
+    },
+    {
+     "date": "2026-07-30",
+     "tag": "delivery",
+     "text": "[林笑尘-OL-XHWJ-VN] 嗯呢 今天我看飞策在测试了 明天我们验收",
+     "src": 2433,
+     "src_sender": "林笑尘-OL-XHWJ-VN"
+    }
+   ],
+   "43": [
+    {
+     "date": "2026-07-31",
+     "tag": "delivery",
+     "text": "[【TJ-062/063】51凤楼（APP/WEB] 验收 开始时间：2026-08-07 完成时间：2026-08-08 工作人员：鲍勃、史强",
+     "src": 8276,
+     "src_sender": "【TJ-062/063】51凤楼（APP/WEB）｜项目群"
+    }
+   ]
+  }
+ }
+}
