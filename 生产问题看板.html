@@ -83,6 +83,8 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
 }
+.no-badge { display:inline-block; padding:2px 10px; border-radius:6px; font-size:11px; font-weight:700; letter-spacing:.04em; color:#fff; background:linear-gradient(135deg,#6366f1,#8b5cf6); box-shadow:0 1px 4px rgba(99,102,241,.35); }
+.no-badge.closed { background:linear-gradient(135deg,#94a3b8,#cbd5e1); text-decoration:line-through; }
 </style>
 </head>
 <body>
@@ -104,7 +106,7 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   <div class="hero-top">
     <div>
       <h1><span class="mark"></span>生产问题看板</h1>
-      <div class="sub">最后更新 · 北京时间 2026-08-01 17:08 ｜ 按最后活跃时间倒序排列</div>
+      <div class="sub">最后更新 · 北京时间 2026-08-01 17:17 ｜ 按首报时间编号（问题0001最早）</div>
     </div>
     <div class="nums" style="color:var(--ink-3);font-size:12px;background:var(--surface);border:1px solid var(--line);padding:5px 14px;border-radius:999px;">18 个问题</div>
   </div>
@@ -119,231 +121,12 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
 </div>
 
 <section class="group" data-group="全部">
-<header class="group-head"><div class="group-title"><span class="group-icon" style="background:#6366f1">🕐</span><span class="group-name">全部问题 · 按最后活跃时间倒序</span><span class="group-count">18</span></div><span class="group-hint">点击卡片查看完整处理过程 →</span></header>
+<header class="group-head"><div class="group-title"><span class="group-icon" style="background:#6366f1">🔢</span><span class="group-name">全部问题 · 按首报时间编号</span><span class="group-count">18</span></div><span class="group-hint">点击卡片查看完整处理过程 →</span></header>
 <div class="grid">
-<article class="issue-card" data-id="p1">
+<article class="issue-card" data-id="no-0001" data-no="0001">
   <div class="card-summary" onclick="toggleCard(this)">
     <div class="card-tags">
-      <span class="tag proj">DX-069</span>
-      <span class="tag sev" style="background:#f97316">高</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">标签页404/移动端不适配/访问异常（宕机）</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 08-01 10:36</span><span class="dot-sep">·</span>
-      <span>上报 安靖--OL-XHWJ-MY</span><span class="dot-sep">·</span>
-      <span>18 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">91Hub 标签页全部404、个人中心图标不显示/留言档案错位、movie 页移动端不适配；14:37-15:02 又出现整站打不开（宕机）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 10:36</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">@jili1889 正式服上 又没了</div></div></div><div class="t-row"><div class="t-time">08-01 10:41</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://91hubw.com/av/ 点击标签404</div></div></div><div class="t-row"><div class="t-time">08-01 10:42</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">所有的标签都用不了了</div></div></div><div class="t-row"><div class="t-time">08-01 11:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://91hubw.com/video/user/profile 这里的两个图标不显示了 帮忙看看</div></div></div><div class="t-row"><div class="t-time">08-01 11:36</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">留言和档案错位了 @jili1889</div></div></div><div class="t-row"><div class="t-time">08-01 12:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个问题好了</div></div></div><div class="t-row"><div class="t-time">08-01 12:29</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://91hubw.com/movie/ 这个页面移动端不适配了 标签能匹配出来资源很少 有的还是404</div></div></div><div class="t-row"><div class="t-time">08-01 12:41</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">帮忙追溯一下问题来源吧 近期也没做这方面的需求 @blockingb935 文龙老师</div></div></div><div class="t-row"><div class="t-time">08-01 13:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">鹏程先跟一下，需要查线上日志的，联系运维处理一下，有结果了随时群里反馈</div></div></div><div class="t-row"><div class="t-time">08-01 13:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">好的 问题我在看，和redis 优化部分 一起处理</div></div></div><div class="t-row"><div class="t-time">08-01 14:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">江贺森OP-XHWJ- CN</span><span class="t-channel"></span></div><div class="t-text">https://91hubw.com/（打不开）</div></div></div><div class="t-row"><div class="t-time">08-01 15:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">现在 好了看一下</div></div></div><div class="t-row"><div class="t-time">08-01 15:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">江贺森OP-XHWJ- CN</span><span class="t-channel"></span></div><div class="t-text">好了</div></div></div><div class="t-row"><div class="t-time">08-01 15:03</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">因为什么原因宕机的啊</div></div></div><div class="t-row"><div class="t-time">08-01 15:05</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">不是网络波动 直接就打不开了</div></div></div><div class="t-row"><div class="t-time">08-01 15:05</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那我找运维 确定下</div></div></div><div class="t-row"><div class="t-time">08-01 16:54</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel">【DX-069】91Hub（WEB）｜项目群</span></div><div class="t-text">中转页打不开了 @jili1889</div></div></div><div class="t-row"><div class="t-time">08-01 16:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel">【DX-069】91Hub（WEB）｜项目群</span></div><div class="t-text">域名发一下</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">鹏程跟进（与 redis 优化一并处理）；标签404 12:11 修复；宕机 15:02 恢复访问，需查线上日志确认根因（文龙牵头）</div></div><div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">标签404/适配已部分修复，15:02 恢复；16:54 中转页 91hubx.com 又打不开，鹏程索要域名排查中</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">91Hub 当日多次页面异常（标签404/移动端不适配/短时宕机），影响用户访问与运营推广；疑似与缓存/redis 相关，需根治</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">文龙已安排查线上日志，建议确认根因后统一修复并对移动端做回归</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p2">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-055</span>
-      <span class="tag sev" style="background:#f59e0b">中</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">茶女郎茶贴视频切片很难成功（资源断更风险）</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 08-01 16:55</span><span class="dot-sep">·</span>
-      <span>上报 吴天北-OP-XHWJ-VN</span><span class="dot-sep">·</span>
-      <span>1 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">茶馆APP 用户发布的视频（茶女郎茶贴内）切片很难成功，切很久仍处于切片中/失败；涉及报告带视频等新发内容</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 16:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">最近 用户发的一些视频 比如报告带带视频。茶女郎的茶贴里面的视频  感觉切片很难成功， 可以帮忙看一下原因吗</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">李瑞 17:00 索要后台域名排查切片链路</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">与 07-31 禁漫视频切片失败同源问题，疑为转码/切片服务并发或资源问题</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">排查切片服务队列与转码资源，确认是否与禁漫为同一切片服务</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p3">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-070</span>
-      <span class="tag sev" style="background:#f97316">高</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">后台保存失败/小说翻页重置/分享图Bug（附10:11访问异常）</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 08-01 10:11</span><span class="dot-sep">·</span>
-      <span>上报 高睿-OL-XHWJ- VN</span><span class="dot-sep">·</span>
-      <span>13 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">禁漫天堂 后台修改小说章节保存不了、小说翻页重置、视频分享图Bug；另含 10:11 网站打不开（转新域名后恢复）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 10:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @blockingb935 这个还是不行，禁慢天堂</div></div></div><div class="t-row"><div class="t-time">08-01 10:40</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@jili1889 禁漫天堂 后台，修改小说章节 点击确认保存不了</div></div></div><div class="t-row"><div class="t-time">08-01 10:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">小说切黑屏之后 没翻一页都会被重置 ，用户反馈体验不好</div></div></div><div class="t-row"><div class="t-time">08-01 10:57</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">好的 我处理一下</div></div></div><div class="t-row"><div class="t-time">08-01 11:09</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">https://18mh.net/mv/detail/66148 @jili1889 这个视频分享的图片 bug 还未修复</div></div></div><div class="t-row"><div class="t-time">08-01 11:27</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个分享图片 bug 和 后台 保存的bug 一起修复上线吗</div></div></div><div class="t-row"><div class="t-time">08-01 11:30</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">一起吧</div></div></div><div class="t-row"><div class="t-time">08-01 11:33</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个问题 在测试环境 没有定位到，不是很好处理，做了一部分优化，不知道能不能解决线上的问题。提前告知风险</div></div></div><div class="t-row"><div class="t-time">08-01 11:50</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个翻页的 bug 可以一起修复一下吧 下午的时候 一起在验收一下</div></div></div><div class="t-row"><div class="t-time">08-01 13:43</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">测试环境 修复了</div></div></div><div class="t-row"><div class="t-time">08-01 15:12</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">可以了 bug 先修复上线吧 @jili1889 @ding_2656</div></div></div><div class="t-row"><div class="t-time">08-01 16:45</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel">【DX-070】禁漫天堂（WEB）｜项目群</span></div><div class="t-text">这个 服务器配置的 问题</div></div></div><div class="t-row"><div class="t-time">08-01 16:45</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel">【DX-070】禁漫天堂（WEB）｜项目群</span></div><div class="t-text">这个分享图片的 功能 在线上好像不行</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">鹏程将后台保存、翻页重置、分享图Bug 一并修复；11:33 说明测试环境未完全定位、做优化+日志兜底；13:43 测试环境修复</div></div><div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">后台保存/翻页已修复；分享图 16:45 线上仍报不行，鹏程定位为服务器配置问题，处理中</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">多个前台/后台 bug 集中出现且测试环境复现困难（靠日志兜底），提示测试覆盖不足</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">修复已安排上线，建议对该批 bug 追加回归用例；10:11 访问异常随转域名已恢复</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p4">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-055</span>
-      <span class="tag sev" style="background:#f59e0b">中</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">点击&quot;无限阅帖&quot;提示元宝不足（余额足够）</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 08-01 15:39</span><span class="dot-sep">·</span>
-      <span>上报 吴天北-OP-XHWJ-VN</span><span class="dot-sep">·</span>
-      <span>9 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">茶馆APP 用户元宝余额足够，但点击&quot;无限阅帖&quot;提示元宝不足；入口：我的 → 昵称下方&quot;无限阅帖&quot;</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 15:39</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">看下 元宝是够的 但是 点击无限阅帖 显示元宝不足</div></div></div><div class="t-row"><div class="t-time">08-01 15:42</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">操作流程描述一下，主要是入口在哪 @tianbei001</div></div></div><div class="t-row"><div class="t-time">08-01 15:46</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">点击我的 点击 昵称下面的 无限阅帖</div></div></div><div class="t-row"><div class="t-time">08-01 16:16</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">那 aff 不一样是正常的吧，像是另外的用户 id 之类的？</div></div></div><div class="t-row"><div class="t-time">08-01 16:20</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">不用登录的aff 那怎么能查到元宝数量?</div></div></div><div class="t-row"><div class="t-time">08-01 16:20</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">这里逻辑是不是有问题,你传的是 游客的aff</div></div></div><div class="t-row"><div class="t-time">08-01 16:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">传的 aff 也是接口返回</div></div></div><div class="t-row"><div class="t-time">08-01 16:25</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">现在的问题是,游客也会有aff ,但是当我登录后,应该传新的登录后的账号的aff 过去</div></div></div><div class="t-row"><div class="t-time">08-01 16:28</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">你意思是登录后没有刷新 aff？传的是没登录时游客的 aff？</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">天辰(前端)按复现路径排查&quot;无限阅帖&quot;的元宝余额校验逻辑</div></div><div class="detail-section"><div class="detail-label">根因</div><div class="detail-body">前端登录后未刷新 aff，无限阅帖仍传游客 aff 查元宝数量 → 误判元宝不足（李瑞定位，天辰16:37确认前端bug）</div></div><div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">前端已定位 bug（登录后 aff 未刷新），临时方案：pwa 刷新/App 杀掉重启可缓解；正式修复排期中</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">余额足够却提示不足，疑余额校验取错口径（可用余额 vs 冻结余额），影响付费功能使用</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">前后端核对无限阅帖扣费与余额判断逻辑；跟进是否与 07-30 元宝来源问题同源</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p5">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">TJ-062/063</span>
-      <span class="tag sev" style="background:#f59e0b">中</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">web站帖子详情右侧推荐帖子封面不展示</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 08-01 15:37</span><span class="dot-sep">·</span>
-      <span>上报 鲍勃-PM-XHWJ-CN</span><span class="dot-sep">·</span>
-      <span>4 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">51凤楼 web站 帖子详情页右侧&quot;推荐帖子&quot;封面全都不展示，点击推荐帖子进入详情后图片可正常展示；后端返回的图片链接打不开（阿秋反馈）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 15:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@qingqing0001111 https://pic.vslaqe.cn/upload_01/head/20250712/2025071221185769442.jpg 阿秋反馈 这个后端返回的图片打不开 朔月老师麻烦看下</div></div></div><div class="t-row"><div class="t-time">08-01 15:50</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朔月-BE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">管理端能看一下图片能不能展示出来吗？</div></div></div><div class="t-row"><div class="t-time">08-01 15:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">是这样，web站的外围帖子详情内，右侧的推荐帖子封面全都不展示，但是点击推荐帖子进入详情，图片可以展示</div></div></div><div class="t-row"><div class="t-time">08-01 16:20</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel">【TJ-062/063】51凤楼（APP/WEB）｜项目群</span></div><div class="t-text">管理后台能搜到对应帖子，能展示图片</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">朔月(后端)排查图片链接返回逻辑与封面展示；需确认管理端与 web 端图片展示差异</div></div><div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">管理后台可搜到帖子且图片可展示（鲍勃16:20确认），问题在 web 前台展示链路，处理中</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">web 站推荐位封面不展示影响内容浏览体验；后端返回图片链接打不开疑与图片域名/防盗链配置相关</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">后端确认图片链接返回与图片域名访问；测试回归 web 推荐位封面展示</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p6">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">TJ-062/063</span>
-      <span class="tag sev" style="background:#f97316">高</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">后台/APP无法访问（部分华为/OPPO用户仍进不去）</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 08-01 10:05</span><span class="dot-sep">·</span>
-      <span>上报 林笑尘-OL-XHWJ-VN</span><span class="dot-sep">·</span>
-      <span>10 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">51凤楼 后台与APP无法访问；APP部分恢复，仍有华为/OPPO及部分网络（广州/湖南/香港卡）用户无法进入</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 10:05</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">林笑尘-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@lirui0930 老哥 后台和app又进不去了 帮忙处理下呢</div></div></div><div class="t-row"><div class="t-time">08-01 10:13</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@linxiaochenYY0386 再试一下?</div></div></div><div class="t-row"><div class="t-time">08-01 10:19</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">林笑尘-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">app 可以进去了 后台还是不行</div></div></div><div class="t-row"><div class="t-time">08-01 10:19</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">树根-OP-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">按登入之后出现这个黑块 进不去</div></div></div><div class="t-row"><div class="t-time">08-01 10:27</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">林笑尘-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">一部分OPPO和华为的手机 app还是进不去 反馈的用户网络有广州 湖南 还有使用香港卡的</div></div></div><div class="t-row"><div class="t-time">08-01 10:42</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@linxiaochenYY0386 那就安排一下更好接口域名吧</div></div></div><div class="t-row"><div class="t-time">08-01 11:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">之前其他项目都是测试提供域名的 之前都老胡他们给我的</div></div></div><div class="t-row"><div class="t-time">08-01 15:12</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@qingqing0001111 老师 大概几点能发布到线上</div></div></div><div class="t-row"><div class="t-time">08-01 15:13</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朔月-BE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">已经发了，忘了阿秋不在群里</div></div></div><div class="t-row"><div class="t-time">08-01 15:16</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">林笑尘-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">直连中转那里好没变化呢</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">李瑞(后端)排查接口/域名；APP 10:19 恢复，后台仍异常；计划更换更优接口域名（11:02 李瑞），15:13 已发布线上版本</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">访问故障影响运营后台操作与用户访问，机型/网络差异导致部分用户持续受影响，需根因定位（域名/线路）</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">建议明确&quot;接口域名&quot;更换责任人并尽快落地；直连中转未闭环需持续跟进</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p7">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-119</span>
-      <span class="tag sev" style="background:#f59e0b">中</span>
-      <span class="tag status" style="background:#22c55e">已修复</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">发布者ID显示为0/分类置顶展示异常</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 08-01 10:28</span><span class="dot-sep">·</span>
-      <span>上报 高睿-OL-XHWJ- VN</span><span class="dot-sep">·</span>
-      <span>7 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">抖阴 新上传视频发布者ID仍全部显示0；分类置顶展示异常（排在前面的是第二三名/新加内容刷不出来）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 10:28</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">抖音新上传的视频发布者ID，还是全都显示0，什么时候可以弄好呢，老哥</div></div></div><div class="t-row"><div class="t-time">08-01 10:29</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个着急 拆出来 可以单独上。 / 有的（历史数据统计已做）</div></div></div><div class="t-row"><div class="t-time">08-01 10:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">排在前面的是第二第三名</div></div></div><div class="t-row"><div class="t-time">08-01 11:06</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">根因：跨分类抢位（sort_logic=0/1/2 模块走全站置顶池，分类置顶被提前占位）</div></div></div><div class="t-row"><div class="t-time">08-01 11:10</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">那就这个吧</div></div></div><div class="t-row"><div class="t-time">08-01 11:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那再 整体验收一下，如果没问题就 发版了</div></div></div><div class="t-row"><div class="t-time">08-01 11:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">可以了</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">鹏程定位根因=跨分类抢位（全站置顶池提前占位）；测试服数据不足致展示不满、正式服数据正常；修复合并至新版本并拆出单独上线</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">发布者ID显示0 涉及历史数据统计+新版本合并修复；分类置顶展示根因已定位并修复</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">已闭环；建议正式服回归置顶展示</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p8">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-062</span>
-      <span class="tag sev" style="background:#f59e0b">中</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">个人中心&quot;稍后观看/影片收藏&quot;封面加载不出来</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 08-01 11:37</span><span class="dot-sep">·</span>
-      <span>上报 陈洛-OP-XHWJ-CN</span><span class="dot-sep">·</span>
-      <span>1 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">KISSAV 个人中心&quot;稍后观看&quot;和&quot;影片收藏&quot;视频封面全部加载不出来，仅显示标题和时长</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 11:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">陈洛-OP-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">kissav个人中心的&quot;稍后观看&quot;和&quot;影片收藏&quot;有问题，视频封面全部加载不出来，只显示标题和时长。麻烦前端帮忙检查一下封面图片的显示和地址处理。</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">已上报待前端排查封面图片显示与地址处理</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">封面加载失败影响个人中心功能体验，建议前端核查图片地址/防盗链配置</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">前端尽快排查；运营侧确认是否影响核心观看路径</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p9">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-069</span>
-      <span class="tag sev" style="background:#f59e0b">中</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">更新后测试服与线上不一致</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 07-30 10:28</span><span class="dot-sep">·</span>
-      <span>上报 厉飞雨 -BE- XHWJ - VN</span><span class="dot-sep">·</span>
-      <span>37 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">更新后测试服与线上不一致</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 10:28</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">厉飞雨 -BE- XHWJ - VN</span><span class="t-channel"></span></div><div class="t-text">@ding_2656 这个需求更新到测试环境了</div></div></div><div class="t-row"><div class="t-time">07-30 11:32</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朱加贝-TY-CN</span><span class="t-channel"></span></div><div class="t-text">https://7pnyxn.axshare.com/?id=wju7b8&amp;p=%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%83&amp;g=1&amp;sc=3<br>51嗨聊 31号迭代版本 需求文档内容 跟 无极群里对应负责人描述的不一致，我们督导同学是哪位，麻烦看下哈</div></div></div><div class="t-row"><div class="t-time">07-30 11:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朱加贝-TY-CN</span><span class="t-channel"></span></div><div class="t-text">不悔大佬，按我的理解 一次需求迭代应该对应一份prd文档，文档中可以附带其他链接，他这一个更新丢4个文档上来（有的7月初、有的7月中旬），这对于我们去找31号更新内容，也是一个挑战奥😂</div></div></div><div class="t-row"><div class="t-time">07-30 11:59</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">不悔-TY-CN</span><span class="t-channel"></span></div><div class="t-text">回到这个需求哈，这是个前后端联动的需求。运营人员在后台配置更新和落地页相关配置，会直接推送到App端。</div></div></div><div class="t-row"><div class="t-time">07-30 12:01</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朱加贝-TY-CN</span><span class="t-channel"></span></div><div class="t-text">那就是落地页管理、版本管理的更新，不过无极群里李治国说的不太理解</div></div></div><div class="t-row"><div class="t-time">07-30 12:16</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@qingqing0001111 @ding_2656 <br>請幫忙確認一下排期時間是不是有更新唷！</div></div></div><div class="t-row"><div class="t-time">07-30 12:52</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">叶凡尘 -TY-VN</span><span class="t-channel"></span></div><div class="t-text">@zhangl_gx_cn @guoliqing0567 字段更新了,api中有这个迭代类型,可以看到是否新项目</div></div></div><div class="t-row"><div class="t-time">07-30 13:48</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">不是！<br><br>因为<br>标签，后端完成时间原定7/28<br>展示逻辑修改，后端完成时间原定7/27<br>发布者 ID 显示为 0的调整，后端完成时间原定7/31<br><br>那以现在的状况，感觉有些排期是不是已经没有在时间线上了？<br><br>因此请两位哥哥确认一下是不是有需要更新排期！</div></div></div><div class="t-row"><div class="t-time">07-30 14:30</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">今天測試發現今天早上更新上去的資源也還是搜尋不到<br>小說採集今天也沒有新的資源進去，最後一次採集時間是昨天下午三點半 能麻煩再幫我確認下嗎🥺</div></div></div><div class="t-row"><div class="t-time">07-30 15:19</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">早上更新上去的資源也還是搜尋不到 <br><br>这个指的 是手动更新吗 ？</div></div></div><div class="t-row"><div class="t-time">07-30 15:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">對的早上更新的資源搜尋不到<br><br>原來小說要自己手動按 我去試試 我以為跟漫畫那邊一樣會自動更新進去😵</div></div></div><div class="t-row"><div class="t-time">07-30 15:24</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">自动更新这个我确认下</div></div></div><div class="t-row"><div class="t-time">07-30 15:36</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">广告 已经到 测试服了，测试同学正在验收，稍等一下</div></div></div><div class="t-row"><div class="t-time">07-30 15:49</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">後台有看到小說更新了<br>所以他是會自動更新嗎 還是我需要去點擊什麼功能</div></div></div><div class="t-row"><div class="t-time">07-30 15:52</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">后期就不会出现这个问题了 ，每天都有更新</div></div></div><div class="t-row"><div class="t-time">07-30 16:01</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">漫畫今天也沒有自動更新 不知道是不是你剛剛說的小說一樣的問題 所以我沒去測試</div></div></div><div class="t-row"><div class="t-time">07-30 18:06</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">你可以把数据导出来,在本地进行处理 ,线上肯定要限制 导出的量</div></div></div><div class="t-row"><div class="t-time">07-30 19:54</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">叶凡尘 -TY-VN</span><span class="t-channel"></span></div><div class="t-text">明天注意一下线上会议室，谢星冉找我要链接了刚才</div></div></div><div class="t-row"><div class="t-time">07-30 20:18</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个测试服可以多同步一点数据吗，要不然后面验收测试服，数据太少了，不太好看</div></div></div><div class="t-row"><div class="t-time">07-30 20:38</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @qingqing0001111 测试服的数据能帮我们多弄一点吗</div></div></div><div class="t-row"><div class="t-time">07-30 20:48</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">飞策-QA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">那这里我补个线上反馈bug单吧，后面便于跟踪</div></div></div><div class="t-row"><div class="t-time">07-30 21:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">石头-TYZX-CN</span><span class="t-channel"></span></div><div class="t-text">OK，那有进度更新啥的，我到时候跟你同步。</div></div></div><div class="t-row"><div class="t-time">07-30 21:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@lirui0930 客服系统线上环境登录不上了，我看是这个接口console.51pc.me/Merchant/chat/getUserList 502 了</div></div></div><div class="t-row"><div class="t-time">07-30 22:01</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个发布到线上了 ,看一下   导出时间二选一  和 列表补用户名列</div></div></div><div class="t-row"><div class="t-time">07-30 22:43</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">石头-TYZX-CN</span><span class="t-channel"></span></div><div class="t-text">其他10个项目暂时没有更新的进展，非活跃，故没有体现</div></div></div><div class="t-row"><div class="t-time">07-31 10:27</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">这个排期资料已更新上表单！ 🫡</div></div></div><div class="t-row"><div class="t-time">07-31 11:18</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个之前说老视频要去同步数据ID才能更新，但是新上传的视频，怎么显示ID还是0呢</div></div></div><div class="t-row"><div class="t-time">07-31 11:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个ID上次说是可以了的，测试服没有远程发布端，没办法测试新上传的视频啊</div></div></div><div class="t-row"><div class="t-time">07-31 11:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">等我找龙哥 解决一下 这都是线上的， 没得权限。</div></div></div><div class="t-row"><div class="t-time">07-31 12:22</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个麻烦处理一下，老哥，昨天一天没有内容更新了，今天要是太晚处理的话，视频又来不及上传</div></div></div><div class="t-row"><div class="t-time">07-31 14:20</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">小說跟漫畫今天也沒有跑更新🫠</div></div></div><div class="t-row"><div class="t-time">07-31 15:40</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">测试服有这个问题吗 ？</div></div></div><div class="t-row"><div class="t-time">07-31 15:40</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">测试服没有这个问题</div></div></div><div class="t-row"><div class="t-time">07-31 15:41</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@blockingb935 龙老师，这边帮忙看看 ，更新后测试服 和线上不一样</div></div></div><div class="t-row"><div class="t-time">07-31 16:00</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">剛看小說有更新了～但漫畫還沒有</div></div></div><div class="t-row"><div class="t-time">07-31 16:15</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @ding_2656 <br><br>两位哥哥，还请协助帮忙确认一下排期是否有要更动修正：<br>—————————<br><br>项目开发排期表<br><br>项目名称：91成人导航<br>开发类型：精品APP接入广告中心<br>需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-203<br><br>后端<br>开始时间：7/29（260729更新）<br>完成时间：7/30（260729更新）<br>工作</div></div></div><div class="t-row"><div class="t-time">07-31 22:29</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">石头-TYZX-CN</span><span class="t-channel"></span></div><div class="t-text">dx-069 更新后测试服与线上不一致：业务影响=分享到社媒的链接丢失封面预览图，影响用户分享体验与站点流量导入；根因=后台配置项缺失/未生效，测试服因独立环境配置完整所以正常，正式服部署时配置未同步导致功能不渲染。后续改进：1、上线前配置核对清单 2、线上环境回归（石头 PMO 日报复盘）</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">需排查更新包部署是否一致、确认测试服务器与线上版本号同步</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">环境一致性是发布质量的基础，长期不解决会导致&quot;测试通过线上出问题&quot;的恶性循环</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">建议周子然拉一个 FE/BE 同学对齐部署流程，加入自动化测试验证</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p10">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-999</span>
-      <span class="tag sev" style="background:#ef4444">严重</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">中转页/网站打不开（51acg1.com）</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 07-31 10:47</span><span class="dot-sep">·</span>
-      <span>上报 安靖--OL-XHWJ-MY</span><span class="dot-sep">·</span>
-      <span>15 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">中转页/网站打不开（51acg1.com）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-31 10:47</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://51acg1.com/<br><br>@jili1889 打不开了</div></div></div><div class="t-row"><div class="t-time">07-31 12:07</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@jili1889  鹏程哥～中转页打不开的问题 赶紧救救他 着急😭😭😭</div></div></div><div class="t-row"><div class="t-time">07-31 12:25</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">https://staff.51acg1.com/admin/login/index 后台先用这个</div></div></div><div class="t-row"><div class="t-time">07-31 12:44</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">中转页面。看下 好了</div></div></div><div class="t-row"><div class="t-time">07-31 14:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">https://www.51acg1.com/</div></div></div><div class="t-row"><div class="t-time">07-31 18:46</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://hzrjjfae.cc<br>@jili1889<br><br>解析出来的直连 打不开</div></div></div><div class="t-row"><div class="t-time">07-31 18:52</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">這又打不開了 🫠</div></div></div><div class="t-row"><div class="t-time">07-31 19:15</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">可以打开了</div></div></div><div class="t-row"><div class="t-time">07-31 20:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">就是这个项目中转页解析出来的直连链接</div></div></div><div class="t-row"><div class="t-time">07-31 20:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">处理了，看一下</div></div></div><div class="t-row"><div class="t-time">07-31 20:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">能打开了</div></div></div><div class="t-row"><div class="t-time">07-31 21:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">dx999今天的中转页打不开，我看已经解决了。但是下午又打不开了 是什么原因呢？——域名过户阵痛，本月底正在移交服务器资源和域名</div></div></div><div class="t-row"><div class="t-time">07-31 22:08</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">就这个，因为早上我看中转页才修复过（直链链接 hzrjjfae.cc 又打不开）</div></div></div><div class="t-row"><div class="t-time">07-31 22:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">该直链域名在旧部门移交时未交接，DNS 解析记录被重置；已联系旧部门运维重新解析，晚上解析成功</div></div></div><div class="t-row"><div class="t-time">07-31 22:14</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">暂不接管该域名，先找运营主管确认是否需要；月底域名资源移交期间需持续观察</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">需后端运维介入检查 51acg1.com 域名解析 + 服务器健康状态</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">中转页 51acg1.com 是用户访问漫画内容的主入口，业务影响面大</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">🔴 紧急：建议优先排查域名状态，确认是否宕机或被 DDOS。同步通知运营侧临时提供 51acg2.com 备用入口</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p11">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
+      <span class="no-badge">问题0001</span>
       <span class="tag proj">DX-070</span>
       <span class="tag sev" style="background:#f97316">高</span>
       <span class="tag status" style="background:#ef4444">处理中</span>
@@ -360,144 +143,36 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   </div>
   <div class="card-detail">
     <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">视频发布端异常（资源断更）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 10:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @ding_2656 <br><br>再请协助确认需求与排期唷！<br>———————————————<br><br>项目开发排期表<br><br>项目名称：禁漫天堂<br>开发类型：网站seo 需求优化 260728<br>需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-206<br><br>产品需求（完成，不需原型不需UI）<br>登记时间：7/28<br>交付技术：7/28<br>工作人员：波林<br><br>前</div></div></div><div class="t-row"><div class="t-time">07-30 10:16</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">小班-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">大家的禁漫後台還可以登入嗎? 我這邊登入頁面直接消失了</div></div></div><div class="t-row"><div class="t-time">07-30 18:40</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">石头-TYZX-CN</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @ding_2656 <br><br>再请协助确认需求与排期唷！<br>———————————————<br><br>项目开发排期表<br><br>项目名称：禁漫天堂<br>开发类型：网站seo 需求优化 260728<br>需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-206<br><br>产品需求（完成，不需原型不需UI）<br>登记时间：7/28<br>交付技术：7/28<br>工作人员：波林<br><br>前</div></div></div><div class="t-row"><div class="t-time">07-31 10:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">视频发布端那边的问题 也要加快处理了 视频资源的断更了</div></div></div><div class="t-row"><div class="t-time">07-31 12:24</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">项目ID：dx-070<br>项目名称：禁漫天堂<br>环境：正式<br>git地址：ssh://git@bd-git-sh.jsyyds.com:8082/xinghewujie/dx-070-jmtt/backend/php/yaf.git<br>需求：发布端同步视频日志查看<br>備注： 以下需要执行的内容<br>-- 1. 卡在哪一环：0=从没发出去 1=发出去没回调 2=正常<br>SELECT slice_status, CO</div></div></div><div class="t-row"><div class="t-time">07-31 15:00</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">https://pubish_pnpm.ycomesc.live/<br>{<br> <br>    &quot;禁漫天堂&quot;: &quot;73eb7f0a&quot;,</div></div></div><div class="t-row"><div class="t-time">07-31 16:29</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @ding_2656 <br>再请两位哥哥确认一下排期有没有需要调整唷！<br><br>———————————————<br><br>项目开发排期表<br><br>项目名称：禁漫天堂<br>开发类型：网站seo 需求优化 260728<br>需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-206<br><br>后端<br>开始时间：7/31<br>完成时间：8/5<br>工作人员：鹏程<br><br>测试+Bug回归</div></div></div><div class="t-row"><div class="t-time">07-31 19:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@gaorui66 @zhouziran1919 禁漫天堂视频切片失败的问题已经跟悦达那边的同事协同处理完毕，再传一下试试效果，有问题反馈</div></div></div><div class="t-row"><div class="t-time">07-31 20:03</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">状态改了，之前是正在转码，现在是切片中</div></div></div><div class="t-row"><div class="t-time">07-31 20:04</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那就没阻塞了</div></div></div><div class="t-row"><div class="t-time">07-31 20:04</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">刚从新上传了一个，等一个小时看看</div></div></div><div class="t-row"><div class="t-time">07-31 20:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">又变成正在转码了，但是还是没有成功的</div></div></div><div class="t-row"><div class="t-time">07-31 20:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">我发你那个短的视频，有重新上传试试嘛</div></div></div><div class="t-row"><div class="t-time">07-31 20:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">有的</div></div></div><div class="t-row"><div class="t-time">07-31 20:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个8点就是你们说好了之后我上传测试的</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">需排查禁漫视频发布端上传/转码流程，确认是否人员权限缺失</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">资源断更直接影响业务（用户看不到新内容），运营侧感知强烈</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">建议运营侧每周对视频发布端做一次烟囱测试，提前发现发布故障</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 10:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @ding_2656 再请协助确认需求与排期唷！———————————————项目开发排期表项目名称：禁漫天堂开发类型：网站seo 需求优化 260728需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-206产品需求（完成，不需原型不需UI）登记时间：7/28交付技术：7/28工作人员：波林前</div></div></div><div class="t-row"><div class="t-time">07-30 10:16</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">小班-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">大家的禁漫後台還可以登入嗎? 我這邊登入頁面直接消失了</div></div></div><div class="t-row"><div class="t-time">07-30 18:40</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">石头-TYZX-CN</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @ding_2656 再请协助确认需求与排期唷！———————————————项目开发排期表项目名称：禁漫天堂开发类型：网站seo 需求优化 260728需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-206产品需求（完成，不需原型不需UI）登记时间：7/28交付技术：7/28工作人员：波林前</div></div></div><div class="t-row"><div class="t-time">07-31 10:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">视频发布端那边的问题 也要加快处理了 视频资源的断更了</div></div></div><div class="t-row"><div class="t-time">07-31 12:24</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">项目ID：dx-070项目名称：禁漫天堂环境：正式git地址：ssh://git@bd-git-sh.jsyyds.com:8082/xinghewujie/dx-070-jmtt/backend/php/yaf.git需求：发布端同步视频日志查看備注： 以下需要执行的内容-- 1. 卡在哪一环：0=从没发出去 1=发出去没回调 2=正常SELECT slice_status, CO</div></div></div><div class="t-row"><div class="t-time">07-31 15:00</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">https://pubish_pnpm.ycomesc.live/{     &amp;quot;禁漫天堂&amp;quot;: &amp;quot;73eb7f0a&amp;quot;,</div></div></div><div class="t-row"><div class="t-time">07-31 16:29</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @ding_2656 再请两位哥哥确认一下排期有没有需要调整唷！———————————————项目开发排期表项目名称：禁漫天堂开发类型：网站seo 需求优化 260728需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-206后端开始时间：7/31完成时间：8/5工作人员：鹏程测试+Bug回归</div></div></div><div class="t-row"><div class="t-time">07-31 19:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@gaorui66 @zhouziran1919 禁漫天堂视频切片失败的问题已经跟悦达那边的同事协同处理完毕，再传一下试试效果，有问题反馈</div></div></div><div class="t-row"><div class="t-time">07-31 20:03</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">状态改了，之前是正在转码，现在是切片中</div></div></div><div class="t-row"><div class="t-time">07-31 20:04</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那就没阻塞了</div></div></div><div class="t-row"><div class="t-time">07-31 20:04</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">刚从新上传了一个，等一个小时看看</div></div></div><div class="t-row"><div class="t-time">07-31 20:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">又变成正在转码了，但是还是没有成功的</div></div></div><div class="t-row"><div class="t-time">07-31 20:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">我发你那个短的视频，有重新上传试试嘛</div></div></div><div class="t-row"><div class="t-time">07-31 20:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">有的</div></div></div><div class="t-row"><div class="t-time">07-31 20:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个8点就是你们说好了之后我上传测试的</div></div></div></div></div>
   </div>
 </article>
-<article class="issue-card" data-id="p12">
+<article class="issue-card" data-id="no-0002" data-no="0002">
   <div class="card-summary" onclick="toggleCard(this)">
     <div class="card-tags">
-      <span class="tag proj">DX-055</span>
-      <span class="tag sev" style="background:#f97316">高</span>
+      <span class="no-badge">问题0002</span>
+      <span class="tag proj">DX-069</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
       <span class="tag status" style="background:#ef4444">处理中</span>
     </div>
     <div class="card-title-row">
-      <h3 class="card-title">支付宝充值报错（微信正常）</h3>
+      <h3 class="card-title">更新后测试服与线上不一致</h3>
       <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
     </div>
     <div class="card-meta">
-      <span>首报 07-30 20:21</span><span class="dot-sep">·</span>
-      <span>上报 风渊-OP-XHWJ-KH</span><span class="dot-sep">·</span>
-      <span>8 条沟通</span>
+      <span>首报 07-30 10:28</span><span class="dot-sep">·</span>
+      <span>上报 厉飞雨 -BE- XHWJ - VN</span><span class="dot-sep">·</span>
+      <span>37 条沟通</span>
     </div>
   </div>
   <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">支付宝充值报错（微信正常）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 20:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">风渊-OP-XHWJ-KH</span><span class="t-channel"></span></div><div class="t-text">@ding_2656 麻烦帮忙看看<br>1000的充值通道好像有问题，支付宝和微信都拉不出订单，要么下单超时要么下单失败</div></div></div><div class="t-row"><div class="t-time">07-30 20:25</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">飞策-QA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">使用支付宝充值报错了，微信可以正常使用</div></div></div><div class="t-row"><div class="t-time">07-30 20:33</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">我这边下单正常的 , 你要换一个账号在测试 ,因为你下单了 选择微信, 但是你没有真的支付 ,再用同一个账号,选择支付宝  ,就会创建失败</div></div></div><div class="t-row"><div class="t-time">07-30 20:33</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">我这边微信和支付宝都可以打开 ,用两个账号分别测试</div></div></div><div class="t-row"><div class="t-time">07-30 20:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">飞策-QA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">重新注册了个新号，使用支付宝方式一样的结果</div></div></div><div class="t-row"><div class="t-time">07-30 20:41</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">风渊-OP-XHWJ-KH</span><span class="t-channel"></span></div><div class="t-text">这个是100嘛，其他金额正常，就1000，支付宝显示创建订单失败，微信显示下单超时，我这边是这样😅</div></div></div><div class="t-row"><div class="t-time">07-30 20:54</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">飞策-QA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">https://pm.jsyyds.com/index.php?m=bug&amp;f=view&amp;bugID=39146</div></div></div><div class="t-row"><div class="t-time">07-30 22:31</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">老哥，目前支付宝最大上限到500，微信最大上限2000</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">需要后端排查支付宝支付网关集成代码，与微信支付逻辑差异点比对</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">支付类故障：1 个渠道故障即影响充收，需要快速恢复</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">⚠️ 涉及线上支付，优先级应提至 P0。需要后端立刻排期修复，并回测支付宝渠道</div></div>
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">更新后测试服与线上不一致</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 10:28</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">厉飞雨 -BE- XHWJ - VN</span><span class="t-channel"></span></div><div class="t-text">@ding_2656 这个需求更新到测试环境了</div></div></div><div class="t-row"><div class="t-time">07-30 11:32</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朱加贝-TY-CN</span><span class="t-channel"></span></div><div class="t-text">https://7pnyxn.axshare.com/?id=wju7b8&amp;amp;p=%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%83&amp;amp;g=1&amp;amp;sc=351嗨聊 31号迭代版本 需求文档内容 跟 无极群里对应负责人描述的不一致，我们督导同学是哪位，麻烦看下哈</div></div></div><div class="t-row"><div class="t-time">07-30 11:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朱加贝-TY-CN</span><span class="t-channel"></span></div><div class="t-text">不悔大佬，按我的理解 一次需求迭代应该对应一份prd文档，文档中可以附带其他链接，他这一个更新丢4个文档上来（有的7月初、有的7月中旬），这对于我们去找31号更新内容，也是一个挑战奥😂</div></div></div><div class="t-row"><div class="t-time">07-30 11:59</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">不悔-TY-CN</span><span class="t-channel"></span></div><div class="t-text">回到这个需求哈，这是个前后端联动的需求。运营人员在后台配置更新和落地页相关配置，会直接推送到App端。</div></div></div><div class="t-row"><div class="t-time">07-30 12:01</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朱加贝-TY-CN</span><span class="t-channel"></span></div><div class="t-text">那就是落地页管理、版本管理的更新，不过无极群里李治国说的不太理解</div></div></div><div class="t-row"><div class="t-time">07-30 12:16</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@qingqing0001111 @ding_2656 請幫忙確認一下排期時間是不是有更新唷！</div></div></div><div class="t-row"><div class="t-time">07-30 12:52</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">叶凡尘 -TY-VN</span><span class="t-channel"></span></div><div class="t-text">@zhangl_gx_cn @guoliqing0567 字段更新了,api中有这个迭代类型,可以看到是否新项目</div></div></div><div class="t-row"><div class="t-time">07-30 13:48</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">不是！因为标签，后端完成时间原定7/28展示逻辑修改，后端完成时间原定7/27发布者 ID 显示为 0的调整，后端完成时间原定7/31那以现在的状况，感觉有些排期是不是已经没有在时间线上了？因此请两位哥哥确认一下是不是有需要更新排期！</div></div></div><div class="t-row"><div class="t-time">07-30 14:30</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">今天測試發現今天早上更新上去的資源也還是搜尋不到小說採集今天也沒有新的資源進去，最後一次採集時間是昨天下午三點半 能麻煩再幫我確認下嗎🥺</div></div></div><div class="t-row"><div class="t-time">07-30 15:19</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">早上更新上去的資源也還是搜尋不到 这个指的 是手动更新吗 ？</div></div></div><div class="t-row"><div class="t-time">07-30 15:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">對的早上更新的資源搜尋不到原來小說要自己手動按 我去試試 我以為跟漫畫那邊一樣會自動更新進去😵</div></div></div><div class="t-row"><div class="t-time">07-30 15:24</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">自动更新这个我确认下</div></div></div><div class="t-row"><div class="t-time">07-30 15:36</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">广告 已经到 测试服了，测试同学正在验收，稍等一下</div></div></div><div class="t-row"><div class="t-time">07-30 15:49</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">後台有看到小說更新了所以他是會自動更新嗎 還是我需要去點擊什麼功能</div></div></div><div class="t-row"><div class="t-time">07-30 15:52</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">后期就不会出现这个问题了 ，每天都有更新</div></div></div><div class="t-row"><div class="t-time">07-30 16:01</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">漫畫今天也沒有自動更新 不知道是不是你剛剛說的小說一樣的問題 所以我沒去測試</div></div></div><div class="t-row"><div class="t-time">07-30 18:06</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">你可以把数据导出来,在本地进行处理 ,线上肯定要限制 导出的量</div></div></div><div class="t-row"><div class="t-time">07-30 19:54</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">叶凡尘 -TY-VN</span><span class="t-channel"></span></div><div class="t-text">明天注意一下线上会议室，谢星冉找我要链接了刚才</div></div></div><div class="t-row"><div class="t-time">07-30 20:18</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个测试服可以多同步一点数据吗，要不然后面验收测试服，数据太少了，不太好看</div></div></div><div class="t-row"><div class="t-time">07-30 20:38</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @qingqing0001111 测试服的数据能帮我们多弄一点吗</div></div></div><div class="t-row"><div class="t-time">07-30 20:48</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">飞策-QA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">那这里我补个线上反馈bug单吧，后面便于跟踪</div></div></div><div class="t-row"><div class="t-time">07-30 21:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">石头-TYZX-CN</span><span class="t-channel"></span></div><div class="t-text">OK，那有进度更新啥的，我到时候跟你同步。</div></div></div><div class="t-row"><div class="t-time">07-30 21:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@lirui0930 客服系统线上环境登录不上了，我看是这个接口console.51pc.me/Merchant/chat/getUserList 502 了</div></div></div><div class="t-row"><div class="t-time">07-30 22:01</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个发布到线上了 ,看一下   导出时间二选一  和 列表补用户名列</div></div></div><div class="t-row"><div class="t-time">07-30 22:43</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">石头-TYZX-CN</span><span class="t-channel"></span></div><div class="t-text">其他10个项目暂时没有更新的进展，非活跃，故没有体现</div></div></div><div class="t-row"><div class="t-time">07-31 10:27</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">这个排期资料已更新上表单！ 🫡</div></div></div><div class="t-row"><div class="t-time">07-31 11:18</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个之前说老视频要去同步数据ID才能更新，但是新上传的视频，怎么显示ID还是0呢</div></div></div><div class="t-row"><div class="t-time">07-31 11:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个ID上次说是可以了的，测试服没有远程发布端，没办法测试新上传的视频啊</div></div></div><div class="t-row"><div class="t-time">07-31 11:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">等我找龙哥 解决一下 这都是线上的， 没得权限。</div></div></div><div class="t-row"><div class="t-time">07-31 12:22</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">这个麻烦处理一下，老哥，昨天一天没有内容更新了，今天要是太晚处理的话，视频又来不及上传</div></div></div><div class="t-row"><div class="t-time">07-31 14:20</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">小說跟漫畫今天也沒有跑更新🫠</div></div></div><div class="t-row"><div class="t-time">07-31 15:40</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">测试服有这个问题吗 ？</div></div></div><div class="t-row"><div class="t-time">07-31 15:40</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">测试服没有这个问题</div></div></div><div class="t-row"><div class="t-time">07-31 15:41</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@blockingb935 龙老师，这边帮忙看看 ，更新后测试服 和线上不一样</div></div></div><div class="t-row"><div class="t-time">07-31 16:00</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">剛看小說有更新了～但漫畫還沒有</div></div></div><div class="t-row"><div class="t-time">07-31 16:15</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">波林-PM-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @ding_2656 两位哥哥，还请协助帮忙确认一下排期是否有要更动修正：—————————项目开发排期表项目名称：91成人导航开发类型：精品APP接入广告中心需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-203后端开始时间：7/29（260729更新）完成时间：7/30（260729更新）工作</div></div></div><div class="t-row"><div class="t-time">07-31 22:29</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">石头-TYZX-CN</span><span class="t-channel"></span></div><div class="t-text">dx-069 更新后测试服与线上不一致：业务影响=分享到社媒的链接丢失封面预览图，影响用户分享体验与站点流量导入；根因=后台配置项缺失/未生效，测试服因独立环境配置完整所以正常，正式服部署时配置未同步导致功能不渲染。后续改进：1、上线前配置核对清单 2、线上环境回归（石头 PMO 日报复盘）</div></div></div></div></div>
   </div>
 </article>
-<article class="issue-card" data-id="p13">
+<article class="issue-card" data-id="no-0003" data-no="0003">
   <div class="card-summary" onclick="toggleCard(this)">
     <div class="card-tags">
-      <span class="tag proj">DX-055</span>
-      <span class="tag sev" style="background:#f59e0b">中</span>
-      <span class="tag status" style="background:#a855f7">待确认</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">茶贴解锁扣费异常（2000一次/单次进账十几万）</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 07-30 11:38</span><span class="dot-sep">·</span>
-      <span>上报 小班-OP-XHWJ-TW</span><span class="dot-sep">·</span>
-      <span>11 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">茶贴解锁扣费异常（2000一次/单次进账十几万）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 11:38</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">小班-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">用戶評論管理這邊也有BUG，我按下駁回後彈窗卻是問我確定要過審</div></div></div><div class="t-row"><div class="t-time">07-30 16:28</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">秋野-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">帮忙查询一下这些元宝的来源 ，明显是不正常的</div></div></div><div class="t-row"><div class="t-time">07-30 16:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">应该是解锁收益</div></div></div><div class="t-row"><div class="t-time">07-30 16:54</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">用户解锁茶帖产生的分成</div></div></div><div class="t-row"><div class="t-time">07-30 16:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周肥-DA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">解锁收益不是有单独的来源么，为啥来源是未知 ？</div></div></div><div class="t-row"><div class="t-time">07-30 16:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">秋野-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">什么样的茶贴解锁一次性2000一次。 一次进账十几万元宝。 是不是出现BUG了</div></div></div><div class="t-row"><div class="t-time">07-30 16:58</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">金额分两类，指向「分成/返利」性质<br>类型 例子 特征<br>固定额 2000 17159960 49 条 × 2000 = 98000 整数、可疑地整齐<br>零碎额 16532580 599 条共 16084（均值 26.8）、18120413 1 条 = 1 元宝 299 / 174 / 108 / 78 / 20 / 1 这种，典型按比例算出来的分成<br>总额约 24.2 万元宝，和你之前透视表里「未知(0</div></div></div><div class="t-row"><div class="t-time">07-30 17:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那 24 万「未知(0)」元宝是每天 09:30 的解冻任务（unfreezeMoneyAction）写出来的。<br><br>代码在 Cron.php:103，它的活是：把 7 天前冻结的解锁分成解冻、发给用户。<br><br>来源标记丢了（小问题）<br>判断冻结类型的 switch 少了 default 分支，遇到预期外的值时来源变量是空的，写进数据库就成了 0，后台显示「未知」。</div></div></div><div class="t-row"><div class="t-time">07-30 17:04</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">秋野-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那就是元宝来源是正确的对吧</div></div></div><div class="t-row"><div class="t-time">07-30 17:05</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周肥-DA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">麻烦找一下具体是哪些帖子或者订单的解冻收益。 然后把未知来源这个问题修复下。<br><br>还有为啥，增加了元宝，余额变动是0</div></div></div><div class="t-row"><div class="t-time">07-30 22:31</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">老哥，目前支付宝最大上限到500，微信最大上限2000</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">需要排查茶贴解锁的扣费逻辑，疑似补偿/批量解锁走错路径导致异常</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">充值类资损风险：解锁与扣费逻辑不一致可能导致公司亏损或用户投诉</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">⚠️ 涉及资损风险。建议大藜协调秋野确认是 BUG 还是业务规则漏洞，Bug 单应高优处理</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p14">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-055</span>
-      <span class="tag sev" style="background:#f97316">高</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">51pc.co 报错 / 51pc.me 国内运营白屏</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 07-30 20:55</span><span class="dot-sep">·</span>
-      <span>上报 吴天北-OP-XHWJ-VN</span><span class="dot-sep">·</span>
-      <span>4 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">51pc.co 报错 / 51pc.me 国内运营白屏</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 20:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">茶馆的两个  永久中转网址 可以帮忙检测一下吗<br><br>51pc.co <br>51pc.me</div></div></div><div class="t-row"><div class="t-time">07-30 21:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@lirui0930 客服系统线上环境登录不上了，我看是这个接口console.51pc.me/Merchant/chat/getUserList 502 了</div></div></div><div class="t-row"><div class="t-time">07-30 21:44</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">51pc.co 这个 报错的帮忙看下      另外一个51pc.me我现在打开没问题了</div></div></div><div class="t-row"><div class="t-time">07-30 21:58</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">我们国内运营 打开白屏</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">运维排查 51pc.co / .me 域名 CDN 节点，国内白屏可能是 DNS 解析问题</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">国内运营反馈说明 CDN/DNS 配置需同步，否则更新会影响一部分用户</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">🔍 建议同步 DNS 解析日志给运维，确认是否为 CDN 节点回源问题</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p15">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-055</span>
-      <span class="tag sev" style="background:#f97316">高</span>
-      <span class="tag status" style="background:#ef4444">处理中</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">客服系统线上登录不上（接口 502）</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 07-30 21:23</span><span class="dot-sep">·</span>
-      <span>上报 天辰-FE-XHWJ-CN</span><span class="dot-sep">·</span>
-      <span>1 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">客服系统线上登录不上（接口 502）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 21:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@lirui0930 客服系统线上环境登录不上了，我看是这个接口console.51pc.me/Merchant/chat/getUserList 502 了</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">天辰已升级 BE 排查 console.51pc.me 接口 502 错误根因</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">客服系统是运营与用户沟通的核心接口，长时间不可用会丢失用户</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">⚠️ 运营核心系统故障。建议李瑞优先处理 502 错误，避免影响日常运营</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p16">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-999</span>
-      <span class="tag sev" style="background:#f59e0b">中</span>
-      <span class="tag status" style="background:#22c55e">已修复</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">定时脚本未执行（日志命令异常）</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 07-30 15:52</span><span class="dot-sep">·</span>
-      <span>上报 鹏程-BE-XHWJ-VN</span><span class="dot-sep">·</span>
-      <span>1 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">定时脚本未执行（日志命令异常）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 15:52</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">我在服务器 加入定时脚本了，记录日志的命令异常，导致定时脚本没有执行</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">鹏程修复了日志记录命令，定时脚本已恢复运行</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">记录日志命令异常重启导致定时任务未触发，影响数据采集与统计</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">✅ 已关闭。建议复盘日志监控告警机制，避免同类问题再次出现</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p17">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
-      <span class="tag proj">DX-070</span>
-      <span class="tag sev" style="background:#f59e0b">中</span>
-      <span class="tag status" style="background:#f59e0b">待修复</span>
-    </div>
-    <div class="card-title-row">
-      <h3 class="card-title">用户评论管理 BUG：驳回后弹窗确认过审</h3>
-      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
-    </div>
-    <div class="card-meta">
-      <span>首报 07-30 11:38</span><span class="dot-sep">·</span>
-      <span>上报 小班-OP-XHWJ-TW</span><span class="dot-sep">·</span>
-      <span>1 条沟通</span>
-    </div>
-  </div>
-  <div class="card-detail">
-    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">用户评论管理 BUG：驳回后弹窗确认过审</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 11:38</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">小班-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">用戶評論管理這邊也有BUG，我按下駁回後彈窗卻是問我確定要過審</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">前端修复评论驳回操作对应的弹窗文案，文案与操作应一致</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">操作与提示不符的 BUG：用户体验差，但不影响核心功能</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">建议排期 + 与小班确认操作流程文档，Bug 严重度评估为中</div></div>
-  </div>
-</article>
-<article class="issue-card" data-id="p18">
-  <div class="card-summary" onclick="toggleCard(this)">
-    <div class="card-tags">
+      <span class="no-badge">问题0003</span>
       <span class="tag proj">JHG-056</span>
       <span class="tag sev" style="background:#f59e0b">中</span>
       <span class="tag status" style="background:#f59e0b">待修复</span>
@@ -514,7 +189,352 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   </div>
   <div class="card-detail">
     <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">Bug 表确认与修复（等待开发处理）</div></div>
-    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 11:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@qingqing0001111 @acd78057  bug表，辛苦二位老师确认下，并及时修复</div></div></div></div></div><div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">PM 鲍勃同步 bug 列表给 FE/BE，等待排期处理</div></div><div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">Bug 表驱动处理，但缺少明确 SLO 与跟进机制</div></div><div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">建议鲍勃同步 Bug 列表给 PMO，跟进各项目的 bug 修复节奏</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 11:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@qingqing0001111 @acd78057  bug表，辛苦二位老师确认下，并及时修复</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0004" data-no="0004">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0004</span>
+      <span class="tag proj">DX-055</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#a855f7">待确认</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">茶贴解锁扣费异常（2000一次/单次进账十几万）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 07-30 11:38</span><span class="dot-sep">·</span>
+      <span>上报 小班-OP-XHWJ-TW</span><span class="dot-sep">·</span>
+      <span>11 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">茶贴解锁扣费异常（2000一次/单次进账十几万）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 11:38</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">小班-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">用戶評論管理這邊也有BUG，我按下駁回後彈窗卻是問我確定要過審</div></div></div><div class="t-row"><div class="t-time">07-30 16:28</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">秋野-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">帮忙查询一下这些元宝的来源 ，明显是不正常的</div></div></div><div class="t-row"><div class="t-time">07-30 16:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">应该是解锁收益</div></div></div><div class="t-row"><div class="t-time">07-30 16:54</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">用户解锁茶帖产生的分成</div></div></div><div class="t-row"><div class="t-time">07-30 16:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周肥-DA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">解锁收益不是有单独的来源么，为啥来源是未知 ？</div></div></div><div class="t-row"><div class="t-time">07-30 16:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">秋野-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">什么样的茶贴解锁一次性2000一次。 一次进账十几万元宝。 是不是出现BUG了</div></div></div><div class="t-row"><div class="t-time">07-30 16:58</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">金额分两类，指向「分成/返利」性质类型 例子 特征固定额 2000 17159960 49 条 × 2000 = 98000 整数、可疑地整齐零碎额 16532580 599 条共 16084（均值 26.8）、18120413 1 条 = 1 元宝 299 / 174 / 108 / 78 / 20 / 1 这种，典型按比例算出来的分成总额约 24.2 万元宝，和你之前透视表里「未知(0</div></div></div><div class="t-row"><div class="t-time">07-30 17:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那 24 万「未知(0)」元宝是每天 09:30 的解冻任务（unfreezeMoneyAction）写出来的。代码在 Cron.php:103，它的活是：把 7 天前冻结的解锁分成解冻、发给用户。来源标记丢了（小问题）判断冻结类型的 switch 少了 default 分支，遇到预期外的值时来源变量是空的，写进数据库就成了 0，后台显示「未知」。</div></div></div><div class="t-row"><div class="t-time">07-30 17:04</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">秋野-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那就是元宝来源是正确的对吧</div></div></div><div class="t-row"><div class="t-time">07-30 17:05</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周肥-DA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">麻烦找一下具体是哪些帖子或者订单的解冻收益。 然后把未知来源这个问题修复下。还有为啥，增加了元宝，余额变动是0</div></div></div><div class="t-row"><div class="t-time">07-30 22:31</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">老哥，目前支付宝最大上限到500，微信最大上限2000</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0005" data-no="0005">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0005</span>
+      <span class="tag proj">DX-070</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#f59e0b">待修复</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">用户评论管理 BUG：驳回后弹窗确认过审</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 07-30 11:38</span><span class="dot-sep">·</span>
+      <span>上报 小班-OP-XHWJ-TW</span><span class="dot-sep">·</span>
+      <span>1 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">用户评论管理 BUG：驳回后弹窗确认过审</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 11:38</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">小班-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">用戶評論管理這邊也有BUG，我按下駁回後彈窗卻是問我確定要過審</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0006" data-no="0006">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0006</span>
+      <span class="tag proj">DX-999</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#22c55e">已修复</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">定时脚本未执行（日志命令异常）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 07-30 15:52</span><span class="dot-sep">·</span>
+      <span>上报 鹏程-BE-XHWJ-VN</span><span class="dot-sep">·</span>
+      <span>1 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">定时脚本未执行（日志命令异常）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 15:52</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">我在服务器 加入定时脚本了，记录日志的命令异常，导致定时脚本没有执行</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0007" data-no="0007">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0007</span>
+      <span class="tag proj">DX-055</span>
+      <span class="tag sev" style="background:#f97316">高</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">支付宝充值报错（微信正常）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 07-30 20:21</span><span class="dot-sep">·</span>
+      <span>上报 风渊-OP-XHWJ-KH</span><span class="dot-sep">·</span>
+      <span>8 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">支付宝充值报错（微信正常）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 20:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">风渊-OP-XHWJ-KH</span><span class="t-channel"></span></div><div class="t-text">@ding_2656 麻烦帮忙看看1000的充值通道好像有问题，支付宝和微信都拉不出订单，要么下单超时要么下单失败</div></div></div><div class="t-row"><div class="t-time">07-30 20:25</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">飞策-QA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">使用支付宝充值报错了，微信可以正常使用</div></div></div><div class="t-row"><div class="t-time">07-30 20:33</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">我这边下单正常的 , 你要换一个账号在测试 ,因为你下单了 选择微信, 但是你没有真的支付 ,再用同一个账号,选择支付宝  ,就会创建失败</div></div></div><div class="t-row"><div class="t-time">07-30 20:33</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">我这边微信和支付宝都可以打开 ,用两个账号分别测试</div></div></div><div class="t-row"><div class="t-time">07-30 20:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">飞策-QA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">重新注册了个新号，使用支付宝方式一样的结果</div></div></div><div class="t-row"><div class="t-time">07-30 20:41</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">风渊-OP-XHWJ-KH</span><span class="t-channel"></span></div><div class="t-text">这个是100嘛，其他金额正常，就1000，支付宝显示创建订单失败，微信显示下单超时，我这边是这样😅</div></div></div><div class="t-row"><div class="t-time">07-30 20:54</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">飞策-QA-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">https://pm.jsyyds.com/index.php?m=bug&amp;amp;f=view&amp;amp;bugID=39146</div></div></div><div class="t-row"><div class="t-time">07-30 22:31</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">老哥，目前支付宝最大上限到500，微信最大上限2000</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0008" data-no="0008">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0008</span>
+      <span class="tag proj">DX-055</span>
+      <span class="tag sev" style="background:#f97316">高</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">51pc.co 报错 / 51pc.me 国内运营白屏</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 07-30 20:55</span><span class="dot-sep">·</span>
+      <span>上报 吴天北-OP-XHWJ-VN</span><span class="dot-sep">·</span>
+      <span>4 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">51pc.co 报错 / 51pc.me 国内运营白屏</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 20:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">茶馆的两个  永久中转网址 可以帮忙检测一下吗51pc.co 51pc.me</div></div></div><div class="t-row"><div class="t-time">07-30 21:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@lirui0930 客服系统线上环境登录不上了，我看是这个接口console.51pc.me/Merchant/chat/getUserList 502 了</div></div></div><div class="t-row"><div class="t-time">07-30 21:44</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">51pc.co 这个 报错的帮忙看下      另外一个51pc.me我现在打开没问题了</div></div></div><div class="t-row"><div class="t-time">07-30 21:58</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">我们国内运营 打开白屏</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0009" data-no="0009">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0009</span>
+      <span class="tag proj">DX-055</span>
+      <span class="tag sev" style="background:#f97316">高</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">客服系统线上登录不上（接口 502）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 07-30 21:23</span><span class="dot-sep">·</span>
+      <span>上报 天辰-FE-XHWJ-CN</span><span class="dot-sep">·</span>
+      <span>1 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">客服系统线上登录不上（接口 502）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-30 21:23</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@lirui0930 客服系统线上环境登录不上了，我看是这个接口console.51pc.me/Merchant/chat/getUserList 502 了</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0010" data-no="0010">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0010</span>
+      <span class="tag proj">DX-999</span>
+      <span class="tag sev" style="background:#ef4444">严重</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">中转页/网站打不开（51acg1.com）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 07-31 10:47</span><span class="dot-sep">·</span>
+      <span>上报 安靖--OL-XHWJ-MY</span><span class="dot-sep">·</span>
+      <span>15 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">中转页/网站打不开（51acg1.com）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">07-31 10:47</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://51acg1.com/@jili1889 打不开了</div></div></div><div class="t-row"><div class="t-time">07-31 12:07</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">@jili1889  鹏程哥～中转页打不开的问题 赶紧救救他 着急😭😭😭</div></div></div><div class="t-row"><div class="t-time">07-31 12:25</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">https://staff.51acg1.com/admin/login/index 后台先用这个</div></div></div><div class="t-row"><div class="t-time">07-31 12:44</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">中转页面。看下 好了</div></div></div><div class="t-row"><div class="t-time">07-31 14:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">https://www.51acg1.com/</div></div></div><div class="t-row"><div class="t-time">07-31 18:46</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://hzrjjfae.cc@jili1889解析出来的直连 打不开</div></div></div><div class="t-row"><div class="t-time">07-31 18:52</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">米踢-OP-XHWJ-TW</span><span class="t-channel"></span></div><div class="t-text">這又打不開了 🫠</div></div></div><div class="t-row"><div class="t-time">07-31 19:15</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">可以打开了</div></div></div><div class="t-row"><div class="t-time">07-31 20:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">就是这个项目中转页解析出来的直连链接</div></div></div><div class="t-row"><div class="t-time">07-31 20:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">处理了，看一下</div></div></div><div class="t-row"><div class="t-time">07-31 20:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">能打开了</div></div></div><div class="t-row"><div class="t-time">07-31 21:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">dx999今天的中转页打不开，我看已经解决了。但是下午又打不开了 是什么原因呢？——域名过户阵痛，本月底正在移交服务器资源和域名</div></div></div><div class="t-row"><div class="t-time">07-31 22:08</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">就这个，因为早上我看中转页才修复过（直链链接 hzrjjfae.cc 又打不开）</div></div></div><div class="t-row"><div class="t-time">07-31 22:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">该直链域名在旧部门移交时未交接，DNS 解析记录被重置；已联系旧部门运维重新解析，晚上解析成功</div></div></div><div class="t-row"><div class="t-time">07-31 22:14</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">暂不接管该域名，先找运营主管确认是否需要；月底域名资源移交期间需持续观察</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0011" data-no="0011">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0011</span>
+      <span class="tag proj">TJ-062/063</span>
+      <span class="tag sev" style="background:#f97316">高</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">后台/APP无法访问（部分华为/OPPO用户仍进不去）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 10:05</span><span class="dot-sep">·</span>
+      <span>上报 林笑尘-OL-XHWJ-VN</span><span class="dot-sep">·</span>
+      <span>10 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">51凤楼 后台与APP无法访问；APP部分恢复，仍有华为/OPPO及部分网络（广州/湖南/香港卡）用户无法进入</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 10:05</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">林笑尘-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@lirui0930 老哥 后台和app又进不去了 帮忙处理下呢</div></div></div><div class="t-row"><div class="t-time">08-01 10:13</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@linxiaochenYY0386 再试一下?</div></div></div><div class="t-row"><div class="t-time">08-01 10:19</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">林笑尘-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">app 可以进去了 后台还是不行</div></div></div><div class="t-row"><div class="t-time">08-01 10:19</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">树根-OP-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">按登入之后出现这个黑块 进不去</div></div></div><div class="t-row"><div class="t-time">08-01 10:27</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">林笑尘-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">一部分OPPO和华为的手机 app还是进不去 反馈的用户网络有广州 湖南 还有使用香港卡的</div></div></div><div class="t-row"><div class="t-time">08-01 10:42</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@linxiaochenYY0386 那就安排一下更好接口域名吧</div></div></div><div class="t-row"><div class="t-time">08-01 11:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">之前其他项目都是测试提供域名的 之前都老胡他们给我的</div></div></div><div class="t-row"><div class="t-time">08-01 15:12</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@qingqing0001111 老师 大概几点能发布到线上</div></div></div><div class="t-row"><div class="t-time">08-01 15:13</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朔月-BE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">已经发了，忘了阿秋不在群里</div></div></div><div class="t-row"><div class="t-time">08-01 15:16</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">林笑尘-OL-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">直连中转那里好没变化呢</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0012" data-no="0012">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0012</span>
+      <span class="tag proj">DX-070</span>
+      <span class="tag sev" style="background:#f97316">高</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">后台保存失败/小说翻页重置/分享图Bug（附10:11访问异常）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 10:11</span><span class="dot-sep">·</span>
+      <span>上报 高睿-OL-XHWJ- VN</span><span class="dot-sep">·</span>
+      <span>13 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">禁漫天堂 后台修改小说章节保存不了、小说翻页重置、视频分享图Bug；另含 10:11 网站打不开（转新域名后恢复）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 10:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">@jili1889 @blockingb935 这个还是不行，禁慢天堂</div></div></div><div class="t-row"><div class="t-time">08-01 10:40</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">@jili1889 禁漫天堂 后台，修改小说章节 点击确认保存不了</div></div></div><div class="t-row"><div class="t-time">08-01 10:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">小说切黑屏之后 没翻一页都会被重置 ，用户反馈体验不好</div></div></div><div class="t-row"><div class="t-time">08-01 10:57</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">好的 我处理一下</div></div></div><div class="t-row"><div class="t-time">08-01 11:09</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">https://18mh.net/mv/detail/66148 @jili1889 这个视频分享的图片 bug 还未修复</div></div></div><div class="t-row"><div class="t-time">08-01 11:27</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个分享图片 bug 和 后台 保存的bug 一起修复上线吗</div></div></div><div class="t-row"><div class="t-time">08-01 11:30</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">一起吧</div></div></div><div class="t-row"><div class="t-time">08-01 11:33</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个问题 在测试环境 没有定位到，不是很好处理，做了一部分优化，不知道能不能解决线上的问题。提前告知风险</div></div></div><div class="t-row"><div class="t-time">08-01 11:50</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个翻页的 bug 可以一起修复一下吧 下午的时候 一起在验收一下</div></div></div><div class="t-row"><div class="t-time">08-01 13:43</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">测试环境 修复了</div></div></div><div class="t-row"><div class="t-time">08-01 15:12</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">可以了 bug 先修复上线吧 @jili1889 @ding_2656</div></div></div><div class="t-row"><div class="t-time">08-01 16:45</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel">【DX-070】禁漫天堂（WEB）｜项目群</span></div><div class="t-text">这个 服务器配置的 问题</div></div></div><div class="t-row"><div class="t-time">08-01 16:45</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel">【DX-070】禁漫天堂（WEB）｜项目群</span></div><div class="t-text">这个分享图片的 功能 在线上好像不行</div></div></div></div></div><div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">后台保存/翻页已修复；分享图 16:45 线上仍报不行，鹏程定位为服务器配置问题，处理中</div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0013" data-no="0013">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0013</span>
+      <span class="tag proj">DX-119</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#22c55e">已修复</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">发布者ID显示为0/分类置顶展示异常</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 10:28</span><span class="dot-sep">·</span>
+      <span>上报 高睿-OL-XHWJ- VN</span><span class="dot-sep">·</span>
+      <span>7 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">抖阴 新上传视频发布者ID仍全部显示0；分类置顶展示异常（排在前面的是第二三名/新加内容刷不出来）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 10:28</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">抖音新上传的视频发布者ID，还是全都显示0，什么时候可以弄好呢，老哥</div></div></div><div class="t-row"><div class="t-time">08-01 10:29</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个着急 拆出来 可以单独上。 / 有的（历史数据统计已做）</div></div></div><div class="t-row"><div class="t-time">08-01 10:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">排在前面的是第二第三名</div></div></div><div class="t-row"><div class="t-time">08-01 11:06</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">根因：跨分类抢位（sort_logic=0/1/2 模块走全站置顶池，分类置顶被提前占位）</div></div></div><div class="t-row"><div class="t-time">08-01 11:10</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">那就这个吧</div></div></div><div class="t-row"><div class="t-time">08-01 11:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那再 整体验收一下，如果没问题就 发版了</div></div></div><div class="t-row"><div class="t-time">08-01 11:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ- VN</span><span class="t-channel"></span></div><div class="t-text">可以了</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0014" data-no="0014">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0014</span>
+      <span class="tag proj">DX-069</span>
+      <span class="tag sev" style="background:#f97316">高</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">标签页404/移动端不适配/访问异常（宕机）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 10:36</span><span class="dot-sep">·</span>
+      <span>上报 安靖--OL-XHWJ-MY</span><span class="dot-sep">·</span>
+      <span>18 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">91Hub 标签页全部404、个人中心图标不显示/留言档案错位、movie 页移动端不适配；14:37-15:02 又出现整站打不开（宕机）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 10:36</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">@jili1889 正式服上 又没了</div></div></div><div class="t-row"><div class="t-time">08-01 10:41</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://91hubw.com/av/ 点击标签404</div></div></div><div class="t-row"><div class="t-time">08-01 10:42</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">所有的标签都用不了了</div></div></div><div class="t-row"><div class="t-time">08-01 11:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://91hubw.com/video/user/profile 这里的两个图标不显示了 帮忙看看</div></div></div><div class="t-row"><div class="t-time">08-01 11:36</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">留言和档案错位了 @jili1889</div></div></div><div class="t-row"><div class="t-time">08-01 12:11</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">这个问题好了</div></div></div><div class="t-row"><div class="t-time">08-01 12:29</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">https://91hubw.com/movie/ 这个页面移动端不适配了 标签能匹配出来资源很少 有的还是404</div></div></div><div class="t-row"><div class="t-time">08-01 12:41</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">周子然-OM-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">帮忙追溯一下问题来源吧 近期也没做这方面的需求 @blockingb935 文龙老师</div></div></div><div class="t-row"><div class="t-time">08-01 13:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">鹏程先跟一下，需要查线上日志的，联系运维处理一下，有结果了随时群里反馈</div></div></div><div class="t-row"><div class="t-time">08-01 13:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">好的 问题我在看，和redis 优化部分 一起处理</div></div></div><div class="t-row"><div class="t-time">08-01 14:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">江贺森OP-XHWJ- CN</span><span class="t-channel"></span></div><div class="t-text">https://91hubw.com/（打不开）</div></div></div><div class="t-row"><div class="t-time">08-01 15:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">现在 好了看一下</div></div></div><div class="t-row"><div class="t-time">08-01 15:02</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">江贺森OP-XHWJ- CN</span><span class="t-channel"></span></div><div class="t-text">好了</div></div></div><div class="t-row"><div class="t-time">08-01 15:03</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">因为什么原因宕机的啊</div></div></div><div class="t-row"><div class="t-time">08-01 15:05</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel"></span></div><div class="t-text">不是网络波动 直接就打不开了</div></div></div><div class="t-row"><div class="t-time">08-01 15:05</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">那我找运维 确定下</div></div></div><div class="t-row"><div class="t-time">08-01 16:54</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel">【DX-069】91Hub（WEB）｜项目群</span></div><div class="t-text">中转页打不开了 @jili1889</div></div></div><div class="t-row"><div class="t-time">08-01 16:56</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鹏程-BE-XHWJ-VN</span><span class="t-channel">【DX-069】91Hub（WEB）｜项目群</span></div><div class="t-text">域名发一下</div></div></div></div></div><div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">标签404/适配已部分修复，15:02 恢复；16:54 中转页 91hubx.com 又打不开，鹏程索要域名排查中</div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0015" data-no="0015">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0015</span>
+      <span class="tag proj">DX-062</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">个人中心&amp;quot;稍后观看/影片收藏&amp;quot;封面加载不出来</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 11:37</span><span class="dot-sep">·</span>
+      <span>上报 陈洛-OP-XHWJ-CN</span><span class="dot-sep">·</span>
+      <span>1 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">KISSAV 个人中心&amp;quot;稍后观看&amp;quot;和&amp;quot;影片收藏&amp;quot;视频封面全部加载不出来，仅显示标题和时长</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 11:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">陈洛-OP-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">kissav个人中心的&amp;quot;稍后观看&amp;quot;和&amp;quot;影片收藏&amp;quot;有问题，视频封面全部加载不出来，只显示标题和时长。麻烦前端帮忙检查一下封面图片的显示和地址处理。</div></div></div></div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0016" data-no="0016">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0016</span>
+      <span class="tag proj">TJ-062/063</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">web站帖子详情右侧推荐帖子封面不展示</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 15:37</span><span class="dot-sep">·</span>
+      <span>上报 鲍勃-PM-XHWJ-CN</span><span class="dot-sep">·</span>
+      <span>4 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">51凤楼 web站 帖子详情页右侧&amp;quot;推荐帖子&amp;quot;封面全都不展示，点击推荐帖子进入详情后图片可正常展示；后端返回的图片链接打不开（阿秋反馈）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 15:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">@qingqing0001111 https://pic.vslaqe.cn/upload_01/head/20250712/2025071221185769442.jpg 阿秋反馈 这个后端返回的图片打不开 朔月老师麻烦看下</div></div></div><div class="t-row"><div class="t-time">08-01 15:50</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朔月-BE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">管理端能看一下图片能不能展示出来吗？</div></div></div><div class="t-row"><div class="t-time">08-01 15:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">是这样，web站的外围帖子详情内，右侧的推荐帖子封面全都不展示，但是点击推荐帖子进入详情，图片可以展示</div></div></div><div class="t-row"><div class="t-time">08-01 16:20</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel">【TJ-062/063】51凤楼（APP/WEB）｜项目群</span></div><div class="t-text">管理后台能搜到对应帖子，能展示图片</div></div></div></div></div><div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">管理后台可搜到帖子且图片可展示（鲍勃16:20确认），问题在 web 前台展示链路，处理中</div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0017" data-no="0017">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0017</span>
+      <span class="tag proj">DX-055</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">点击&amp;quot;无限阅帖&amp;quot;提示元宝不足（余额足够）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 15:39</span><span class="dot-sep">·</span>
+      <span>上报 吴天北-OP-XHWJ-VN</span><span class="dot-sep">·</span>
+      <span>9 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">茶馆APP 用户元宝余额足够，但点击&amp;quot;无限阅帖&amp;quot;提示元宝不足；入口：我的 → 昵称下方&amp;quot;无限阅帖&amp;quot;</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 15:39</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">看下 元宝是够的 但是 点击无限阅帖 显示元宝不足</div></div></div><div class="t-row"><div class="t-time">08-01 15:42</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel"></span></div><div class="t-text">操作流程描述一下，主要是入口在哪 @tianbei001</div></div></div><div class="t-row"><div class="t-time">08-01 15:46</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel"></span></div><div class="t-text">点击我的 点击 昵称下面的 无限阅帖</div></div></div><div class="t-row"><div class="t-time">08-01 16:16</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">那 aff 不一样是正常的吧，像是另外的用户 id 之类的？</div></div></div><div class="t-row"><div class="t-time">08-01 16:20</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">不用登录的aff 那怎么能查到元宝数量?</div></div></div><div class="t-row"><div class="t-time">08-01 16:20</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">这里逻辑是不是有问题,你传的是 游客的aff</div></div></div><div class="t-row"><div class="t-time">08-01 16:21</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">传的 aff 也是接口返回</div></div></div><div class="t-row"><div class="t-time">08-01 16:25</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">李瑞-BE-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">现在的问题是,游客也会有aff ,但是当我登录后,应该传新的登录后的账号的aff 过去</div></div></div><div class="t-row"><div class="t-time">08-01 16:28</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">你意思是登录后没有刷新 aff？传的是没登录时游客的 aff？</div></div></div></div></div><div class="detail-section"><div class="detail-label">根因</div><div class="detail-body">前端登录后未刷新 aff，无限阅帖仍传游客 aff 查元宝数量 → 误判元宝不足（李瑞定位，天辰16:37确认前端bug）</div></div><div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">前端已定位 bug（登录后 aff 未刷新），临时方案：pwa 刷新/App 杀掉重启可缓解；正式修复排期中</div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0018" data-no="0018">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0018</span>
+      <span class="tag proj">DX-055</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">茶女郎茶贴视频切片很难成功（资源断更风险）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 16:55</span><span class="dot-sep">·</span>
+      <span>上报 吴天北-OP-XHWJ-VN</span><span class="dot-sep">·</span>
+      <span>1 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">茶馆APP 用户发布的视频（茶女郎茶贴内）切片很难成功，切很久仍处于切片中/失败；涉及报告带视频等新发内容</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 16:55</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">最近 用户发的一些视频 比如报告带带视频。茶女郎的茶贴里面的视频  感觉切片很难成功， 可以帮忙看一下原因吗</div></div></div></div></div>
   </div>
 </article>
 </div></section>
