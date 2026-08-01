@@ -105,21 +105,21 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   <div class="hero-top">
     <div>
       <h1><span class="mark"></span>生产问题看板</h1>
-      <div class="sub">最后更新 · 北京时间 2026-08-01 15:50</div>
+      <div class="sub">最后更新 · 北京时间 2026-08-01 16:08</div>
     </div>
-    <div class="nums" style="color:var(--ink-3);font-size:12px;background:var(--surface);border:1px solid var(--line);padding:5px 14px;border-radius:999px;">15 个问题</div>
+    <div class="nums" style="color:var(--ink-3);font-size:12px;background:var(--surface);border:1px solid var(--line);padding:5px 14px;border-radius:999px;">17 个问题</div>
   </div>
   <div class="hero-stats">
     <div class="hero-stat"><div class="v nums red">1</div><div class="l">严重</div></div>
     <div class="hero-stat"><div class="v nums amber">7</div><div class="l">高优</div></div>
-    <div class="hero-stat"><div class="v nums green">7</div><div class="l">中等</div></div>
-    <div class="hero-stat"><div class="v nums">9</div><div class="l">处理中</div></div>
+    <div class="hero-stat"><div class="v nums green">9</div><div class="l">中等</div></div>
+    <div class="hero-stat"><div class="v nums">11</div><div class="l">处理中</div></div>
     <div class="hero-stat"><div class="v nums">3</div><div class="l">待处理</div></div>
     <div class="hero-stat"><div class="v nums">3</div><div class="l">已修复</div></div>
   </div>
 </div>
 
-<section class="group" data-group="处理中"><header class="group-head"><div class="group-title"><span class="group-icon" style="background:#ef4444">🔴</span><span class="group-name">处理中</span><span class="group-count">9</span></div><span class="group-hint">点击卡片查看完整处理过程 →</span></header><div class="grid"><article class="issue-card" data-id="p1">
+<section class="group" data-group="处理中"><header class="group-head"><div class="group-title"><span class="group-icon" style="background:#ef4444">🔴</span><span class="group-name">处理中</span><span class="group-count">11</span></div><span class="group-hint">点击卡片查看完整处理过程 →</span></header><div class="grid"><article class="issue-card" data-id="p1">
   <div class="card-summary" onclick="toggleCard(this)">
     <div class="card-tags">
       <span class="tag proj">DX-999</span>
@@ -489,6 +489,66 @@ SELECT slice_status, CO</div></div></div><div class="t-row"><div class="t-time">
     </div>
     <div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">封面加载失败影响个人中心功能体验，建议前端核查图片地址/防盗链配置</div></div>
     <div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">前端尽快排查；运营侧确认是否影响核心观看路径</div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="p16">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="tag proj">TJ-062/063</span>
+      <span class="tag sev" style="background:#eab308">中</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">web站帖子详情右侧推荐帖子封面不展示</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 15:37</span>
+      <span class="dot-sep">·</span>
+      <span>上报 鲍勃</span>
+      <span class="dot-sep">·</span>
+      <span>3 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">51凤楼 web站 帖子详情页右侧"推荐帖子"封面全都不展示，点击推荐帖子进入详情后图片可正常展示；后端返回的图片链接打不开（阿秋反馈）</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 15:37</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel">【TJ-062/063】51凤楼（APP/WEB）｜项目群</span></div><div class="t-text">@qingqing0001111 https://pic.vslaqe.cn/upload_01/head/20250712/2025071221185769442.jpg 阿秋反馈 这个后端返回的图片打不开 朔月老师麻烦看下</div></div></div><div class="t-row"><div class="t-time">08-01 15:50</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朔月-BE-XHWJ-CN</span><span class="t-channel">【TJ-062/063】51凤楼（APP/WEB）｜项目群</span></div><div class="t-text">管理端能看一下图片能不能展示出来吗？</div></div></div><div class="t-row"><div class="t-time">08-01 15:53</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">鲍勃-PM-XHWJ-CN</span><span class="t-channel">【TJ-062/063】51凤楼（APP/WEB）｜项目群</span></div><div class="t-text">是这样，web站的外围帖子详情内，右侧的推荐帖子封面全都不展示，但是点击推荐帖子进入详情，图片可以展示</div></div></div></div>
+    <div class="detail-grid">
+      <div class="detail-section"><div class="detail-label">🛠 处理方案</div><div class="detail-body">朔月(后端)排查图片链接返回逻辑与封面展示；需确认管理端与 web 端图片展示差异</div></div>
+      <div class="detail-section"><div class="detail-label">📊 当前结果</div><div class="detail-body">待后端排查图片链接与推荐位封面展示，处理中</div></div>
+    </div>
+    <div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">web 站推荐位封面不展示影响内容浏览体验；后端返回图片链接打不开疑与图片域名/防盗链配置相关</div></div>
+    <div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">后端确认图片链接返回与图片域名访问；测试回归 web 推荐位封面展示</div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="p17">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="tag proj">DX-055</span>
+      <span class="tag sev" style="background:#eab308">中</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">点击"无限阅帖"提示元宝不足（余额足够）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-01 15:39</span>
+      <span class="dot-sep">·</span>
+      <span>上报 吴天北</span>
+      <span class="dot-sep">·</span>
+      <span>3 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">茶馆APP 用户元宝余额足够，但点击"无限阅帖"提示元宝不足；入口：我的 → 昵称下方"无限阅帖"</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-01 15:39</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">看下 元宝是够的 但是 点击无限阅帖 显示元宝不足</div></div></div><div class="t-row"><div class="t-time">08-01 15:42</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">天辰-FE-XHWJ-CN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">操作流程描述一下，主要是入口在哪 @tianbei001</div></div></div><div class="t-row"><div class="t-time">08-01 15:46</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">吴天北-OP-XHWJ-VN</span><span class="t-channel">【DX-055】茶馆（APP）｜项目群</span></div><div class="t-text">点击我的 点击 昵称下面的 无限阅帖</div></div></div></div></div>
+    <div class="detail-grid">
+      <div class="detail-section"><div class="detail-label">🛠 处理方案</div><div class="detail-body">天辰(前端)按复现路径排查"无限阅帖"的元宝余额校验逻辑</div></div>
+      <div class="detail-section"><div class="detail-label">📊 当前结果</div><div class="detail-body">待前端复现排查，处理中</div></div>
+    </div>
+    <div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">余额足够却提示不足，疑余额校验取错口径（可用余额 vs 冻结余额），影响付费功能使用</div></div>
+    <div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">前后端核对无限阅帖扣费与余额判断逻辑；跟进是否与 07-30 元宝来源问题同源</div></div>
   </div>
 </article>
 </div></section><section class="group" data-group="待处理"><header class="group-head"><div class="group-title"><span class="group-icon" style="background:#f59e0b">🟡</span><span class="group-name">待处理</span><span class="group-count">3</span></div><span class="group-hint">点击卡片查看完整处理过程 →</span></header><div class="grid"><article class="issue-card" data-id="p8">
