@@ -11,7 +11,7 @@
   --paper: #f8fafc; --surface: #ffffff; --surface-2: #f8fafc;
   --line: #e2e8f0; --brand: #6366f1; --brand-2: #4f46e5;
   --accent: #d97706; --good: #059669; --warn: #dc2626;
-  --ops: #d97706; --tech: #2563eb;
+  --ops: #d97706; --tech: #2563eb; --mgmt: #7c3aed;
   --ease: cubic-bezier(.25,1,.5,1);
   --shadow-sm: 0 1px 3px rgba(51,65,85,.06);
   --shadow-md: 0 4px 16px rgba(51,65,85,.08);
@@ -21,7 +21,7 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
 .nums { font-variant-numeric:tabular-nums; }
 button { font-family:inherit; }
 
-/* ============ Hero Header ============ */
+/* ============ Hero ============ */
 .hero { background:linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); border:1px solid var(--line); border-radius:16px; padding:26px 30px 22px; position:relative; overflow:hidden; margin-bottom:18px; box-shadow:var(--shadow-sm); }
 .hero::after { content:""; position:absolute; right:-60px; top:-60px; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle, rgba(99,102,241,.08), transparent 65%); pointer-events:none; }
 .hero-top { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; position:relative; z-index:1; }
@@ -31,19 +31,31 @@ button { font-family:inherit; }
 .hero .sub span { display:inline-flex; align-items:center; gap:5px; }
 .hero .sub .k { color:var(--ink-3); opacity:.7; }
 .hero-stats { display:flex; margin-top:18px; border-top:1px solid var(--line); padding-top:14px; flex-wrap:wrap; position:relative; z-index:1; }
-.hero-stat { flex:1; min-width:90px; padding:0 4px; }
+.hero-stat { flex:1; min-width:88px; padding:0 4px; }
 .hero-stat .v { font-size:24px; font-weight:700; letter-spacing:-.02em; color:#0f172a; }
 .hero-stat .l { font-size:11px; color:var(--ink-3); margin-top:2px; }
 .hero-stat .v.ops { color:var(--ops); } .hero-stat .v.tech { color:var(--tech); }
 .hero-stat .v.good { color:var(--good); } .hero-stat .v.warn { color:var(--warn); }
-.hero-stat .v.brand { color:var(--brand-2); }
+.hero-stat .v.brand { color:var(--brand-2); } .hero-stat .v.mgmt { color:var(--mgmt); }
 
 /* ============ 月份切换 ============ */
-.month-bar { display:flex; align-items:center; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+.month-bar { display:flex; align-items:center; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
 .month-btn { padding:7px 16px; font-size:13px; font-weight:500; border-radius:999px; background:var(--surface); color:var(--ink-2); border:1px solid var(--line); cursor:pointer; transition:all 150ms var(--ease); }
 .month-btn:hover { border-color:#c9c5bc; color:var(--ink); }
 .month-btn.active { background:var(--brand); color:#fff; border-color:var(--brand); box-shadow:var(--shadow-sm); }
 .month-hint { margin-left:auto; font-size:11.5px; color:var(--ink-3); }
+
+/* ============ 素材快捷添加 ============ */
+.quick-add { background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow-sm); padding:14px 18px; margin-bottom:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.quick-add .qa-title { font-size:12.5px; font-weight:600; color:#0f172a; display:flex; align-items:center; gap:7px; }
+.quick-add .qa-title .ico { width:24px; height:24px; border-radius:7px; background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.quick-add select, .quick-add input { padding:7px 10px; font-size:12.5px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink); outline:none; }
+.quick-add select:focus, .quick-add input:focus { border-color:var(--brand); }
+.quick-add select { max-width:180px; }
+.quick-add input.qa-tag { width:110px; }
+.quick-add input.qa-text { flex:1; min-width:220px; }
+.quick-add .qa-add { padding:8px 18px; font-size:12.5px; font-weight:600; border:none; border-radius:8px; background:var(--brand-2); color:#fff; cursor:pointer; }
+.quick-add .qa-add:hover { background:#4338ca; }
 
 /* ============ 规则卡片 ============ */
 .rules { background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow-sm); margin-bottom:16px; overflow:hidden; }
@@ -66,9 +78,9 @@ button { font-family:inherit; }
 .rule-note { margin-top:14px; background:#fffbeb; border:1px solid #fde68a; color:#92400e; border-radius:10px; padding:12px 16px; font-size:12px; line-height:1.8; }
 .rule-note b { color:#78350f; }
 
-/* ============ 分组区块 ============ */
+/* ============ 分组 ============ */
 .group { margin-bottom:20px; }
-.group-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.group-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
 .group-head .g-ico { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; flex-shrink:0; }
 .group-head .g-ico.ops { background:linear-gradient(135deg,#f59e0b,#d97706); }
 .group-head .g-ico.tech { background:linear-gradient(135deg,#3b82f6,#2563eb); }
@@ -77,7 +89,7 @@ button { font-family:inherit; }
 .group-head .g-cnt { margin-left:auto; font-size:11.5px; color:var(--ink-3); }
 
 /* ============ 人员卡片 ============ */
-.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:12px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(400px,1fr)); gap:12px; }
 .pcard { background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:14px 16px; box-shadow:var(--shadow-sm); transition:all 150ms var(--ease); position:relative; }
 .pcard:hover { box-shadow:var(--shadow-md); transform:translateY(-1px); }
 .pcard.na { opacity:.55; background:var(--surface-2); }
@@ -87,13 +99,13 @@ button { font-family:inherit; }
 .pcard .avatar.tech { background:linear-gradient(135deg,#3b82f6,#2563eb); }
 .pcard .who { flex:1; min-width:0; }
 .pcard .who b { font-size:13.5px; color:#0f172a; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.pcard .who small { color:var(--ink-3); font-size:11px; }
+.pcard .who small { color:var(--ink-3); font-size:11px; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .pcard .who .lead-tag { display:inline-block; margin-left:6px; background:#fef3c7; color:#92400e; font-size:10px; padding:1px 7px; border-radius:999px; font-weight:500; vertical-align:1px; }
+.pcard .who .mgmt-tag { display:inline-block; margin-left:6px; background:#ede9fe; color:#6d28d9; font-size:10px; padding:1px 7px; border-radius:999px; font-weight:500; vertical-align:1px; }
 .pcard .na-toggle { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--ink-2); cursor:pointer; user-select:none; white-space:nowrap; }
 .pcard .na-toggle input { accent-color:var(--ink-3); width:14px; height:14px; cursor:pointer; }
-.pcard .na-label { font-size:10.5px; color:var(--warn); font-weight:500; }
 
-/* 分数输入 */
+/* 分数 */
 .scores { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px; }
 .score-item { text-align:center; }
 .score-item .lab { font-size:10.5px; color:var(--ink-3); margin-bottom:4px; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -113,6 +125,28 @@ button { font-family:inherit; }
 .avg-state.na { background:#f1f5f9; color:var(--ink-3); }
 .avg-hint { margin-left:auto; font-size:10.5px; color:var(--ink-3); }
 
+/* 素材 */
+.mats { margin-top:10px; background:var(--surface-2); border:1px dashed var(--line); border-radius:9px; padding:9px 11px; }
+.mats .mat-h { display:flex; align-items:center; gap:7px; font-size:10.5px; color:var(--ink-2); font-weight:600; margin-bottom:6px; }
+.mats .mat-h .cnt { color:var(--brand-2); }
+.mats .mat-add { display:flex; gap:6px; flex-wrap:wrap; }
+.mats .mat-add select { padding:5px 8px; font-size:11px; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--ink); outline:none; width:86px; }
+.mats .mat-add input { flex:1; min-width:140px; padding:5px 8px; font-size:11px; border:1px solid var(--line); border-radius:6px; background:var(--surface); color:var(--ink); outline:none; }
+.mats .mat-add input:focus { border-color:var(--brand); }
+.mats .mat-add .m-btn { padding:5px 12px; font-size:11px; font-weight:600; border:none; border-radius:6px; background:var(--brand-2); color:#fff; cursor:pointer; }
+.mats .mat-list { margin-top:7px; max-height:130px; overflow-y:auto; }
+.mat-item { display:flex; gap:7px; align-items:flex-start; background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:5px 8px; margin-bottom:4px; font-size:11px; }
+.mat-item .mat-date { color:var(--ink-3); font-variant-numeric:tabular-nums; flex-shrink:0; padding-top:1px; }
+.mat-item .mat-tag { flex-shrink:0; font-size:10px; padding:1px 6px; border-radius:999px; font-weight:500; }
+.mat-item .mat-tag.good { background:#ecfdf5; color:#059669; }
+.mat-item .mat-tag.bad { background:#fef2f2; color:#dc2626; }
+.mat-item .mat-tag.delivery { background:#eff6ff; color:#2563eb; }
+.mat-item .mat-tag.risk { background:#fff7ed; color:#d97706; }
+.mat-item .mat-tag.other { background:#f1f5f9; color:var(--ink-2); }
+.mat-item .mat-txt { flex:1; color:var(--ink-2); line-height:1.5; }
+.mat-item .mat-del { border:none; background:none; color:var(--ink-3); cursor:pointer; font-size:11px; padding:0 2px; }
+.mat-item .mat-del:hover { color:var(--warn); }
+
 /* 备注 */
 .notes { margin-top:10px; }
 .notes input { width:100%; padding:7px 10px; font-size:11.5px; border:1px solid var(--line); border-radius:7px; background:var(--surface); color:var(--ink); outline:none; margin-bottom:6px; transition:border-color 150ms var(--ease); }
@@ -120,7 +154,7 @@ button { font-family:inherit; }
 .notes input.required-note { border-color:#dc2626; background:#fff7f7; }
 .notes .note-tag { font-size:10px; color:var(--ink-3); display:block; margin-bottom:2px; }
 
-/* ============ 底部操作条 ============ */
+/* ============ 底部 ============ */
 .action-bar { position:sticky; bottom:16px; margin-top:8px; display:flex; gap:10px; justify-content:flex-end; align-items:center; flex-wrap:wrap; }
 .btn { padding:9px 20px; font-size:13px; font-weight:600; border-radius:10px; cursor:pointer; transition:all 150ms var(--ease); border:none; }
 .btn.primary { background:var(--brand-2); color:#fff; box-shadow:var(--shadow-sm); }
@@ -133,15 +167,22 @@ button { font-family:inherit; }
 /* 导出弹层 */
 .modal-mask { display:none; position:fixed; inset:0; background:rgba(15,23,42,.45); z-index:100; align-items:center; justify-content:center; padding:20px; }
 .modal-mask.open { display:flex; }
-.modal { background:#fff; border-radius:14px; max-width:720px; width:100%; max-height:80vh; display:flex; flex-direction:column; box-shadow:var(--shadow-md); }
+.modal { background:#fff; border-radius:14px; max-width:760px; width:100%; max-height:82vh; display:flex; flex-direction:column; box-shadow:var(--shadow-md); }
 .modal-head { display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid var(--line); }
 .modal-head b { font-size:15px; color:#0f172a; flex:1; }
 .modal-head button { background:none; border:none; font-size:18px; color:var(--ink-3); cursor:pointer; }
 .modal-body { padding:16px 20px; overflow:auto; }
-#exportOut { width:100%; min-height:300px; border:1px solid var(--line); border-radius:8px; padding:12px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; color:var(--ink); line-height:1.7; resize:vertical; background:var(--surface-2); white-space:pre-wrap; }
+#exportOut { width:100%; min-height:320px; border:1px solid var(--line); border-radius:8px; padding:12px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; color:var(--ink); line-height:1.7; resize:vertical; background:var(--surface-2); white-space:pre-wrap; }
 .modal-foot { display:flex; justify-content:flex-end; gap:10px; padding:14px 20px; border-top:1px solid var(--line); }
 
-/* 响应式 */
+/* 素材总览弹层 */
+.mat-overview-item { border-bottom:1px solid var(--line); padding:10px 2px; }
+.mat-overview-item:last-child { border-bottom:none; }
+.mat-ov-head { display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:#0f172a; margin-bottom:4px; }
+.mat-ov-head .role { font-size:11px; font-weight:400; color:var(--ink-3); }
+.mat-ov-line { font-size:11.5px; color:var(--ink-2); padding:2px 0; }
+.mat-ov-line .d { color:var(--ink-3); margin-right:6px; }
+
 @media (max-width:640px){ .grid { grid-template-columns:1fr; } .scores { grid-template-columns:repeat(2,1fr); } }
 </style>
 </head>
@@ -153,7 +194,7 @@ button { font-family:inherit; }
     <div>
       <h1><span class="mark"></span>星河无界 · 人才评价</h1>
       <div class="sub">
-        <span><span class="k">口径</span> 月度人才评价</span>
+        <span><span class="k">口径</span> 月度人才评价（对齐官方表）</span>
         <span><span class="k">基准分</span> 80 分 = 表现普通</span>
         <span><span class="k">必填</span> ≥90 或 ≤60 需填写可见优缺点</span>
         <span id="lastSave" style="display:none"><span class="k">上次保存</span> <span id="lastSaveT"></span></span>
@@ -162,10 +203,11 @@ button { font-family:inherit; }
   </div>
   <div class="hero-stats">
     <div class="hero-stat"><div class="v nums" id="stTotal">0</div><div class="l">评价总人数</div></div>
-    <div class="hero-stat"><div class="v nums ops" id="stOps">0</div><div class="l">运营条线</div></div>
     <div class="hero-stat"><div class="v nums tech" id="stTech">0</div><div class="l">技术条线</div></div>
-    <div class="hero-stat"><div class="v nums" id="stDone">0</div><div class="l">已完成</div></div>
-    <div class="hero-stat"><div class="v nums" id="stNa">0</div><div class="l">无法评价</div></div>
+    <div class="hero-stat"><div class="v nums ops" id="stOps">0</div><div class="l">运营条线</div></div>
+    <div class="hero-stat"><div class="v nums mgmt" id="stMgmt">0</div><div class="l">管理层</div></div>
+    <div class="hero-stat"><div class="v nums" id="stMat">0</div><div class="l">素材条数</div></div>
+    <div class="hero-stat"><div class="v nums brand" id="stDone">0</div><div class="l">已完成</div></div>
     <div class="hero-stat"><div class="v nums warn" id="stHi">0</div><div class="l">高分(≥90)</div></div>
     <div class="hero-stat"><div class="v nums good" id="stLo">0</div><div class="l">低分(≤60)</div></div>
   </div>
@@ -173,6 +215,22 @@ button { font-family:inherit; }
 
 <!-- ============ 月份切换 ============ -->
 <div class="month-bar" id="monthBar"></div>
+
+<!-- ============ 素材快捷添加 ============ -->
+<div class="quick-add">
+  <span class="qa-title"><span class="ico">素</span>快速记录素材</span>
+  <select id="qaWho"></select>
+  <select id="qaTag">
+    <option value="delivery">交付/上线</option>
+    <option value="good">亮点/优事</option>
+    <option value="bad">问题/不足</option>
+    <option value="risk">风险/预警</option>
+    <option value="other">其他</option>
+  </select>
+  <input type="date" id="qaDate" class="qa-tag" style="width:150px">
+  <input type="text" id="qaText" class="qa-text" placeholder="记录事实，如：GSCE-211 茶馆新落地页提前 1 天交付并自测通过…">
+  <button class="qa-add" onclick="quickAddMat()">+ 记一条</button>
+</div>
 
 <!-- ============ 规则卡片 ============ -->
 <div class="rules open" id="rulesCard">
@@ -183,7 +241,7 @@ button { font-family:inherit; }
   <div class="rules-body">
     <div class="rule-grid">
       <div class="rule-col">
-        <h4><span class="d ops"></span>运营评价维度</h4>
+        <h4><span class="d ops"></span>运营评价维度（运营子表）</h4>
         <ol>
           <li><b>洞察力</b>：看问题的能力。是否想得到？是否根据某些线索意识到应该怎么做。</li>
           <li><b>决策力</b>：选择方向的能力。比如 A 方案还是 B 方案。</li>
@@ -192,7 +250,7 @@ button { font-family:inherit; }
         </ol>
       </div>
       <div class="rule-col">
-        <h4><span class="d tech"></span>技术评价维度</h4>
+        <h4><span class="d tech"></span>技术评价维度（技术子表）</h4>
         <ol>
           <li><b>业务理解能力</b>：看问题的能力。是否想得到？是否根据某些线索意识到应该怎么做。</li>
           <li><b>技术判断力</b>：选择方向的能力。比如 A 方案还是 B 方案。</li>
@@ -202,7 +260,8 @@ button { font-family:inherit; }
       </div>
     </div>
     <div class="rule-note">
-      <b>规则综述：</b>① 人才评价每月一次，月底前填写当月表格；② 每月可能调整评价维度/范围，日常多关注部门情况更重要；③ 每维度 80 分为表现普通，可上下 5 分浮动作细微调整，表现较好/较差可更大幅度改变分数，<b>90 分以上和 60 分以下必须填写「可见优点\优事」「可见缺点\劣事」「对有升职或降职可能的同事简述原因」</b>；④ 运营、技术的组长必须评价，当月未与其沟通可不评价；⑤ 组员有亮点或待提高时，单独新增一行填写。
+      <b>规则综述：</b>① 人才评价每月一次，月底前填写当月表格；② 每月可能调整评价维度/范围，日常多关注部门情况更重要；③ 每维度 80 分为表现普通，可上下 5 分浮动作细微调整，表现较好/较差可更大幅度改变分数，<b>90 分以上和 60 分以下必须填写「可见优点\优事」「可见缺点\劣事」「对有升职或降职可能的同事简述原因」</b>；④ 运营、技术的组长必须评价，当月未与其沟通可不评价；⑤ 组员有亮点或待提高时，单独新增一行填写。<br><br>
+      <b>本看板用法：</b>日常看到任何人的表现（交付、亮点、问题、风险）→ 在顶部「快速记录素材」或卡片内「素材」区随手记一条；月底打开当月 → 依据素材逐人打分 → 导出文本粘贴进官方《人才评价.xlsx》的「督导评分」行。
     </div>
   </div>
 </div>
@@ -210,9 +269,10 @@ button { font-family:inherit; }
 <!-- ============ 评价主体 ============ -->
 <div id="groups"></div>
 
-<!-- ============ 底部操作 ============ -->
+<!-- ============ 底部 ============ -->
 <div class="action-bar">
   <span class="save-state" id="saveState"></span>
+  <button class="btn ghost" onclick="overviewMats()">素材总览</button>
   <button class="btn ghost" onclick="exportText()">导出评价文本</button>
   <button class="btn primary" onclick="saveAll()">保存本月评价</button>
 </div>
@@ -220,7 +280,7 @@ button { font-family:inherit; }
 <!-- ============ 导出弹层 ============ -->
 <div class="modal-mask" id="exportModal" onclick="if(event.target===this)closeExport()">
   <div class="modal">
-    <div class="modal-head"><b>导出评价文本</b><button onclick="closeExport()">✕</button></div>
+    <div class="modal-head"><b>导出评价文本（可粘贴至官方表督导评分行）</b><button onclick="closeExport()">✕</button></div>
     <div class="modal-body"><textarea id="exportOut" spellcheck="false"></textarea></div>
     <div class="modal-foot">
       <button class="btn ghost" onclick="copyExport()">复制全部</button>
@@ -229,74 +289,129 @@ button { font-family:inherit; }
   </div>
 </div>
 
+<!-- ============ 素材总览弹层 ============ -->
+<div class="modal-mask" id="matModal" onclick="if(event.target===this)document.getElementById('matModal').classList.remove('open')">
+  <div class="modal">
+    <div class="modal-head"><b>素材总览（本月）</b><button onclick="document.getElementById('matModal').classList.remove('open')">✕</button></div>
+    <div class="modal-body" id="matModalBody"></div>
+    <div class="modal-foot"><button class="btn primary" onclick="document.getElementById('matModal').classList.remove('open')">关闭</button></div>
+  </div>
+</div>
+
 <script>
-/* ============ 人员清单（星河无界） ============ */
+/* ============ 人员清单（对齐官方《人才评价.xlsx》） ============ */
 const DIMS_OPS = ['洞察力','决策力','推动力','经营意识'];
 const DIMS_TECH = ['业务理解能力','技术判断力','问题分析能力','交付可靠性'];
+const TAG_LABEL = { good:'亮点', bad:'问题', delivery:'交付', risk:'风险', other:'其他' };
 
-const PEOPLE = {
-  ops: [
-    { name:'豆腐',   role:'产品负责人', lead:true },
-    { name:'小宜',   role:'产品经理' },
-    { name:'波林',   role:'产品经理' },
-    { name:'大藜',   role:'产品经理' },
-    { name:'鲍勃',   role:'产品经理' },
-    { name:'卡门',   role:'产品经理·试岗', na:true, naReason:'新入职试岗，暂无充分观察样本' },
-    { name:'史强',   role:'运营OL·验收' },
-    { name:'秋野',   role:'运营OL' },
-    { name:'林笑尘', role:'运营OL' },
-    { name:'高睿',   role:'运营OL' },
-    { name:'安靖',   role:'运营OL' },
-    { name:'曜宝',   role:'UI设计师' },
-    { name:'白檀',   role:'UI设计师' },
-    { name:'宫茉莉', role:'UI设计师' },
-    { name:'科巴',   role:'UI设计师' },
-    { name:'林心玥', role:'项目助理' },
-    { name:'不悔',   role:'项目助理' },
-    { name:'林欣怡', role:'账号管理员' }
-  ],
-  tech: [
-    { name:'岳红香', role:'技术负责人', lead:true },
-    { name:'文龙',   role:'技术TL',     lead:true },
-    { name:'鲁子敬', role:'前端' },
-    { name:'景天',   role:'前端' },
-    { name:'卡比',   role:'前端' },
-    { name:'风间',   role:'前端' },
-    { name:'阿秋',   role:'前端' },
-    { name:'天辰',   role:'前端' },
-    { name:'朔月',   role:'后端' },
-    { name:'厉飞雨', role:'后端' },
-    { name:'鹏程',   role:'后端' },
-    { name:'李瑞',   role:'后端' },
-    { name:'飞策',   role:'测试' }
-  ]
-};
+/* 官方技术子表 26 人 */
+const PEOPLE_TECH = [
+  { name:'齐泽西', role:'副总经理', dept:'交付线', lead:true, mgmt:true },
+  { name:'文龙',   role:'主管',     dept:'技术部', lead:true, mgmt:true },
+  { name:'景天',   role:'前端工程师', dept:'前端组' },
+  { name:'风间',   role:'前端工程师', dept:'前端组' },
+  { name:'卡比',   role:'前端工程师', dept:'前端组' },
+  { name:'阿秋',   role:'前端工程师', dept:'前端组' },
+  { name:'天辰',   role:'前端工程师', dept:'前端组' },
+  { name:'鲁子敬', role:'前端工程师', dept:'前端组' },
+  { name:'李瑞',   role:'后端工程师', dept:'后端组' },
+  { name:'朔月',   role:'后端工程师', dept:'后端组' },
+  { name:'鹏程',   role:'后端工程师', dept:'后端组' },
+  { name:'厉飞雨', role:'后端工程师', dept:'后端组' },
+  { name:'飞策',   role:'测试工程师', dept:'测试组' },
+  { name:'武吉（兼）', role:'运维工程师', dept:'运维组' },
+  { name:'曜宝（暂代）', role:'组长', dept:'UI组', lead:true, mgmt:true },
+  { name:'白檀',   role:'UI设计师',  dept:'UI组' },
+  { name:'宫茉莉', role:'UI设计师',  dept:'UI组' },
+  { name:'科巴',   role:'UI设计师',  dept:'UI组' },
+  { name:'文峰',   role:'LLM应用工程师', dept:'公共组' },
+  { name:'张宇',   role:'LLM应用工程师', dept:'公共组' },
+  { name:'豆腐（TW）', role:'组长',   dept:'产品组', lead:true, mgmt:true },
+  { name:'小宜（TW）', role:'产品经理', dept:'产品组', mgmt:true },
+  { name:'波林（TW）', role:'产品经理', dept:'产品组', mgmt:true },
+  { name:'大藜',   role:'产品经理',  dept:'产品组', mgmt:true },
+  { name:'鲍勃',   role:'产品经理',  dept:'产品组', mgmt:true },
+  { name:'红雨',   role:'产品经理',  dept:'产品组', mgmt:true }
+];
+
+/* 官方运营子表 59 人 */
+const PEOPLE_OPS = [
+  { name:'崎煜',     role:'主管',    dept:'1部（交友）', lead:true, mgmt:true },
+  { name:'韩柠檬（UK）', role:'副主管', dept:'1部（交友）', mgmt:true },
+  { name:'秋野',     role:'组长',    dept:'1部（交友）·运营1组', lead:true, mgmt:true },
+  { name:'吴天北',   role:'运营专员', dept:'1部（交友）·运营1组' },
+  { name:'风渊',     role:'运营专员', dept:'1部（交友）·运营1组' },
+  { name:'艺妍',     role:'运营专员', dept:'1部（交友）·运营1组' },
+  { name:'周肥',     role:'运营专员', dept:'1部（交友）·运营1组' },
+  { name:'吴娜',     role:'运营专员', dept:'1部（交友）·运营1组' },
+  { name:'赵凯',     role:'运营专员', dept:'1部（交友）·运营1组' },
+  { name:'林笑尘',   role:'组长',    dept:'1部（交友）·运营2组', lead:true, mgmt:true },
+  { name:'树根',     role:'运营专员', dept:'1部（交友）·运营2组' },
+  { name:'李东',     role:'运营专员', dept:'1部（交友）·运营2组' },
+  { name:'白豚',     role:'运营专员', dept:'1部（交友）·运营2组' },
+  { name:'林辰',     role:'编辑专员', dept:'1部（交友）·运营2组' },
+  { name:'韩柠檬（兼）', role:'组长', dept:'1部（交友）·运营3组', lead:true, mgmt:true },
+  { name:'小贤（UK）', role:'运营专员', dept:'1部（交友）·运营3组' },
+  { name:'麦知远',   role:'运营专员', dept:'1部（交友）·运营3组' },
+  { name:'郭靖（UK）', role:'运营专员', dept:'1部（交友）·运营3组' },
+  { name:'克里斯（UK）', role:'运营专员', dept:'1部（交友）·运营3组' },
+  { name:'周子然',   role:'主管',    dept:'2部（流量）', lead:true, mgmt:true },
+  { name:'待定',     role:'副主管',  dept:'2部（流量）', mgmt:true },
+  { name:'周子然（兼）', role:'组长', dept:'2部（流量）·运营1组', lead:true, mgmt:true },
+  { name:'金金（TW）', role:'编辑专员', dept:'2部（流量）·运营1组' },
+  { name:'美熙',     role:'编辑专员', dept:'2部（流量）·运营1组' },
+  { name:'启年',     role:'编辑专员', dept:'2部（流量）·运营1组' },
+  { name:'钧烽',     role:'编辑专员', dept:'2部（流量）·运营1组' },
+  { name:'和川',     role:'编辑专员', dept:'2部（流量）·运营1组' },
+  { name:'阳阳仔',   role:'编辑专员', dept:'2部（流量）·运营1组' },
+  { name:'王伟',     role:'编辑专员', dept:'2部（流量）·运营1组' },
+  { name:'大胜',     role:'编辑专员', dept:'2部（流量）·运营1组' },
+  { name:'吴真龙',   role:'编辑专员', dept:'2部（流量）·运营1组' },
+  { name:'小班（TW）', role:'运营专员', dept:'2部（流量）·运营1组' },
+  { name:'陈洛',     role:'运营专员', dept:'2部（流量）·运营1组' },
+  { name:'姜子牙',   role:'SEO专员', dept:'2部（流量）·运营1组' },
+  { name:'安靖',     role:'组长',    dept:'2部（流量）·运营2组', lead:true, mgmt:true },
+  { name:'何泽文',   role:'编辑专员', dept:'2部（流量）·运营2组' },
+  { name:'米踢（TW）', role:'运营专员', dept:'2部（流量）·运营2组' },
+  { name:'双髻鲨（TW）', role:'运营专员', dept:'2部（流量）·运营2组' },
+  { name:'柯南',     role:'运营专员', dept:'2部（流量）·运营2组' },
+  { name:'洪杰',     role:'运营专员', dept:'2部（流量）·运营2组' },
+  { name:'冷月',     role:'运营专员', dept:'2部（流量）·运营2组' },
+  { name:'慕小乔',   role:'运营专员', dept:'2部（流量）·运营2组' },
+  { name:'梁家辉',   role:'运营专员', dept:'2部（流量）·运营2组' },
+  { name:'史强',     role:'组长',    dept:'2部（流量）·运营3组', lead:true, mgmt:true },
+  { name:'纳米',     role:'编辑专员', dept:'2部（流量）·运营3组' },
+  { name:'江贺森',   role:'运营专员', dept:'2部（流量）·运营3组' },
+  { name:'晴子',     role:'运营专员', dept:'2部（流量）·运营3组' },
+  { name:'顾长歌',   role:'运营专员', dept:'2部（流量）·运营3组' },
+  { name:'高睿',     role:'组长',    dept:'内容组', lead:true, mgmt:true },
+  { name:'粥粥',     role:'编辑专员', dept:'内容组' },
+  { name:'刚枪',     role:'编辑专员', dept:'内容组' },
+  { name:'韦小宝',   role:'编辑专员', dept:'内容组' },
+  { name:'小哈',     role:'编辑专员', dept:'内容组' },
+  { name:'靓仔',     role:'编辑专员', dept:'内容组' },
+  { name:'康康',     role:'编辑专员', dept:'内容组' },
+  { name:'钟馗',     role:'编辑专员', dept:'内容组' },
+  { name:'天柱',     role:'编辑专员', dept:'内容组' },
+  { name:'佳佳',     role:'编辑专员', dept:'内容组' },
+  { name:'钟为伦',   role:'编辑专员', dept:'内容组' }
+];
+
+const PEOPLE = { ops: PEOPLE_OPS, tech: PEOPLE_TECH };
 
 /* ============ 月份 ============ */
 const MONTHS = ['2026-06','2026-07','2026-08'];
 const DEFAULT_MONTH = '2026-07';
 let currentMonth = DEFAULT_MONTH;
+const KEY = m => 'xhwj_review_v2_' + m;
 
-const KEY = m => 'xhwj_review_' + m;
+function loadState(month) { try { return JSON.parse(localStorage.getItem(KEY(month))) || {}; } catch(e){ return {}; } }
+function saveState(month, state) { localStorage.setItem(KEY(month), JSON.stringify(state)); }
 
-function loadState(month) {
-  try { return JSON.parse(localStorage.getItem(KEY(month))) || {}; }
-  catch(e){ return {}; }
-}
-function saveState(month, state) {
-  localStorage.setItem(KEY(month), JSON.stringify(state));
-}
-
-/* 默认单个人状态 */
 function defaultPerson(p, line) {
   const scores = {};
   (line === 'ops' ? DIMS_OPS : DIMS_TECH).forEach(d => scores[d] = 80);
-  return {
-    na: !!p.na,
-    naReason: p.naReason || '',
-    scores,
-    notes: { good:'', bad:'', career:'' }
-  };
+  return { na: false, naReason:'', scores, notes:{ good:'', bad:'', career:'' }, mats:[] };
 }
 
 function buildAll() {
@@ -313,20 +428,20 @@ function buildAll() {
 
 /* ============ 渲染 ============ */
 const GRP_META = {
-  ops:  { ttl:'运营条线', sub:'产品 / 运营 / UI / 助理', ico:'营', color:'ops',  dims: DIMS_OPS },
-  tech: { ttl:'技术条线', sub:'前端 / 后端 / 测试 / 管理', ico:'技', color:'tech', dims: DIMS_TECH }
+  ops:  { ttl:'运营条线', sub:'1部交友 / 2部流量 / 内容组 · 共 59 人', ico:'营', color:'ops',  dims: DIMS_OPS },
+  tech: { ttl:'技术条线', sub:'技术部 / 产品组 / 交付线 · 共 26 人', ico:'技', color:'tech', dims: DIMS_TECH }
 };
 
 function avatarChar(name){ return name ? name.slice(-2) : '?'; }
+function avgOf(scores){ const vs=Object.values(scores); return vs.length ? vs.reduce((a,b)=>a+(+b||0),0)/vs.length : 0; }
+function esc(s){ return (s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 
-function avgOf(scores){
-  const vs = Object.values(scores);
-  if(!vs.length) return 0;
-  return vs.reduce((a,b)=>a+(+b||0),0)/vs.length;
+function matItemHtml(m){
+  const t = TAG_LABEL[m.tag] || '其他';
+  return `<div class="mat-item"><span class="mat-date">${esc(m.date)}</span><span class="mat-tag ${m.tag}">${t}</span><span class="mat-txt">${esc(m.text)}</span><button class="mat-del" data-line="${m.line}" data-idx="${m.idx}" data-mi="${m.mi}">✕</button></div>`;
 }
 
 function render() {
-  const st = loadState(currentMonth);
   const all = buildAll();
   const groupsEl = document.getElementById('groups');
   groupsEl.innerHTML = '';
@@ -336,72 +451,65 @@ function render() {
     const items = all[line];
     const g = document.createElement('div');
     g.className = 'group';
-
-    const head = document.createElement('div');
-    head.className = 'group-head';
-    head.innerHTML = `
-      <div class="g-ico ${meta.color}">${meta.ico}</div>
-      <h2>${meta.ttl}</h2>
-      <span class="g-sub">${meta.sub}</span>
-      <span class="g-cnt">${items.length} 人</span>`;
-    g.appendChild(head);
-
+    g.innerHTML = `<div class="group-head"><div class="g-ico ${meta.color}">${meta.ico}</div><h2>${meta.ttl}</h2><span class="g-sub">${meta.sub}</span><span class="g-cnt">${items.length} 人</span></div>`;
     const grid = document.createElement('div');
     grid.className = 'grid';
 
     items.forEach((person, i) => {
       const dims = meta.dims;
       const avg = person.na ? null : avgOf(person.scores);
-      const needsNote = avg !== null && (avg >= 90 || avg <= 60);
-
-      const card = document.createElement('div');
-      card.className = 'pcard' + (person.na ? ' na' : '');
-      card.id = `card-${line}-${i}`;
+      const needGood = avg !== null && avg >= 90;
+      const needBad  = avg !== null && avg <= 60;
 
       let scoresHtml = '';
-      dims.forEach((d, di) => {
+      dims.forEach(d => {
         const v = person.scores[d] == null ? '' : person.scores[d];
         const cls = person.na ? '' : (+v >= 90 ? 'hi' : (+v <= 60 ? 'lo' : ''));
-        scoresHtml += `
-          <div class="score-item">
-            <span class="lab">${d}</span>
-            <input type="number" min="0" max="100" value="${v}" data-line="${line}" data-idx="${i}" data-dim="${d}" ${person.na?'disabled':''} class="nums ${cls}">
-          </div>`;
+        scoresHtml += `<div class="score-item"><span class="lab">${d}</span><input type="number" min="0" max="100" value="${v}" data-line="${line}" data-idx="${i}" data-dim="${d}" ${person.na?'disabled':''} class="nums ${cls}"></div>`;
       });
 
       const avgHtml = person.na
-        ? `<span class="avg na">无法评价</span><span class="avg-state na">${person.naReason||'未接触/样本不足'}</span>`
+        ? `<span class="avg na">无法评价</span><span class="avg-state na">${esc(person.naReason||'未接触/样本不足')}</span>`
         : (avg >= 90 ? `<span class="avg hi nums">${avg.toFixed(1)}</span><span class="avg-state hi">优（≥90 必填说明）</span>`
           : (avg <= 60 ? `<span class="avg lo nums">${avg.toFixed(1)}</span><span class="avg-state lo">待提高（≤60 必填说明）</span>`
             : `<span class="avg nums">${avg.toFixed(1)}</span><span class="avg-state ok">普通区间</span>`));
 
-      const needGood = avg !== null && avg >= 90;
-      const needBad  = avg !== null && avg <= 60;
+      const matsHtml = person.mats && person.mats.length
+        ? `<div class="mat-list">${person.mats.map((m,mi)=>matItemHtml(Object.assign({},m,{line,idx:i,mi}))).join('')}</div>`
+        : '<div class="mat-list" style="color:var(--ink-3);font-size:11px;padding:2px 0">暂无素材记录</div>';
 
+      const card = document.createElement('div');
+      card.className = 'pcard' + (person.na ? ' na' : '');
+      card.id = `card-${line}-${i}`;
       card.innerHTML = `
         <div class="top">
           <div class="avatar ${meta.color}">${avatarChar(person.name)}</div>
           <div class="who">
-            <b>${person.name}${person.lead ? '<span class="lead-tag">组长</span>' : ''}</b>
-            <small>${person.role}</small>
+            <b>${esc(person.name)}${person.lead ? '<span class="lead-tag">组长</span>' : ''}${person.mgmt ? '<span class="mgmt-tag">管理</span>' : ''}</b>
+            <small>${esc(person.role)} · ${esc(person.dept||'')}</small>
           </div>
-          <label class="na-toggle">
-            <input type="checkbox" ${person.na?'checked':''} data-line="${line}" data-idx="${i}" data-toggle="na">
-            无法评价
-          </label>
+          <label class="na-toggle"><input type="checkbox" ${person.na?'checked':''} data-line="${line}" data-idx="${i}" data-toggle="na">无法评价</label>
         </div>
         <div class="scores">${scoresHtml}</div>
-        <div class="avg-row">
-          ${avgHtml}
-          <span class="avg-hint">默认 80 分</span>
+        <div class="avg-row">${avgHtml}<span class="avg-hint">默认 80</span></div>
+        <div class="mats">
+          <div class="mat-h">📌 素材记录 <span class="cnt">${person.mats ? person.mats.length : 0} 条</span></div>
+          <div class="mat-add">
+            <select data-line="${line}" data-idx="${i}" data-newtag="1">
+              <option value="delivery">交付</option><option value="good">亮点</option><option value="bad">问题</option><option value="risk">风险</option><option value="other">其他</option>
+            </select>
+            <input type="text" placeholder="记录事实…" data-line="${line}" data-idx="${i}" data-newmat="1">
+            <button class="m-btn" data-line="${line}" data-idx="${i}" data-addmat="1">添加</button>
+          </div>
+          ${matsHtml}
         </div>
         <div class="notes">
-          <span class="note-tag">可见优点\优事 ${needGood ? '<b style="color:#dc2626">(必填)</b>' : ''}</span>
-          <input type="text" placeholder="亮点、优事…" value="${(person.notes.good||'').replace(/"/g,'&quot;')}" data-line="${line}" data-idx="${i}" data-note="good" class="${needGood?'required-note':''}" ${person.na?'disabled':''}>
-          <span class="note-tag">可见缺点\劣事 ${needBad ? '<b style="color:#dc2626">(必填)</b>' : ''}</span>
-          <input type="text" placeholder="不足、待改进…" value="${(person.notes.bad||'').replace(/"/g,'&quot;')}" data-line="${line}" data-idx="${i}" data-note="bad" class="${needBad?'required-note':''}" ${person.na?'disabled':''}>
+          <span class="note-tag">可见优点\\优事 ${needGood ? '<b style="color:#dc2626">(必填)</b>' : ''}</span>
+          <input type="text" placeholder="亮点、优事…" value="${esc(person.notes.good)}" data-line="${line}" data-idx="${i}" data-note="good" class="${needGood?'required-note':''}" ${person.na?'disabled':''}>
+          <span class="note-tag">可见缺点\\劣事 ${needBad ? '<b style="color:#dc2626">(必填)</b>' : ''}</span>
+          <input type="text" placeholder="不足、待改进…" value="${esc(person.notes.bad)}" data-line="${line}" data-idx="${i}" data-note="bad" class="${needBad?'required-note':''}" ${person.na?'disabled':''}>
           <span class="note-tag">升职/降职可能简述</span>
-          <input type="text" placeholder="如有升职或降职可能，简述原因…" value="${(person.notes.career||'').replace(/"/g,'&quot;')}" data-line="${line}" data-idx="${i}" data-note="career" ${person.na?'disabled':''}>
+          <input type="text" placeholder="如有升职或降职可能，简述原因…" value="${esc(person.notes.career)}" data-line="${line}" data-idx="${i}" data-note="career" ${person.na?'disabled':''}>
         </div>`;
       grid.appendChild(card);
     });
@@ -410,98 +518,115 @@ function render() {
     groupsEl.appendChild(g);
   });
 
-  /* 事件绑定 */
-  groupsEl.querySelectorAll('input[type="number"]').forEach(inp => {
-    inp.addEventListener('input', onScore);
-    inp.addEventListener('change', onScore);
-  });
-  groupsEl.querySelectorAll('input[data-toggle="na"]').forEach(cb => {
-    cb.addEventListener('change', onToggleNa);
-  });
-  groupsEl.querySelectorAll('input[data-note]').forEach(inp => {
-    inp.addEventListener('input', onNote);
-  });
-
+  bindEvents();
   updateStats();
+  renderQuickAdd();
+}
+
+function bindEvents(){
+  document.querySelectorAll('#groups input[type="number"]').forEach(inp => inp.addEventListener('input', onScore));
+  document.querySelectorAll('#groups input[data-toggle="na"]').forEach(cb => cb.addEventListener('change', onToggleNa));
+  document.querySelectorAll('#groups input[data-note]').forEach(inp => inp.addEventListener('input', onNote));
+  document.querySelectorAll('#groups [data-addmat]').forEach(btn => btn.addEventListener('click', onAddMat));
+  document.querySelectorAll('#groups .mat-del').forEach(del => del.addEventListener('click', onDelMat));
 }
 
 /* ============ 交互 ============ */
-function onScore(e){
-  const t = e.target;
-  const line = t.dataset.line, idx = +t.dataset.idx, dim = t.dataset.dim;
+function mutate(line, idx, fn){
   const st = loadState(currentMonth);
   if(!st[line]) st[line] = [];
   if(!st[line][idx]) st[line][idx] = defaultPerson(PEOPLE[line][idx], line);
-  st[line][idx].scores[dim] = +t.value;
+  fn(st[line][idx]);
   saveState(currentMonth, st);
+  return st;
+}
+function onScore(e){
+  const t=e.target, line=t.dataset.line, idx=+t.dataset.idx, dim=t.dataset.dim;
+  mutate(line, idx, p => { p.scores[dim] = +t.value; });
   refreshCard(line, idx);
 }
 function onToggleNa(e){
-  const t = e.target;
-  const line = t.dataset.line, idx = +t.dataset.idx;
-  const st = loadState(currentMonth);
-  if(!st[line]) st[line] = [];
-  if(!st[line][idx]) st[line][idx] = defaultPerson(PEOPLE[line][idx], line);
-  st[line][idx].na = t.checked;
-  if(!t.checked && !st[line][idx].naReason) st[line][idx].naReason = '';
-  saveState(currentMonth, st);
+  const t=e.target, line=t.dataset.line, idx=+t.dataset.idx;
+  mutate(line, idx, p => { p.na = t.checked; });
   refreshCard(line, idx);
 }
 function onNote(e){
-  const t = e.target;
-  const line = t.dataset.line, idx = +t.dataset.idx, note = t.dataset.note;
-  const st = loadState(currentMonth);
-  if(!st[line]) st[line] = [];
-  if(!st[line][idx]) st[line][idx] = defaultPerson(PEOPLE[line][idx], line);
-  st[line][idx].notes[note] = t.value;
-  saveState(currentMonth, st);
+  const t=e.target, line=t.dataset.line, idx=+t.dataset.idx, note=t.dataset.note;
+  mutate(line, idx, p => { p.notes[note] = t.value; });
+}
+function onAddMat(e){
+  const btn=e.target, line=btn.dataset.line, idx=+btn.dataset.idx;
+  const card=document.getElementById(`card-${line}-${idx}`);
+  const tag=card.querySelector(`[data-newtag="1"]`).value;
+  const text=card.querySelector(`[data-newmat="1"]`).value.trim();
+  if(!text) return;
+  const today = new Date().toISOString().slice(0,10);
+  mutate(line, idx, p => {
+    if(!p.mats) p.mats=[];
+    p.mats.push({ date:today, tag, text });
+  });
+  refreshCard(line, idx);
+}
+function onDelMat(e){
+  const del=e.target, line=del.dataset.line, idx=+del.dataset.idx, mi=+del.dataset.mi;
+  mutate(line, idx, p => { p.mats.splice(mi,1); });
+  refreshCard(line, idx);
 }
 function refreshCard(line, idx){
   const st = loadState(currentMonth);
   const person = (st[line]||[])[idx] || defaultPerson(PEOPLE[line][idx], line);
   const meta = GRP_META[line];
-  const dims = meta.dims;
   const avg = person.na ? null : avgOf(person.scores);
   const card = document.getElementById(`card-${line}-${idx}`);
   if(!card) return;
-
   card.className = 'pcard' + (person.na ? ' na' : '');
-  const avgs = card.querySelector('.avg-row');
-  if(person.na){
-    avgs.innerHTML = `<span class="avg na">无法评价</span><span class="avg-state na">${person.naReason||'未接触/样本不足'}</span><span class="avg-hint">默认 80 分</span>`;
-  } else {
-    const state = avg >= 90 ? `<span class="avg hi nums">${avg.toFixed(1)}</span><span class="avg-state hi">优（≥90 必填说明）</span>`
-      : (avg <= 60 ? `<span class="avg lo nums">${avg.toFixed(1)}</span><span class="avg-state lo">待提高（≤60 必填说明）</span>`
-        : `<span class="avg nums">${avg.toFixed(1)}</span><span class="avg-state ok">普通区间</span>`);
-    avgs.innerHTML = state + `<span class="avg-hint">默认 80 分</span>`;
-  }
 
-  /* 分数输入框高亮与禁用 */
+  const avgs = card.querySelector('.avg-row');
+  avgs.innerHTML = person.na
+    ? `<span class="avg na">无法评价</span><span class="avg-state na">${esc(person.naReason||'未接触/样本不足')}</span><span class="avg-hint">默认 80</span>`
+    : (avg >= 90 ? `<span class="avg hi nums">${avg.toFixed(1)}</span><span class="avg-state hi">优（≥90 必填说明）</span><span class="avg-hint">默认 80</span>`
+      : (avg <= 60 ? `<span class="avg lo nums">${avg.toFixed(1)}</span><span class="avg-state lo">待提高（≤60 必填说明）</span><span class="avg-hint">默认 80</span>`
+        : `<span class="avg nums">${avg.toFixed(1)}</span><span class="avg-state ok">普通区间</span><span class="avg-hint">默认 80</span>`));
+
   card.querySelectorAll('input[type="number"]').forEach(inp => {
     const v = person.scores[inp.dataset.dim];
     inp.value = person.na ? '' : v;
     inp.disabled = person.na;
     inp.className = 'nums' + (person.na ? '' : (+v >= 90 ? ' hi' : (+v <= 60 ? ' lo' : '')));
   });
-  /* 备注必填高亮 */
   const needGood = avg !== null && avg >= 90;
   const needBad  = avg !== null && avg <= 60;
   card.querySelectorAll('input[data-note]').forEach(inp => {
     inp.disabled = person.na;
-    if(inp.dataset.note === 'good'){ inp.className = needGood ? 'required-note' : ''; }
-    if(inp.dataset.note === 'bad'){  inp.className = needBad ? 'required-note' : ''; }
+    if(inp.dataset.note === 'good') inp.className = needGood ? 'required-note' : '';
+    if(inp.dataset.note === 'bad')  inp.className = needBad ? 'required-note' : '';
   });
   const naCb = card.querySelector('input[data-toggle="na"]');
   if(naCb) naCb.checked = person.na;
+
+  /* 素材区刷新 */
+  const matList = card.querySelector('.mat-list');
+  if(matList){
+    matList.innerHTML = person.mats && person.mats.length
+      ? person.mats.map((m,mi)=>matItemHtml(Object.assign({},m,{line,idx,mi}))).join('')
+      : '<div style="color:var(--ink-3);font-size:11px;padding:2px 0">暂无素材记录</div>';
+    matList.querySelectorAll('.mat-del').forEach(del => del.addEventListener('click', onDelMat));
+  }
+  const matCnt = card.querySelector('.mat-h .cnt');
+  if(matCnt) matCnt.textContent = (person.mats?person.mats.length:0) + ' 条';
+  const naReasonShow = card.querySelector('.avg-state.na');
+  if(naReasonShow && person.naReason) naReasonShow.textContent = person.naReason;
   updateStats();
 }
 
 function updateStats(){
   const all = buildAll();
   const total = all.ops.length + all.tech.length;
-  let naCnt = 0, hiCnt = 0, loCnt = 0, doneCnt = 0;
+  let naCnt=0, hiCnt=0, loCnt=0, doneCnt=0, matCnt=0, mgmtCnt=0;
   ['ops','tech'].forEach(line => {
     all[line].forEach(p => {
+      if(p.mgmt) mgmtCnt++;
+      if(p.mats) matCnt += p.mats.length;
       if(p.na){ naCnt++; return; }
       const avg = avgOf(p.scores);
       if(avg >= 90) hiCnt++;
@@ -511,12 +636,49 @@ function updateStats(){
     });
   });
   document.getElementById('stTotal').textContent = total;
-  document.getElementById('stOps').textContent = all.ops.length;
   document.getElementById('stTech').textContent = all.tech.length;
+  document.getElementById('stOps').textContent = all.ops.length;
+  document.getElementById('stMgmt').textContent = mgmtCnt;
+  document.getElementById('stMat').textContent = matCnt;
   document.getElementById('stDone').textContent = doneCnt;
-  document.getElementById('stNa').textContent = naCnt;
   document.getElementById('stHi').textContent = hiCnt;
   document.getElementById('stLo').textContent = loCnt;
+}
+
+/* ============ 快捷添加 ============ */
+function renderQuickAdd(){
+  const sel = document.getElementById('qaWho');
+  const cur = sel.value;
+  sel.innerHTML = '';
+  const optAll = document.createElement('option');
+  optAll.value = ''; optAll.textContent = '选择人员…';
+  sel.appendChild(optAll);
+  ['tech','ops'].forEach(line => {
+    PEOPLE[line].forEach((p,i) => {
+      const o = document.createElement('option');
+      o.value = `${line}|${i}`;
+      o.textContent = p.name + '（' + p.role + '）';
+      sel.appendChild(o);
+    });
+  });
+  if(cur) sel.value = cur;
+  const d = document.getElementById('qaDate');
+  if(!d.value) d.value = new Date().toISOString().slice(0,10);
+}
+function quickAddMat(){
+  const sel = document.getElementById('qaWho').value;
+  if(!sel){ document.getElementById('saveState').className='save-state err'; document.getElementById('saveState').textContent='⚠ 请先选择人员'; setTimeout(()=>document.getElementById('saveState').textContent='',2500); return; }
+  const [line, idx] = sel.split('|');
+  const tag = document.getElementById('qaTag').value;
+  const date = document.getElementById('qaDate').value || new Date().toISOString().slice(0,10);
+  const text = document.getElementById('qaText').value.trim();
+  if(!text){ document.getElementById('saveState').className='save-state err'; document.getElementById('saveState').textContent='⚠ 请填写素材内容'; setTimeout(()=>document.getElementById('saveState').textContent='',2500); return; }
+  mutate(line, +idx, p => { if(!p.mats) p.mats=[]; p.mats.push({date, tag, text}); });
+  document.getElementById('qaText').value = '';
+  refreshCard(line, +idx);
+  document.getElementById('saveState').className='save-state';
+  document.getElementById('saveState').textContent='✅ 素材已记录';
+  setTimeout(()=>document.getElementById('saveState').textContent='',2000);
 }
 
 /* ============ 月份 ============ */
@@ -532,14 +694,12 @@ function renderMonths(){
   });
   const hint = document.createElement('span');
   hint.className = 'month-hint';
-  hint.textContent = '每月评价独立保存 · 月底前完成填写';
+  hint.textContent = '每月评价与素材独立保存 · 月底前完成填写';
   bar.appendChild(hint);
 }
 
 /* ============ 保存 ============ */
 function saveAll(){
-  const st = loadState(currentMonth);
-  /* 校验必填：90+/60- 需填写说明 */
   const all = buildAll();
   const warns = [];
   ['ops','tech'].forEach(line => {
@@ -559,30 +719,53 @@ function saveAll(){
     return;
   }
   stEl.className = 'save-state';
-  stEl.textContent = '✅ 已保存 ' + currentMonth + ' 月评价';
-  const t = new Date();
+  stEl.textContent = '✅ 已保存 ' + currentMonth + ' 月评价与素材';
   document.getElementById('lastSave').style.display = 'inline-flex';
-  document.getElementById('lastSaveT').textContent = t.toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
-  setTimeout(()=>{ stEl.textContent = ''; }, 3000);
+  document.getElementById('lastSaveT').textContent = new Date().toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+  setTimeout(()=>{ stEl.textContent=''; },3000);
+}
+
+/* ============ 素材总览 ============ */
+function overviewMats(){
+  const all = buildAll();
+  const body = document.getElementById('matModalBody');
+  let html = '';
+  ['tech','ops'].forEach(line => {
+    const meta = GRP_META[line];
+    const withMat = all[line].filter(p => p.mats && p.mats.length);
+    if(!withMat.length) return;
+    html += `<div style="font-size:13px;font-weight:700;color:#0f172a;margin:10px 0 6px;">${meta.ttl}（${withMat.length} 人有素材）</div>`;
+    withMat.forEach((p,i) => {
+      const realIdx = all[line].indexOf(p);
+      html += `<div class="mat-overview-item">
+        <div class="mat-ov-head">${esc(p.name)}<span class="role">${esc(p.role)} · ${esc(p.dept||'')}</span></div>
+        ${p.mats.map(m=>`<div class="mat-ov-line"><span class="d">${esc(m.date)} [${TAG_LABEL[m.tag]||'其他'}]</span>${esc(m.text)}</div>`).join('')}
+      </div>`;
+    });
+  });
+  if(!html) html = '<div style="color:var(--ink-3);font-size:12px;padding:20px;text-align:center">本月暂无素材记录</div>';
+  body.innerHTML = html;
+  document.getElementById('matModal').classList.add('open');
 }
 
 /* ============ 导出 ============ */
 function exportText(){
   const all = buildAll();
   const monthLabel = currentMonth.replace('-','年') + '月';
-  let out = `【星河无界 · 人才评价】${monthLabel}\n\n`;
+  let out = `【星河无界 · 人才评价（督导评分）】${monthLabel}\n\n`;
 
-  ['ops','tech'].forEach(line => {
+  ['tech','ops'].forEach(line => {
     const meta = GRP_META[line];
     out += `═══ ${meta.ttl}（${meta.dims.join(' / ')}）═══\n\n`;
     all[line].forEach(p => {
       if(p.na){
-        out += `▪ ${p.name}（${p.role}）：无法评价${p.naReason ? '（' + p.naReason + '）' : ''}\n\n`;
+        out += `▪ ${p.name}（${p.role}）：无法评价${p.naReason ? '（' + p.naReason + '）' : ''}\n`;
         return;
       }
       const avg = avgOf(p.scores);
       const scoresStr = meta.dims.map(d => `${d} ${p.scores[d]}`).join(' | ');
       out += `▪ ${p.name}（${p.role}）：均分 ${avg.toFixed(1)}\n  ${scoresStr}\n`;
+      if(p.mats && p.mats.length) out += `  素材：${p.mats.map(m=>`${m.date} ${TAG_LABEL[m.tag]||''} ${m.text}`).join('；')}\n`;
       if((p.notes.good||'').trim())   out += `  可见优点：${p.notes.good}\n`;
       if((p.notes.bad||'').trim())    out += `  可见缺点：${p.notes.bad}\n`;
       if((p.notes.career||'').trim()) out += `  升职/降职：${p.notes.career}\n`;
@@ -597,8 +780,7 @@ function closeExport(){ document.getElementById('exportModal').classList.remove(
 function copyExport(){
   const ta = document.getElementById('exportOut');
   ta.select();
-  try { document.execCommand('copy'); }
-  catch(e){ navigator.clipboard && navigator.clipboard.writeText(ta.value); }
+  try { document.execCommand('copy'); } catch(e){ navigator.clipboard && navigator.clipboard.writeText(ta.value); }
   ta.setSelectionRange(0,0);
 }
 
