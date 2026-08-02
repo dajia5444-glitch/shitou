@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星河无界 7月月度报告 - 现代科技</title>
+<style>
+:root {
+  --bg: #f0f2f8;
+  --surface: rgba(255,255,255,.75);
+  --surface-hover: rgba(255,255,255,.92);
+  --fg: #1e1e2e;
+  --fg2: #585b70;
+  --fg3: #9ca0b0;
+  --line: rgba(0,0,0,.06);
+  --purple: #7c3aed;
+  --purple-light: #ede9fe;
+  --teal: #0d9488;
+  --teal-light: #f0fdfa;
+  --rose: #e11d48;
+  --rose-light: #fff1f2;
+  --amber: #d97706;
+  --amber-light: #fffbeb;
+  --blue: #2563eb;
+  --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-2: linear-gradient(135deg, #0d9488 0%, #06b6d4 100%);
+  --gradient-3: linear-gradient(135deg, #e11d48 0%, #f97316 100%);
+  --shadow: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+}
+
+* { box-sizing:border-box; margin:0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",-apple-system,sans-serif;
+  font-size: 14px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+
+/* Cover — gradient hero */
+.cover {
+  background: linear-gradient(155deg, #667eea 0%, #5a3f8a 50%, #4c1d95 100%);
+  border-radius: 24px;
+  padding: 56px 56px 48px;
+  margin-bottom: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  right: -80px; top: -80px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.12) 0%, transparent 55%);
+}
+.cover::after {
+  content: "";
+  position: absolute;
+  left: 30%; bottom: -140px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 60%);
+}
+.cover-inner { position: relative; z-index: 2; }
+.cover .pill-row {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.cover .pill {
+  display: inline-block;
+  padding: 5px 16px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(10px);
+  color: rgba(255,255,255,.9);
+  font-size: 12px; font-weight: 500;
+  letter-spacing: .04em;
+}
+.cover .dot { color: rgba(255,255,255,.35); }
+.cover h1 {
+  font-size: 32px; font-weight: 800;
+  color: #fff;
+  letter-spacing: .02em;
+  margin-bottom: 14px;
+}
+.cover .subtitle {
+  font-size: 14.5px;
+  color: rgba(255,255,255,.7);
+  line-height: 1.9;
+  max-width: 780px;
+}
+
+/* Glass card */
+.glass {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 200ms, transform 200ms;
+}
+.glass:hover { box-shadow: var(--shadow-md); }
+
+/* Sections */
+.section { margin-bottom: 36px; }
+.section-hd {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 24px;
+}
+.section-num {
+  width: 38px; height: 38px;
+  border-radius: 12px;
+  background: var(--gradient-1);
+  color: #fff;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700;
+  flex-shrink: 0;
+}
+.section-hd h2 {
+  font-size: 20px; font-weight: 800;
+  letter-spacing: .02em;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sub-head {
+  font-size: 15px; font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 10px;
+  padding-left: 52px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sub-head::before {
+  content: "";
+  width: 4px; height: 20px;
+  border-radius: 2px;
+  background: var(--gradient-1);
+  flex-shrink: 0;
+}
+.sub-desc {
+  font-size: 14px; color: var(--fg2);
+  margin-bottom: 20px;
+  padding-left: 52px;
+  line-height: 1.85;
+}
+.sub-desc strong { color: var(--fg); font-weight: 700; }
+
+/* Table */
+.table-outer {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 32px;
+  margin-left: 52px;
+}
+.table-scroll { overflow-x: auto; }
+.table-scroll table {
+  width: 100%; min-width: 1100px;
+  border-collapse: collapse;
+}
+.table-scroll thead th {
+  background: rgba(102,126,234,.06);
+  font-size: 11.5px; font-weight: 600;
+  color: #7c3aed;
+  padding: 14px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+.table-scroll tbody td {
+  font-size: 13px; color: var(--fg2);
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(0,0,0,.03);
+  white-space: nowrap;
+}
+.table-scroll tbody tr:hover td {
+  background: rgba(102,126,234,.03);
+}
+.code-tag {
+  font-family: "SF Mono","Menlo","Monaco",monospace;
+  font-size: 12px; font-weight: 600;
+  color: var(--purple);
+}
+
+/* Personnel */
+.personnel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+  padding-left: 52px;
+}
+.person-card {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+  transition: all 200ms;
+}
+.person-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.person-role {
+  font-size: 11px; font-weight: 600;
+  color: var(--purple);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.person-count {
+  font-size: 34px; font-weight: 800;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -.02em;
+}
+.person-names {
+  font-size: 12.5px; color: var(--fg3);
+  margin-top: 8px;
+  line-height: 1.7;
+}
+.person-footnote {
+  font-size: 12.5px; color: var(--fg3);
+  padding-left: 52px;
+}
+
+/* Cases */
+.card {
+  padding: 24px 28px;
+  margin-left: 52px;
+  margin-bottom: 0;
+}
+.case {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.case:first-child { padding-top: 0; }
+.case:last-child { border-bottom: none; padding-bottom: 0; }
+.case-tag {
+  font-size: 10.5px; font-weight: 600;
+  color: var(--teal);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.case-title {
+  font-size: 15.5px; font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+.case-desc {
+  font-size: 13.5px; color: var(--fg2);
+  line-height: 1.85;
+}
+.case-desc p { margin-bottom: 8px; }
+.case-root {
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: var(--amber-light);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 8px 8px 0;
+  font-size: 13.5px; color: #92400e;
+  line-height: 1.85;
+}
+.case-root b { color: #78350f; font-weight: 700; }
+
+/* Plans */
+.plan-item {
+  display: flex;
+  gap: 18px;
+  padding: 22px 26px;
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  transition: all 200ms;
+  align-items: flex-start;
+}
+.plan-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.plan-num {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: var(--gradient-1);
+  color: #fff;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  font-size: 17px; font-weight: 700;
+  flex-shrink: 0;
+}
+.plan-body { flex: 1; }
+.plan-title {
+  font-size: 15px; font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+.plan-desc {
+  font-size: 13.5px; color: var(--fg2);
+  line-height: 1.85;
+}
+
+.section-divider { height: 0; margin: 0; }
+
+.card-hr {
+  border: none;
+  border-top: 1px dashed var(--line);
+  margin: 20px 0;
+}
+
+.page-footer {
+  text-align: center;
+  padding-top: 36px;
+  margin-top: 40px;
+}
+.page-footer p {
+  font-size: 12px; color: var(--fg3);
+  letter-spacing: .04em;
+}
+
+@media (max-width:780px) {
+  .page { padding: 20px 12px 48px; }
+  .cover { padding: 32px 20px; }
+  .sub-head, .sub-desc, .person-footnote, .table-outer, .card { padding-left: 0; margin-left: 0; }
+  .personnel-grid { grid-template-columns: 1fr 1fr; padding-left: 0; }
+  .plan-item { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="cover">
+  <div class="cover-inner">
+    <div class="pill-row">
+      <span class="pill">月度汇报</span>
+      <span class="pill">2026年7月</span>
+      <span class="dot">&middot;</span>
+      <span class="pill">项目督导</span>
+    </div>
+    <h1>星河无界 7月月度报告</h1>
+    <p class="subtitle">自7月下旬接手星河无界业务线督导工作以来，我已完成对该业务线整体情况的全面摸底梳理，覆盖业务版图、团队组织、需求进度、研发节奏、线上问题及资源瓶颈等维度，以下内容仅针对已了解的情况进行分析。</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-hd"><div class="section-num">一</div><h2>业务整体概况</h2></div>
+  <div class="sub-head">1. 业务版图</div>
+  <p class="sub-desc">整体承载 <strong>20个在研/运营项目</strong>，项目体量覆盖主力运营、迭代升级、创新孵化等多种类型</p>
+  <div class="table-outer"><div class="table-scroll"><table>
+    <thead><tr><th>序号</th><th>编号</th><th>TG群名称</th><th>项目名称</th><th>PM</th><th>运营</th><th>后端负责人</th><th>后端补位</th><th>前端负责人</th><th>前端补位</th><th>产品</th><th>产品补位</th><th>测试</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="code-tag">DX-013</td><td>【DX-013】滴滴（APP）</td><td>滴滴（APP）</td><td>鲍勃</td><td>秋野</td><td>李瑞</td><td>朔月</td><td>天辰</td><td>风间</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+      <tr><td>2</td><td class="code-tag">JHG-056</td><td>【JHG-056】91楼凤（APP）</td><td>91楼凤（APP）</td><td>鲍勃</td><td>林笑尘</td><td>朔月</td><td>李瑞</td><td>阿秋</td><td>风间</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+      <tr><td>3</td><td class="code-tag">TJ-062</td><td>【TJ-062/063】51凤楼（APP/WEB）</td><td>51凤楼（WEB）</td><td>鲍勃</td><td>林笑尘</td><td>李瑞</td><td>朔月</td><td>风间</td><td>阿秋</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+      <tr><td>4</td><td class="code-tag">TJ-063</td><td>【TJ-062/063】51凤楼（APP/WEB）</td><td>51凤楼（APP）</td><td>鲍勃</td><td>林笑尘</td><td>李瑞</td><td>朔月</td><td>风间</td><td>阿秋</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+      <tr><td>5</td><td class="code-tag">JHG-039</td><td>【JHG-039】陌陌1v1（APP）</td><td>陌陌1v1（APP）</td><td>鲍勃</td><td>林笑尘</td><td>朔月</td><td>李瑞</td><td>阿秋</td><td>天辰</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+      <tr><td>6</td><td class="code-tag">DX-048</td><td>【DX-048】海角社区（WEB）</td><td>海角社区（WEB）</td><td>波林</td><td>安靖</td><td>李瑞</td><td>朔月</td><td>卡比</td><td>鲁子敬</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+      <tr><td>7</td><td class="code-tag">DX-073</td><td>【DX-073】91成人导航（WEB）</td><td>91成人导航（WEB）</td><td>波林</td><td>安靖</td><td>鹏程</td><td>厉飞雨</td><td>卡比</td><td>&mdash;</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+      <tr><td>8</td><td class="code-tag">DX-062</td><td>【DX-062】KISSAV（WEB）</td><td>KISSAV（WEB）</td><td>波林</td><td>周子然</td><td>厉飞雨</td><td>鹏程</td><td>鲁子敬</td><td>卡比</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+      <tr><td>9</td><td class="code-tag">DX-069</td><td>【DX-069】91Hub（WEB）</td><td>91Hub（WEB）</td><td>波林</td><td>安靖</td><td>厉飞雨</td><td>鹏程</td><td>卡比</td><td>景天</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+      <tr><td>10</td><td class="code-tag">DX-070</td><td>【DX-070】禁漫天堂（WEB）</td><td>禁漫天堂（WEB）</td><td>波林</td><td>周子然</td><td>鹏程</td><td>厉飞雨</td><td>景天</td><td>卡比</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+      <tr><td>11</td><td class="code-tag">DX-119</td><td>【DX-119】抖阴（WEB）</td><td>抖阴（WEB）</td><td>波林</td><td>周子然</td><td>朔月</td><td>李瑞</td><td>景天</td><td>卡比</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+      <tr><td>12</td><td class="code-tag">XHWJ-002</td><td>【XHWJ-002】禁漫天堂（APP）</td><td>禁漫天堂（APP）</td><td>波林</td><td>周子然</td><td>李瑞</td><td>朔月</td><td>风间</td><td>天辰</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+      <tr><td>13</td><td class="code-tag">DX-055</td><td>【DX-055】茶馆（APP）</td><td>茶馆（APP）</td><td>大藜</td><td>秋野</td><td>李瑞</td><td>朔月</td><td>天辰</td><td>风间</td><td>大藜</td><td>鲍勃</td><td>飞策</td></tr>
+      <tr><td>14</td><td class="code-tag">DX-064</td><td>【DX-064】51青楼（WEB）</td><td>51青楼（WEB）</td><td>大藜</td><td>史强</td><td>朔月</td><td>李瑞</td><td>鲁子敬</td><td>景天</td><td>大藜</td><td>鲍勃</td><td>飞策</td></tr>
+      <tr><td>15</td><td class="code-tag">XHWJ-001</td><td>【XHWJ-001】茶馆（WEB）</td><td>茶馆（WEB）</td><td>大藜</td><td>史强</td><td>厉飞雨</td><td>鹏程</td><td>卡比</td><td>鲁子敬</td><td>大藜</td><td>鲍勃</td><td>飞策</td></tr>
+      <tr><td>16</td><td class="code-tag">DX-999</td><td>【DX-999】51漫画（WEB）</td><td>51漫画（WEB）</td><td>小宜</td><td>安婧</td><td>鹏程</td><td>厉飞雨</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+      <tr><td>17</td><td class="code-tag">XHWJ-003</td><td>【XHWJ-003】91吃瓜网（WEB）</td><td>91吃瓜网（WEB）</td><td>小宜</td><td>安靖</td><td>厉飞雨</td><td>鹏程</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+      <tr><td>18</td><td class="code-tag">XHWJ-004</td><td>【XHWJ-004】黑料头条（WEB）</td><td>黑料头条（WEB）</td><td>小宜</td><td>周子然</td><td>厉飞雨</td><td>鹏程</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+      <tr><td>19</td><td class="code-tag">XHWJ-005</td><td>【XHWJ-005】每日大赛（WEB）</td><td>每日大赛（WEB）</td><td>小宜</td><td>周子然</td><td>厉飞雨</td><td>鹏程</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+      <tr><td>20</td><td class="code-tag">XHWJ-006</td><td>【XHWJ-006】51探花（WEB）</td><td>51探花（WEB）</td><td>小宜</td><td>史强</td><td>厉飞雨</td><td>鹏程</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+    </tbody>
+  </table></div></div>
+
+  <div class="sub-head">2. 目前已完成沟通的人员</div>
+  <div class="personnel-grid">
+    <div class="person-card"><div class="person-role">产品PM</div><div class="person-count">4人</div><div class="person-names">鲍勃、波林、大藜、小宜</div></div>
+    <div class="person-card"><div class="person-role">运营组长</div><div class="person-count">5人</div><div class="person-names">秋野、林笑尘、安靖、周子然、史强</div></div>
+    <div class="person-card"><div class="person-role">研发人员</div><div class="person-count">10人</div><div class="person-names">李瑞、朔月、厉飞雨、鹏程、天辰、风间、阿秋、卡比、鲁子敬、景天</div></div>
+    <div class="person-card"><div class="person-role">测试</div><div class="person-count">1人</div><div class="person-names">飞策</div></div>
+  </div>
+  <p class="person-footnote">合计已沟通：4名产品PM、5名运营组长、10名研发、1名测试</p>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section">
+  <div class="section-hd"><div class="section-num">二</div><h2>现存流程与协同问题</h2></div>
+  <p class="sub-desc">通过全维度复盘，发现当前业务流程、协同机制存在些许漏洞，直接影响上线质量与工作效率：</p>
+  <div class="sub-head" style="margin-top:20px;">发现的问题一：上线验收流程问题</div>
+  <div class="glass card">
+    <div class="case">
+      <div class="case-tag">案例 1</div>
+      <div class="case-title">91Hub项目出现封面图线上配置未同步完成便上线的问题</div>
+      <div class="case-desc">
+        <p>本次为了赶时间，运营和开发协商跳过了原定 8/1 的正式测试环节直接上线，导致问题未在测试阶段拦截。</p>
+        <div class="case-root"><b>根因：</b>代码已部署到正式服，但后台配置项未同步。测试服因独立环境配置完整所以一切正常，正式服部署时配置没有跟着同步过去，导致 meta 标签中的封面图占位符无值，功能不渲染。</div>
+      </div>
+    </div>
+    <div class="case">
+      <div class="case-tag">案例 2</div>
+      <div class="case-title">【DX-999】51漫画（WEB）中转页无法打开的问题</div>
+      <div class="case-desc">
+        <p>中转页是用户访问漫画内容的主入口，业务影响面大</p>
+        <div class="case-root"><b>根因：</b>重新配置或检查 DNS 解析记录。原因：部分注册商在过户成功后，会默认清空或重置该域名的解析记录（如 A 记录、CNAME 记录）。动作：进入域名的 DNS 解析控制台，确认解析记录是否存在。若为空，请手动重新添加原有的 A 记录（指向服务器 IP）或 CNAME 记录。</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="card-hr" style="margin:24px 52px;">
+  <div class="sub-head">发现的问题二：研发资源不足问题</div>
+  <div class="glass card">
+    <div class="case">
+      <div class="case-tag">案例 1</div>
+      <div class="case-title">多个已排期项目无研发资源落地</div>
+      <div class="case-desc"><p>KISSAV 3项需求、91吃瓜网产品重做等既定排期工作，均无法正常启动推进。</p></div>
+    </div>
+    <div class="case">
+      <div class="case-tag">案例 2</div>
+      <div class="case-title">测试资源紧缺</div>
+      <div class="case-desc"><p>仅1名测试人员全权承接20个项目的测试工作，产能不足</p></div>
+    </div>
+    <div class="case">
+      <div class="case-tag">案例 3</div>
+      <div class="case-title">前端资源利用率不足</div>
+      <div class="case-desc"><p>如【XHWJ-001】茶馆（WEB）项目，因是从茶馆app转到web/h5，工作量大都在UI和前端，但仅配置了1名前端进行开发，排期到8月底了</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="section">
+  <div class="section-hd"><div class="section-num">三</div><h2>后续督导工作规划</h2></div>
+  <div class="plan-item">
+    <div class="plan-num">1</div>
+    <div class="plan-body">
+      <div class="plan-title">推动解决测试资源瓶颈</div>
+      <div class="plan-desc">联动HRBP推进测试人员资源补充，解决单人承接全业务线测试工作的超负荷问题，从根源缓解项目测试延期、排队积压的现状。</div>
+    </div>
+  </div>
+  <div class="plan-item">
+    <div class="plan-num">2</div>
+    <div class="plan-body">
+      <div class="plan-title">推动从本月使用标准上线流程SOP，对整体上线前的准备工作进行规范</div>
+      <div class="plan-desc">落地上线前置Checklist清单机制，将清单执行设为项目上线硬性约束，补齐流程漏洞，杜绝无验证、无验收上线问题。</div>
+    </div>
+  </div>
+  <div class="plan-item">
+    <div class="plan-num">3</div>
+    <div class="plan-body">
+      <div class="plan-title">业务分层管理，优化资源配置</div>
+      <div class="plan-desc">持续加强我对业务的认知，与产品、运营团队加强沟通，完成20个项目的分层定级，精准划分主力成熟产品、上升迭代产品、创新孵化产品三类层级。基于项目优先级，梳理现有资源投入逻辑，验证资源分配合理性，优化人力、研发资源倾斜策略。</div>
+    </div>
+  </div>
+</div>
+
+<div class="page-footer"><p>星河无界业务线 · 7月月度报告 · 2026年8月</p></div>
+</div>
+</body>
+</html>

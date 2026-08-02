@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星河无界 7月月度报告</title>
+<style>
+/* ========== Design Tokens ========== */
+:root {
+  --navy: #1a365d; --navy-light: #2c5282; --navy-pale: #ebf0f7;
+  --ink: #2d3748; --ink-2: #4a5568; --ink-3: #a0aec0;
+  --paper: #f7fafc; --surface: #ffffff;
+  --line: #e2e8f0; --line-light: #edf2f7;
+  --gold: #b7791f; --gold-light: #faf5e9;
+  --red: #c53030; --red-light: #fff5f5;
+  --amber: #dd6b20; --amber-light: #fffbeb;
+  --green: #2f855a; --green-light: #f0fff4;
+  --ease: cubic-bezier(.22,1,.36,1);
+  --shadow-card: 0 0 0 1px rgba(0,0,0,.03), 0 2px 8px rgba(0,0,0,.04);
+  --shadow-elevated: 0 0 0 1px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.06);
+}
+
+* { box-sizing:border-box; margin:0; }
+body {
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI","Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-size:14px;
+  line-height:1.75;
+  padding:0;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ========== Page Wrapper ========== */
+.page {
+  max-width:1200px;
+  margin:0 auto;
+  padding:48px clamp(24px,5vw,56px) 64px;
+}
+
+/* ========== Cover / Hero ========== */
+.cover {
+  background:linear-gradient(160deg, #1a365d 0%, #2a4a6e 40%, #3a5f8a 100%);
+  border-radius:16px;
+  padding:48px 48px 40px;
+  position:relative;
+  overflow:hidden;
+  margin-bottom:36px;
+}
+.cover::before {
+  content:"";
+  position:absolute;
+  right:-120px; top:-80px;
+  width:420px; height:420px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 60%);
+}
+.cover::after {
+  content:"";
+  position:absolute;
+  left:60%; bottom:-60px;
+  width:260px; height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.04) 0%, transparent 55%);
+}
+.cover-inner { position:relative; z-index:2; }
+.cover-meta {
+  display:flex; align-items:center; gap:14px;
+  font-size:13px; color:rgba(255,255,255,.65); letter-spacing:.04em;
+  margin-bottom:18px;
+}
+.cover-meta .pill {
+  display:inline-block;
+  padding:3px 14px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.25);
+  font-size:12px;
+  color:rgba(255,255,255,.8);
+}
+.cover h1 {
+  font-size:clamp(26px,3.2vw,36px);
+  font-weight:700;
+  color:#fff;
+  letter-spacing:.03em;
+  margin-bottom:16px;
+}
+.cover .subtitle {
+  font-size:15.5px;
+  color:rgba(255,255,255,.72);
+  line-height:1.9;
+  max-width:800px;
+}
+
+/* ========== Section Header ========== */
+.section {
+  margin-bottom:40px;
+}
+.section-hd {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:20px;
+}
+.section-num {
+  width:36px; height:36px;
+  border-radius:10px;
+  background:var(--navy);
+  color:#fff;
+  display:inline-flex;
+  align-items:center; justify-content:center;
+  font-size:15px; font-weight:700;
+  flex-shrink:0;
+}
+.section-hd h2 {
+  font-size:19px; font-weight:700;
+  color:var(--navy);
+  letter-spacing:.02em;
+}
+
+/* ========== Sub Section ========== */
+.subsection {
+  margin-bottom:20px;
+}
+.sub-head {
+  font-size:15px;
+  font-weight:600;
+  color:var(--navy);
+  margin-bottom:12px;
+  padding-left:48px;
+  display:flex; align-items:center; gap:8px;
+}
+.sub-head::before {
+  content:"";
+  width:4px; height:18px;
+  border-radius:2px;
+  background:var(--navy-light);
+  flex-shrink:0;
+}
+.sub-desc {
+  font-size:14px; color:var(--ink-2);
+  margin-bottom:16px;
+  padding-left:48px;
+  line-height:1.8;
+}
+.sub-desc strong { color:var(--navy); font-weight:700; }
+
+/* ========== Table ========== */
+.table-outer {
+  background:var(--surface);
+  border-radius:12px;
+  border:1px solid var(--line);
+  overflow:hidden;
+  box-shadow:var(--shadow-card);
+  margin-bottom:20px;
+}
+.table-scroll { overflow-x:auto; }
+.table-scroll table {
+  width:100%; min-width:1100px;
+  border-collapse:collapse;
+}
+.table-scroll thead th {
+  background:#f1f5f9;
+  font-size:12px; font-weight:700;
+  color:var(--navy);
+  padding:13px 12px;
+  text-align:left;
+  border-bottom:2px solid var(--line);
+  letter-spacing:.04em;
+  white-space:nowrap;
+}
+.table-scroll tbody td {
+  font-size:13px; color:var(--ink);
+  padding:11px 12px;
+  border-bottom:1px solid var(--line-light);
+  white-space:nowrap;
+}
+.table-scroll tbody tr:nth-child(even) td {
+  background:#fafbfd;
+}
+.table-scroll tbody tr:hover td {
+  background:#f0f5fb;
+}
+.code-tag {
+  font-family:"SF Mono","Fira Code","Fira Mono",monospace;
+  font-size:12px; font-weight:600;
+  color:var(--navy-light);
+}
+
+/* ========== Personnel Grid ========== */
+.personnel-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+  gap:14px;
+  margin-bottom:16px;
+  padding-left:48px;
+}
+.person-card {
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:18px 20px;
+  box-shadow:var(--shadow-card);
+  transition:box-shadow 200ms var(--ease);
+}
+.person-card:hover { box-shadow:var(--shadow-elevated); }
+.person-role {
+  font-size:11px; font-weight:700;
+  color:var(--navy-light);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.person-count {
+  font-size:28px; font-weight:700;
+  color:var(--navy);
+  letter-spacing:-.02em;
+}
+.person-names {
+  font-size:12.5px;
+  color:var(--ink-3);
+  margin-top:8px;
+  line-height:1.7;
+}
+.person-footnote {
+  font-size:12.5px; color:var(--ink-3);
+  padding-left:48px;
+}
+
+/* ========== Card ========== */
+.card {
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:24px 28px;
+  box-shadow:var(--shadow-card);
+  margin-bottom:18px;
+}
+
+/* ========== Case Block ========== */
+.case {
+  padding:18px 22px;
+  border:1px solid var(--line-light);
+  border-radius:10px;
+  background:#fafcfe;
+  margin-bottom:14px;
+}
+.case:last-child { margin-bottom:0; }
+.case-tag {
+  font-size:11px; font-weight:700;
+  color:var(--navy-light);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.case-title {
+  font-size:15px; font-weight:600;
+  color:var(--navy);
+  margin-bottom:10px;
+  line-height:1.6;
+}
+.case-desc {
+  font-size:13.5px; color:var(--ink-2);
+  line-height:1.85;
+}
+.case-root {
+  margin-top:10px;
+  padding:12px 16px;
+  background:var(--amber-light);
+  border-left:3px solid var(--amber);
+  border-radius:0 8px 8px 0;
+  font-size:13.5px; color:#7c4a1e;
+  line-height:1.85;
+}
+.case-root b { color:#92340e; font-weight:700; }
+
+/* ========== Plan List ========== */
+.plan-item {
+  display:flex;
+  gap:16px;
+  padding:18px 22px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  margin-bottom:12px;
+  box-shadow:var(--shadow-card);
+  transition:box-shadow 200ms var(--ease);
+}
+.plan-item:hover { box-shadow:var(--shadow-elevated); }
+.plan-num {
+  width:40px; height:40px;
+  border-radius:10px;
+  background:var(--navy);
+  color:#fff;
+  display:inline-flex;
+  align-items:center; justify-content:center;
+  font-size:16px; font-weight:700;
+  flex-shrink:0;
+}
+.plan-body { flex:1; }
+.plan-title {
+  font-size:15px; font-weight:600;
+  color:var(--navy);
+  margin-bottom:6px;
+}
+.plan-desc {
+  font-size:13.5px; color:var(--ink-2);
+  line-height:1.85;
+}
+
+/* ========== Separator ========== */
+.section-divider {
+  height:1px;
+  background:var(--line);
+  margin:36px 0;
+}
+
+/* ========== Footer ========== */
+.page-footer {
+  text-align:center;
+  padding-top:32px;
+  border-top:1px solid var(--line);
+  margin-top:36px;
+}
+.page-footer p {
+  font-size:12.5px; color:var(--ink-3);
+  letter-spacing:.02em;
+}
+
+/* ========== Hr inside card ========== */
+.card-hr {
+  border:none;
+  border-top:1px dashed var(--line);
+  margin:18px 0;
+}
+
+/* ========== Responsive ========== */
+@media (max-width:780px) {
+  .cover { padding:32px 24px 28px; }
+  .personnel-grid { grid-template-columns:1fr 1fr; padding-left:0; }
+  .sub-head, .sub-desc, .person-footnote { padding-left:0; }
+  .plan-item { flex-direction:column; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- ==================== COVER ==================== -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-meta">
+      <span class="pill">月度汇报</span>
+      <span>2026年7月</span>
+      <span>&middot;</span>
+      <span>项目督导</span>
+    </div>
+    <h1>星河无界 7月月度报告</h1>
+    <p class="subtitle">自7月下旬接手星河无界业务线督导工作以来，我已完成对该业务线整体情况的全面摸底梳理，覆盖业务版图、团队组织、需求进度、研发节奏、线上问题及资源瓶颈等维度，以下内容仅针对已了解的情况进行分析。</p>
+  </div>
+</div>
+
+<!-- ==================== 一、业务整体概况 ==================== -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-num">一</div>
+    <h2>业务整体概况</h2>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-head">1. 业务版图</div>
+    <p class="sub-desc">
+      整体承载 <strong>20个在研/运营项目</strong>，项目体量覆盖主力运营、迭代升级、创新孵化等多种类型
+    </p>
+  </div>
+
+  <div class="table-outer">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>序号</th><th>编号</th><th>TG群名称</th><th>项目名称</th>
+            <th>PM</th><th>运营</th><th>后端负责人</th><th>后端补位</th>
+            <th>前端负责人</th><th>前端补位</th><th>产品</th><th>产品补位</th><th>测试</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td class="code-tag">DX-013</td><td>【DX-013】滴滴（APP）｜项目群</td><td>滴滴（APP）</td><td>鲍勃</td><td>秋野</td><td>李瑞</td><td>朔月</td><td>天辰</td><td>风间</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+          <tr><td>2</td><td class="code-tag">JHG-056</td><td>【JHG-056】91楼凤（APP）｜项目群</td><td>91楼凤（APP）</td><td>鲍勃</td><td>林笑尘</td><td>朔月</td><td>李瑞</td><td>阿秋</td><td>风间</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+          <tr><td>3</td><td class="code-tag">TJ-062</td><td>【TJ-062/063】51凤楼（APP/WEB）｜项目群</td><td>51凤楼（WEB）</td><td>鲍勃</td><td>林笑尘</td><td>李瑞</td><td>朔月</td><td>风间</td><td>阿秋</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+          <tr><td>4</td><td class="code-tag">TJ-063</td><td>【TJ-062/063】51凤楼（APP/WEB）｜项目群</td><td>51凤楼（APP）</td><td>鲍勃</td><td>林笑尘</td><td>李瑞</td><td>朔月</td><td>风间</td><td>阿秋</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+          <tr><td>5</td><td class="code-tag">JHG-039</td><td>【JHG-039】陌陌1v1（APP）｜项目群</td><td>陌陌1v1（APP）</td><td>鲍勃</td><td>林笑尘</td><td>朔月</td><td>李瑞</td><td>阿秋</td><td>天辰</td><td>鲍勃</td><td>大藜</td><td>飞策</td></tr>
+          <tr><td>6</td><td class="code-tag">DX-048</td><td>【DX-048】海角社区（WEB）｜项目群</td><td>海角社区（WEB）</td><td>波林</td><td>安靖</td><td>李瑞</td><td>朔月</td><td>卡比</td><td>鲁子敬</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+          <tr><td>7</td><td class="code-tag">DX-073</td><td>【DX-073】91成人导航（WEB）｜项目群</td><td>91成人导航（WEB）</td><td>波林</td><td>安靖</td><td>鹏程</td><td>厉飞雨</td><td>卡比</td><td>&mdash;</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+          <tr><td>8</td><td class="code-tag">DX-062</td><td>【DX-062】KISSAV（WEB）｜项目群</td><td>KISSAV（WEB）</td><td>波林</td><td>周子然</td><td>厉飞雨</td><td>鹏程</td><td>鲁子敬</td><td>卡比</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+          <tr><td>9</td><td class="code-tag">DX-069</td><td>【DX-069】91Hub（WEB）｜项目群</td><td>91Hub（WEB）</td><td>波林</td><td>安靖</td><td>厉飞雨</td><td>鹏程</td><td>卡比</td><td>景天</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+          <tr><td>10</td><td class="code-tag">DX-070</td><td>【DX-070】禁漫天堂（WEB）｜项目群</td><td>禁漫天堂（WEB）</td><td>波林</td><td>周子然</td><td>鹏程</td><td>厉飞雨</td><td>景天</td><td>卡比</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+          <tr><td>11</td><td class="code-tag">DX-119</td><td>【DX-119】抖阴（WEB）｜项目群</td><td>抖阴（WEB）</td><td>波林</td><td>周子然</td><td>朔月</td><td>李瑞</td><td>景天</td><td>卡比</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+          <tr><td>12</td><td class="code-tag">XHWJ-002</td><td>【XHWJ-002】禁漫天堂（APP）｜项目群</td><td>禁漫天堂（APP）</td><td>波林</td><td>周子然</td><td>李瑞</td><td>朔月</td><td>风间</td><td>天辰</td><td>波林</td><td>小宜</td><td>飞策</td></tr>
+          <tr><td>13</td><td class="code-tag">DX-055</td><td>【DX-055】茶馆（APP）｜项目群</td><td>茶馆（APP）</td><td>大藜</td><td>秋野</td><td>李瑞</td><td>朔月</td><td>天辰</td><td>风间</td><td>大藜</td><td>鲍勃</td><td>飞策</td></tr>
+          <tr><td>14</td><td class="code-tag">DX-064</td><td>【DX-064】51青楼（WEB）｜项目群</td><td>51青楼（WEB）</td><td>大藜</td><td>史强</td><td>朔月</td><td>李瑞</td><td>鲁子敬</td><td>景天</td><td>大藜</td><td>鲍勃</td><td>飞策</td></tr>
+          <tr><td>15</td><td class="code-tag">XHWJ-001</td><td>【XHWJ-001】茶馆（WEB）｜项目群</td><td>茶馆（WEB）</td><td>大藜</td><td>史强</td><td>厉飞雨</td><td>鹏程</td><td>卡比</td><td>鲁子敬</td><td>大藜</td><td>鲍勃</td><td>飞策</td></tr>
+          <tr><td>16</td><td class="code-tag">DX-999</td><td>【DX-999】51漫画（WEB）｜项目群</td><td>51漫画（WEB）</td><td>小宜</td><td>安婧</td><td>鹏程</td><td>厉飞雨</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+          <tr><td>17</td><td class="code-tag">XHWJ-003</td><td>【XHWJ-003】91吃瓜网（WEB）｜项目群</td><td>91吃瓜网（WEB）</td><td>小宜</td><td>安靖</td><td>厉飞雨</td><td>鹏程</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+          <tr><td>18</td><td class="code-tag">XHWJ-004</td><td>【XHWJ-004】黑料头条（WEB）｜项目群</td><td>黑料头条（WEB）</td><td>小宜</td><td>周子然</td><td>厉飞雨</td><td>鹏程</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+          <tr><td>19</td><td class="code-tag">XHWJ-005</td><td>【XHWJ-005】每日大赛（WEB）｜项目群</td><td>每日大赛（WEB）</td><td>小宜</td><td>周子然</td><td>厉飞雨</td><td>鹏程</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+          <tr><td>20</td><td class="code-tag">XHWJ-006</td><td>【XHWJ-006】51探花（WEB）｜项目群</td><td>51探花（WEB）</td><td>小宜</td><td>史强</td><td>厉飞雨</td><td>鹏程</td><td>景天</td><td>卡比</td><td>小宜</td><td>波林</td><td>飞策</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-head">2. 目前已完成沟通的人员</div>
+  </div>
+
+  <div class="personnel-grid">
+    <div class="person-card">
+      <div class="person-role">产品PM</div>
+      <div class="person-count">4人</div>
+      <div class="person-names">鲍勃、波林、大藜、小宜</div>
+    </div>
+    <div class="person-card">
+      <div class="person-role">运营组长</div>
+      <div class="person-count">5人</div>
+      <div class="person-names">秋野、林笑尘、安靖、周子然、史强</div>
+    </div>
+    <div class="person-card">
+      <div class="person-role">研发人员</div>
+      <div class="person-count">10人</div>
+      <div class="person-names">李瑞、朔月、厉飞雨、鹏程、天辰、风间、阿秋、卡比、鲁子敬、景天</div>
+    </div>
+    <div class="person-card">
+      <div class="person-role">测试</div>
+      <div class="person-count">1人</div>
+      <div class="person-names">飞策</div>
+    </div>
+  </div>
+  <p class="person-footnote">合计已沟通：4名产品PM、5名运营组长、10名研发、1名测试</p>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ==================== 二、现存流程与协同问题 ==================== -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-num">二</div>
+    <h2>现存流程与协同问题</h2>
+  </div>
+  <p class="sub-desc" style="padding-left:48px;">
+    通过全维度复盘，发现当前业务流程、协同机制存在些许漏洞，直接影响上线质量与工作效率：
+  </p>
+
+  <!-- 问题一 -->
+  <div class="subsection">
+    <div class="sub-head">发现的问题一：上线验收流程问题</div>
+  </div>
+
+  <div class="card" style="margin-left:48px;">
+    <div class="case">
+      <div class="case-tag">案例 1</div>
+      <div class="case-title">91Hub项目出现封面图线上配置未同步完成便上线的问题</div>
+      <div class="case-desc">
+        <p>本次为了赶时间，运营和开发协商跳过了原定 8/1 的正式测试环节直接上线，导致问题未在测试阶段拦截。</p>
+        <div class="case-root">
+          <b>根因：</b>代码已部署到正式服，但后台配置项未同步。测试服因独立环境配置完整所以一切正常，正式服部署时配置没有跟着同步过去，导致 meta 标签中的封面图占位符无值，功能不渲染。
+        </div>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="case-tag">案例 2</div>
+      <div class="case-title">【DX-999】51漫画（WEB）中转页无法打开的问题</div>
+      <div class="case-desc">
+        <p>中转页是用户访问漫画内容的主入口，业务影响面大</p>
+        <div class="case-root">
+          <b>根因：</b>重新配置或检查 DNS 解析记录。原因：部分注册商在过户成功后，会默认清空或重置该域名的解析记录（如 A 记录、CNAME 记录）。动作：进入域名的 DNS 解析控制台，确认解析记录是否存在。若为空，请手动重新添加原有的 A 记录（指向服务器 IP）或 CNAME 记录。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 问题二 -->
+  <hr class="card-hr" style="margin:20px 48px;">
+  <div class="subsection">
+    <div class="sub-head">发现的问题二：研发资源不足问题</div>
+  </div>
+
+  <div class="card" style="margin-left:48px;">
+    <div class="case">
+      <div class="case-tag">案例 1</div>
+      <div class="case-title">多个已排期项目无研发资源落地</div>
+      <div class="case-desc">
+        <p>KISSAV 3项需求、91吃瓜网产品重做等既定排期工作，均无法正常启动推进。</p>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="case-tag">案例 2</div>
+      <div class="case-title">测试资源紧缺</div>
+      <div class="case-desc">
+        <p>仅1名测试人员全权承接20个项目的测试工作，产能不足</p>
+      </div>
+    </div>
+
+    <div class="case">
+      <div class="case-tag">案例 3</div>
+      <div class="case-title">前端资源利用率不足</div>
+      <div class="case-desc">
+        <p>如【XHWJ-001】茶馆（WEB）项目，因是从茶馆app转到web/h5，工作量大都在UI和前端，但仅配置了1名前端进行开发，排期到8月底了</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- ==================== 三、后续督导工作规划 ==================== -->
+<div class="section">
+  <div class="section-hd">
+    <div class="section-num">三</div>
+    <h2>后续督导工作规划</h2>
+  </div>
+
+  <div style="padding-left:48px;">
+    <div class="plan-item">
+      <div class="plan-num">1</div>
+      <div class="plan-body">
+        <div class="plan-title">推动解决测试资源瓶颈</div>
+        <div class="plan-desc">联动HRBP推进测试人员资源补充，解决单人承接全业务线测试工作的超负荷问题，从根源缓解项目测试延期、排队积压的现状。</div>
+      </div>
+    </div>
+
+    <div class="plan-item">
+      <div class="plan-num">2</div>
+      <div class="plan-body">
+        <div class="plan-title">推动从本月使用标准上线流程SOP，对整体上线前的准备工作进行规范</div>
+        <div class="plan-desc">落地上线前置Checklist清单机制，将清单执行设为项目上线硬性约束，补齐流程漏洞，杜绝无验证、无验收上线问题。</div>
+      </div>
+    </div>
+
+    <div class="plan-item">
+      <div class="plan-num">3</div>
+      <div class="plan-body">
+        <div class="plan-title">业务分层管理，优化资源配置</div>
+        <div class="plan-desc">持续加强我对业务的认知，与产品、运营团队加强沟通，完成20个项目的分层定级，精准划分主力成熟产品、上升迭代产品、创新孵化产品三类层级。基于项目优先级，梳理现有资源投入逻辑，验证资源分配合理性，优化人力、研发资源倾斜策略。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="page-footer">
+  <p>星河无界业务线 · 7月月度报告 · 2026年8月</p>
+</div>
+
+</div>
+
+</body>
+</html>
