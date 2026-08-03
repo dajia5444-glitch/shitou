@@ -1,0 +1,84 @@
+{
+ "date": "2026-08-03",
+ "generated_at": "2026-08-03 21:43:04",
+ "items": [
+  {
+   "gsce": "GSCE-157",
+   "req": "抖阴展示逻辑修改",
+   "proj": "抖阴（WEB）",
+   "proj_id": "DX-119",
+   "acc_date": "0731-0803",
+   "acc_people": "波林、周子然",
+   "status": "confirmed",
+   "evidence": [
+    {
+     "time": "08-03 15:18",
+     "sender": "周子然-OM-XHWJ-VN",
+     "text": "视频展示逻辑、和 发布者 ID ，你这边在确认一下 @gaorui66 没问题 先上线了吧 时间挺长了"
+    },
+    {
+     "time": "08-03 17:55",
+     "sender": "高睿-OL-XHWJ- VN",
+     "text": "搞好了吗，搞好了，直接帮忙上线吧"
+    },
+    {
+     "time": "08-03 18:04",
+     "sender": "鹏程-BE-XHWJ-VN",
+     "text": "@gaorui66 上线了"
+    }
+   ]
+  },
+  {
+   "gsce": "GSCE-193",
+   "req": "[后台]推广渠道统计优化",
+   "proj": "茶馆（APP）",
+   "proj_id": "DX-055",
+   "acc_date": "0802-0803",
+   "acc_people": "大藜、周肥、秋野",
+   "status": "confirmed",
+   "evidence": [
+    {
+     "time": "08-03 17:52",
+     "sender": "鲁子敬-FE-XHWJ-CN",
+     "text": "@ding_2656 @huioleng4 @Koba_xhwj 我们准备上线哈"
+    },
+    {
+     "time": "08-03 18:59",
+     "sender": "鲁子敬-FE-XHWJ-CN",
+     "text": "新版落地页已上线，线上地址：https://app.51pc.me/landing-page/index @huioleng4 @qiuye456 @Koba_xhwj @ding_2656 @blockingb935"
+    },
+    {
+     "time": "08-03 21:21",
+     "sender": "李瑞-BE-XHWJ-VN",
+     "text": "已经部署了 @zhoufei2026 @ding_2656"
+    }
+   ]
+  },
+  {
+   "gsce": "GSCE-211",
+   "req": "茶馆APP｜新落地页",
+   "proj": "茶馆（APP）",
+   "proj_id": "DX-055",
+   "acc_date": "0803-0803",
+   "acc_people": "大藜、秋野",
+   "status": "confirmed",
+   "evidence": [
+    {
+     "time": "08-03 17:52",
+     "sender": "鲁子敬-FE-XHWJ-CN",
+     "text": "@ding_2656 @huioleng4 @Koba_xhwj 我们准备上线哈"
+    },
+    {
+     "time": "08-03 18:59",
+     "sender": "鲁子敬-FE-XHWJ-CN",
+     "text": "新版落地页已上线，线上地址：https://app.51pc.me/landing-page/index @huioleng4 @qiuye456 @Koba_xhwj @ding_2656 @blockingb935"
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "total": 3,
+  "confirmed": 3,
+  "pending": 0
+ }
+}

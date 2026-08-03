@@ -67,15 +67,60 @@ h1 { color: #1a1a2e; font-size: 24px; margin-bottom: 8px; }
 
   <div class="card">
     <div class="card-title">今日上线情况</div>
-    <div class="card-desc">
-      • <strong>2026-08-03（周一）· 3 项上线</strong><br>
-      • <a href="https://jumpjump9988.atlassian.net/browse/GSCE-211" target="_blank" style="color:#1d4ed8;text-decoration:none;">GSCE-211</a> 茶馆APP｜新落地页（验收 大藜·秋野 0803）<br>
-      • <a href="https://jumpjump9988.atlassian.net/browse/GSCE-193" target="_blank" style="color:#1d4ed8;text-decoration:none;">GSCE-193</a> [后台]推广渠道统计优化（验收 大藜·周肥·秋野 0803）<br>
-      • <a href="https://jumpjump9988.atlassian.net/browse/GSCE-157" target="_blank" style="color:#1d4ed8;text-decoration:none;">GSCE-157</a> 抖阴展示逻辑修改（验收 波林·周子然 0803）<br>
-      • 统计规则：排期看板 row-done 中验收日期 = 今日
+    <div class="card-desc" id="launch-card-body">
+      • 加载中…
     </div>
-    <a class="card-link" href="项目需求排期看板.html">打开 →</a>
+    <a class="card-link" href="项目需求排期看板.html">打开排期看板 →</a>
   </div>
 </div>
+
+<script>
+// 今日上线情况:fetch launch/launch_YYYY-MM-DD.json(由 today_launch.py 生成:排期看板 row-done 验收=今日 + TG 群聊交叉验证)
+(function(){
+  const JIRA = 'https://jumpjump9988.atlassian.net/browse/';
+  function todayStr(){
+    const d = new Date();
+    const p = n => String(n).padStart(2,'0');
+    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+  }
+  // 离线兜底:无 JSON 时直接提示(由 today_launch.py 生成数据)
+  const body = document.getElementById('launch-card-body');
+  function render(d){
+    const conf = d.items.filter(i => i.status === 'confirmed');
+    const pend = d.items.filter(i => i.status === 'pending');
+    const wk = ['日','一','二','三','四','五','六'][new Date(d.date).getDay()];
+    let h = `• <strong>${d.date}（周${wk}）· ${d.items.length} 项验收完成</strong>`;
+    if (conf.length) h += ` · <span style="color:#10b981;">${conf.length} 项群聊确认上线</span>`;
+    if (pend.length) h += ` · <span style="color:#f59e0b;">${pend.length} 项待确认</span>`;
+    h += '<br>';
+    if (!d.items.length) {
+      h += '• 今日无验收完成项<br>• 数据源：排期看板 row-done + TG 群聊交叉验证（today_launch.py）';
+      body.innerHTML = h;
+      return;
+    }
+    d.items.forEach(i => {
+      const ok = i.status === 'confirmed';
+      h += `<div style="margin:4px 0 6px;padding:6px 8px;background:${ok?'#f0fdf4':'#fffbeb'};border-left:3px solid ${ok?'#10b981':'#f59e0b'};border-radius:3px;">`;
+      h += `<span style="font-weight:600;color:#1d4ed8;"><a href="${JIRA}${i.gsce}" target="_blank" style="color:#1d4ed8;text-decoration:none;">${i.gsce}</a></span> `;
+      h += `${i.req} <span style="font-size:11px;color:#909399;">(${i.proj_id||i.proj} · 验收 ${i.acc_date})</span>`;
+      h += ` <span style="font-size:10px;padding:1px 5px;border-radius:3px;background:${ok?'#10b981':'#f59e0b'};color:#fff;">${ok?'✅ 群聊确认':'⏳ 待确认'}</span>`;
+      if (i.evidence && i.evidence.length) {
+        const e = i.evidence[0];
+        h += `<div style="font-size:11px;color:#606266;margin-top:3px;">📌 ${e.time} ${e.sender.replace(/-.*/,'')}：${e.text.slice(0,60)}${e.text.length>60?'…':''}</div>`;
+        if (i.evidence.length > 1) h += `<div style="font-size:11px;color:#909399;margin-top:2px;">＋${i.evidence.length-1} 条群聊佐证</div>`;
+      }
+      h += '</div>';
+    });
+    h += '<span style="font-size:11px;color:#909399;">判定口径：排期看板 row-done 验收=今日 ∩ TG 群聊上线确认（today_launch.py 自动生成）</span>';
+    body.innerHTML = h;
+  }
+  fetch('launch/launch_' + todayStr() + '.json')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(render)
+    .catch(() => {
+      body.innerHTML = '• 今日数据待生成（today_launch.py）<br>• 判定口径：排期看板 row-done 验收=今日 ∩ TG 群聊上线确认';
+    });
+})();
+</script>
 </body>
 </html>
