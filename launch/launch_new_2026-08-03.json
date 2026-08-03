@@ -1,0 +1,86 @@
+{
+ "date": "2026-08-03",
+ "generated_at": "2026-08-03 21:46:46",
+ "items": [
+  {
+   "gsce": "GSCE-221",
+   "desc": "GSCE-221 后端已排 08-11~08-13（厉飞雨）、",
+   "status": "confirmed",
+   "evidence": [
+    {
+     "time": "08-03 10:55",
+     "sender": "波林-PM-XHWJ-TW",
+     "text": "@stephenxhwj @ding_2656 再请两位哥哥确认一下排期唷！ ——————————————— 项目开发排期表 项目名称：91hub 开发类型：AI效能需求 需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-221 后端 开始时间：【待补】 完成时间：【"
+    },
+    {
+     "time": "08-03 11:09",
+     "sender": "厉飞雨 -BE- XHWJ - VN",
+     "text": "项目开发排期表 项目名称：91hub 开发类型：AI效能需求 需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-221 后端 开始时间：8/11 完成时间：8/13 工作人员：厉飞雨 测试+Bug回归 开始时间：【待补】 完成时间：【待补】 工作人员：飞策 验收 开始"
+    }
+   ]
+  },
+  {
+   "gsce": "GSCE-226",
+   "desc": "GSCE-226 后端已排 08-13（厉飞雨）测试 08-17（飞策）、",
+   "status": "confirmed",
+   "evidence": [
+    {
+     "time": "08-03 17:06",
+     "sender": "波林-PM-XHWJ-TW",
+     "text": "@stephenxhwj @ding_2656 再请两位哥哥确认一下排期唷！ ——————————————— 项目开发排期表 项目名称：KissAV 开发类型：GA4流量来源异常问题及修复方案 需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-226 后端 开始时间："
+    },
+    {
+     "time": "08-03 18:03",
+     "sender": "厉飞雨 -BE- XHWJ - VN",
+     "text": "项目开发排期表 项目名称：KissAV 开发类型：GA4流量来源异常问题及修复方案 需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-226 后端 开始时间：8/13 完成时间：8/15 工作人员：厉飞雨 测试+Bug回归 开始时间：【待补】 完成时间：【待补】 工作"
+    },
+    {
+     "time": "08-03 18:18",
+     "sender": "厉飞雨 -BE- XHWJ - VN",
+     "text": "项目开发排期表 项目名称：KissAV 开发类型：GA4流量来源异常问题及修复方案 需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-226 后端 开始时间：8/13 完成时间：8/13 工作人员：厉飞雨 测试+Bug回归 开始时间：【待补】 完成时间：【待补】 工作"
+    }
+   ]
+  },
+  {
+   "gsce": "GSCE-224",
+   "desc": "GSCE-224 后端已排 08-04（鹏程）测试 08-05（飞策），验收待确认；",
+   "status": "confirmed",
+   "evidence": [
+    {
+     "time": "08-03 17:08",
+     "sender": "波林-PM-XHWJ-TW",
+     "text": "@jili1889 @ding_2656 再请两位哥哥确认一下排期唷！ ——————————————— 项目开发排期表 项目名称：禁漫天堂 开发类型：GA4流量来源异常问题及修复方案 需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-224 后端 开始时间：【待补】 "
+    }
+   ]
+  },
+  {
+   "gsce": "GSCE-222",
+   "desc": "GSCE-222/223 排期待确认",
+   "status": "confirmed",
+   "evidence": [
+    {
+     "time": "08-03 10:56",
+     "sender": "波林-PM-XHWJ-TW",
+     "text": "@qingqing0001111 @ding_2656 再请两位哥哥确认一下排期唷！ ——————————————— 项目开发排期表 项目名称：抖阴 开发类型：AI效能需求 需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-222 后端 开始时间：【待提供】 完成时间"
+    }
+   ]
+  },
+  {
+   "gsce": "GSCE-223",
+   "desc": "GSCE-222/223 排期待确认",
+   "status": "confirmed",
+   "evidence": [
+    {
+     "time": "08-03 10:57",
+     "sender": "波林-PM-XHWJ-TW",
+     "text": "@lirui0930 @ding_2656 再请两位哥哥确认一下排期唷！ ——————————————— 项目开发排期表 项目名称：海角社区 开发类型：AI效能需求 需求卡：https://jumpjump9988.atlassian.net/browse/GSCE-223 后端 开始时间：【待提供】 完成时间：【待提"
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "total": 5,
+  "confirmed": 5,
+  "pending": 0
+ }
+}

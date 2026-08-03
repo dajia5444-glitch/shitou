@@ -66,8 +66,16 @@ h1 { color: #1a1a2e; font-size: 24px; margin-bottom: 8px; }
   </div>
 
   <div class="card">
-    <div class="card-title">今日上线情况</div>
+    <div class="card-title">今日上线需求</div>
     <div class="card-desc" id="launch-card-body">
+      • 加载中…
+    </div>
+    <a class="card-link" href="项目需求排期看板.html">打开排期看板 →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">今日新增需求</div>
+    <div class="card-desc" id="new-card-body">
       • 加载中…
     </div>
     <a class="card-link" href="项目需求排期看板.html">打开排期看板 →</a>
@@ -75,7 +83,8 @@ h1 { color: #1a1a2e; font-size: 24px; margin-bottom: 8px; }
 </div>
 
 <script>
-// 今日上线情况:fetch launch/launch_YYYY-MM-DD.json(由 today_launch.py 生成:排期看板 row-done 验收=今日 + TG 群聊交叉验证)
+// 今日上线需求:fetch launch/launch_YYYY-MM-DD.json(由 today_launch.py 生成:排期看板 row-done 验收=今日 + TG 群聊交叉验证)
+// 今日新增需求:fetch launch/launch_new_YYYY-MM-DD.json(由 today_new.py 生成:排期看板「今日新增需求」板块 + TG 群聊交叉验证)
 (function(){
   const JIRA = 'https://jumpjump9988.atlassian.net/browse/';
   function todayStr(){
@@ -83,26 +92,30 @@ h1 { color: #1a1a2e; font-size: 24px; margin-bottom: 8px; }
     const p = n => String(n).padStart(2,'0');
     return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
   }
-  // 离线兜底:无 JSON 时直接提示(由 today_launch.py 生成数据)
   const body = document.getElementById('launch-card-body');
-  function render(d){
+  function render(d, type){
     const conf = d.items.filter(i => i.status === 'confirmed');
     const pend = d.items.filter(i => i.status === 'pending');
     const wk = ['日','一','二','三','四','五','六'][new Date(d.date).getDay()];
-    let h = `• <strong>${d.date}（周${wk}）· ${d.items.length} 项验收完成</strong>`;
-    if (conf.length) h += ` · <span style="color:#10b981;">${conf.length} 项群聊确认上线</span>`;
+    let h = `• <strong>${d.date}（周${wk}）· ${d.items.length} 项</strong>`;
+    if (conf.length) h += ` · <span style="color:#10b981;">${conf.length} 项群聊确认</span>`;
     if (pend.length) h += ` · <span style="color:#f59e0b;">${pend.length} 项待确认</span>`;
     h += '<br>';
     if (!d.items.length) {
-      h += '• 今日无验收完成项<br>• 数据源：排期看板 row-done + TG 群聊交叉验证（today_launch.py）';
-      body.innerHTML = h;
-      return;
+      h += '• 今日暂无数据<br>• ';
+      h += type==='launch' ? '判定口径：排期看板 row-done 验收=今日 ∩ TG 群聊上线确认'
+                            : '判定口径：排期看板「今日新增需求」板块 ∩ TG 群聊讨论(排期/确认)';
+      return h;
     }
     d.items.forEach(i => {
       const ok = i.status === 'confirmed';
+      const desc = i.req || i.desc || '';
+      const meta = type==='launch'
+        ? `(${i.proj_id||i.proj||''} · 验收 ${i.acc_date})`
+        : `(${i.proj||''})`;
       h += `<div style="margin:4px 0 6px;padding:6px 8px;background:${ok?'#f0fdf4':'#fffbeb'};border-left:3px solid ${ok?'#10b981':'#f59e0b'};border-radius:3px;">`;
       h += `<span style="font-weight:600;color:#1d4ed8;"><a href="${JIRA}${i.gsce}" target="_blank" style="color:#1d4ed8;text-decoration:none;">${i.gsce}</a></span> `;
-      h += `${i.req} <span style="font-size:11px;color:#909399;">(${i.proj_id||i.proj} · 验收 ${i.acc_date})</span>`;
+      h += `${desc} <span style="font-size:11px;color:#909399;">${meta}</span>`;
       h += ` <span style="font-size:10px;padding:1px 5px;border-radius:3px;background:${ok?'#10b981':'#f59e0b'};color:#fff;">${ok?'✅ 群聊确认':'⏳ 待确认'}</span>`;
       if (i.evidence && i.evidence.length) {
         const e = i.evidence[0];
@@ -111,15 +124,21 @@ h1 { color: #1a1a2e; font-size: 24px; margin-bottom: 8px; }
       }
       h += '</div>';
     });
-    h += '<span style="font-size:11px;color:#909399;">判定口径：排期看板 row-done 验收=今日 ∩ TG 群聊上线确认（today_launch.py 自动生成）</span>';
-    body.innerHTML = h;
+    h += `<span style="font-size:11px;color:#909399;">判定口径:${type==='launch'?'排期看板 row-done 验收=今日 ∩ TG 群聊上线确认(today_launch.py)':'排期看板「今日新增」∩ TG 群聊讨论(today_new.py)'}</span>`;
+    return h;
   }
-  fetch('launch/launch_' + todayStr() + '.json')
+  const today = todayStr();
+  // 上线卡片
+  fetch('launch/launch_' + today + '.json')
     .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(render)
-    .catch(() => {
-      body.innerHTML = '• 今日数据待生成（today_launch.py）<br>• 判定口径：排期看板 row-done 验收=今日 ∩ TG 群聊上线确认';
-    });
+    .then(d => { body.innerHTML = render(d, 'launch'); })
+    .catch(() => { body.innerHTML = '• 今日数据待生成（today_launch.py）'; });
+  // 新增卡片
+  const newBody = document.getElementById('new-card-body');
+  fetch('launch/launch_new_' + today + '.json')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => { newBody.innerHTML = render(d, 'new'); })
+    .catch(() => { newBody.innerHTML = '• 今日数据待生成（today_new.py）'; });
 })();
 </script>
 </body>
