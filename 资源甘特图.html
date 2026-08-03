@@ -135,12 +135,13 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
 
 <script>
 (function(){
-  // 今日线（07-31）
+  // 今日线（动态当前日期）
   const dates = [];
   let d = new Date(2026, 6, 25);
   const end = new Date(2026, 8, 5);
   while (d <= end) { dates.push(new Date(d)); d.setDate(d.getDate()+1); }
-  const today = new Date(2026, 6, 31);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const di = dates.findIndex(x => x.getTime() === today.getTime());
   if (di >= 0) {
     document.querySelectorAll('.g-lane').forEach(lane => {
