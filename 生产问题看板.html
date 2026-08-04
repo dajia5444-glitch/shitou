@@ -114,15 +114,15 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   <div class="hero-top">
     <div>
       <h1><span class="mark"></span>生产问题看板</h1>
-      <div class="sub">最后更新 · 北京时间 2026-08-03 23:01 ｜ 26 个问题 · 带 PMO 督导分析</div>
+      <div class="sub">最后更新 · 北京时间 2026-08-04 08:28 ｜ 27 个问题· 带 PMO 督导分析</div>
     </div>
-    <div class="nums" style="color:var(--ink-3);font-size:12px;background:var(--surface);border:1px solid var(--line);padding:5px 14px;border-radius:999px;">26 个问题</div>
+    <div class="nums" style="color:var(--ink-3);font-size:12px;background:var(--surface);border:1px solid var(--line);padding:5px 14px;border-radius:999px;">27 个问题</div>
   </div>
   <div class="hero-stats">
     <div class="hero-stat"><div class="v nums red">1</div><div class="l">严重</div></div>
     <div class="hero-stat"><div class="v nums amber">9</div><div class="l">高优</div></div>
-    <div class="hero-stat"><div class="v nums green">16</div><div class="l">中等</div></div>
-    <div class="hero-stat"><div class="v nums">19</div><div class="l">处理中</div></div>
+    <div class="hero-stat"><div class="v nums green">17</div><div class="l">中等</div></div>
+    <div class="hero-stat"><div class="v nums">20</div><div class="l">处理中</div></div>
     <div class="hero-stat"><div class="v nums">3</div><div class="l">待处理</div></div>
     <div class="hero-stat"><div class="v nums">4</div><div class="l">已修复</div></div>
   </div>
@@ -130,13 +130,13 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   <div class="filter-bar">
     <span class="filter-label">📅 日期筛选</span>
     <div class="filter-chips" id="dateFilter">
-      <button class="chip active" data-filter="all">全部 <span class="num">26</span></button>
+      <button class="chip active" data-filter="all">全部 <span class="num">27</span></button>
       <button class="chip" data-filter="07-30">07-30 <span class="lbl">周四</span> <span class="num">9</span></button>
       <button class="chip" data-filter="07-31">07-31 <span class="lbl">周五</span> <span class="num">1</span></button>
       <button class="chip" data-filter="08-01">08-01 <span class="lbl">周六</span> <span class="num">9</span></button>
-      <button class="chip" data-filter="08-03">08-03 <span class="lbl">周一</span> <span class="num">7</span></button>
+      <button class="chip" data-filter="08-03">08-03 <span class="lbl">周一</span> <span class="num">8</span></button>
     </div>
-    <span class="filter-info" id="filterInfo">显示全部 26 个问题</span>
+    <span class="filter-info" id="filterInfo">显示全部 27 个问题</span>
   </div>
 </div>
 
@@ -642,10 +642,10 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   <header class="date-head">
     <span class="date-label">📅 08-03</span>
     <span class="date-weekday">周一</span>
-    <span class="date-count">7</span>
+    <span class="date-count">8</span>
     <span class="date-stat">
       处理中
-      <span class="chip" style="background:#ef4444">6</span>
+      <span class="chip" style="background:#ef4444">7</span>
       待处理
       <span class="chip" style="background:#a855f7">0</span>
       已修复
@@ -839,6 +839,34 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
     <div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">处理中：根因=SDK 安全限制（设备时间偏差超 1 分钟即校验失败）；方案定为发送图片时提示用户校准时间（UTC+0），21:03 备选方案改 SDK 代码待评估；21:21 相关修复已部署测试（李瑞部署/飞策确认）；21:32-22:13 顺带排查私聊对话列表显示异常，22:13 确认显示正常非故障</div></div>
     <div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">影响：茶馆IM图片消息功能异常，发送失败/收不到影响用户沟通体验；反馈"比较多"但为部分用户（手机时间被调整者），影响面有限；根因：20:47 天辰确认=SDK 安全限制（手机设备时间与服务器时间偏差 1 分钟以上无法通过安全校验），非服务端故障，属客户端环境差异；同日茶馆另有 17:50 打开显示异常（已定位 VPN 拦截，属用户侧网络），两次问题均指向用户端环境差异触发，客户端对异常环境（时间偏差/网络代理）的兼容性需整体评估；进展：20:55 方案落地为前端前置提醒（校准时间），21:21 已部署测试待验证；部署后 21:32-22:13 顺带排查私聊对话列表显示异常（消息tab页看不到私聊对话），李瑞 22:12 确认"现在就是都显示"、天辰 22:13 确认正常——判断为数据/客户端缓存层面偶发，未形成新问题</div></div>
     <div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">1) 落地"发送图片时提示用户校准时间"方案（以 UTC+0 为准），上线前在测试环境覆盖"手机时间偏差"场景回归验证；2) 运营侧确认提示文案对用户友好度（避免误伤正常用户）；3) 评估客户端对异常时间戳的容错策略（时间偏差超阈值不拦截或降级提示）；4) 同步排查 IM 其他消息类型是否共用时间校验逻辑；5) 与 17:50 茶馆打开显示异常（VPN 拦截）案例合并复盘用户端兼容性；6) 部署后关注回归：确认前置提醒上线，私聊对话列表显示无回归</div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0027" data-no="0027">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0027</span>
+      <span class="tag proj">DX-069</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">正式服打开很卡（页面加载缓慢）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-03 23:28</span><span class="dot-sep">·</span>
+      <span>上报 安靖--OL-XHWJ-MY</span><span class="dot-sep">·</span>
+      <span>1 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">91Hub 正式服打开很卡：安靖(OL) 08-03 23:28 反馈正式服页面打开缓慢，@stephenxhwj 协助排查；当日 23:16 厉飞雨(BE) 刚完成"大家都在搜"功能显示调整并更新到测试环境，正式服卡顿待排查是否与近期发布/服务端资源相关</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-03 23:28</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">安靖--OL-XHWJ-MY</span><span class="t-channel">【DX-069】91Hub（WEB）｜项目群</span></div><div class="t-text">https://91hubw.com/ @stephenxhwj 帮忙看看正式服打开很卡</div></div></div></div></div>
+    <div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">待排查：开发尚未响应确认，等待定位卡顿原因</div></div>
+    <div class="detail-section"><div class="detail-label">根因</div><div class="detail-body">待定位</div></div>
+    <div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">处理中：安靖 23:28 上报后暂无开发确认，需今日优先跟进排查</div></div>
+    <div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">影响评估：91Hub 正式服整体打开卡顿，直接影响用户访问体验；当天 20:30 0024 刚在正式服验收通过、23:16 又有功能更新至测试环境，卡顿若与近期发布相关需尽快隔离；根因归类：性能/服务端类问题，可能涉及服务器资源、缓存或发布配置，需开发（厉飞雨/stephenxhwj）立即排查；与 0021（51漫画卡顿）属同类性能问题，可共享排查思路</div></div>
+    <div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">1) 开发今日优先排查正式服卡顿，确认是否为服务器资源/缓存/近期发布导致；2) 运营收集卡顿时间段、页面、设备样本便于定位；3) 若为资源瓶颈评估扩容或缓存优化；4) 排查完成前暂缓正式服频繁发布，避免混淆变量；5) 参照 0021 卡顿排查经验（历史遗留+用户量增长服务器压力），同步评估 91Hub 容量水位</div></div>
   </div>
 </article>
 
