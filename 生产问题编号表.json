@@ -195,7 +195,7 @@
     "sev": "中",
     "status": "处理中",
     "first_report": "08-03 10:48",
-    "last_active": "08-04 21:19"
+    "last_active": "08-05 10:31"
   },
   {
     "no": "问题0023",
@@ -258,7 +258,7 @@
     "sev": "中",
     "status": "处理中",
     "first_report": "08-04 01:20",
-    "last_active": "08-04 11:27"
+    "last_active": "08-05 10:09"
   },
   {
     "no": "问题0030",
@@ -268,5 +268,14 @@
     "status": "处理中",
     "first_report": "08-04 20:10",
     "last_active": "08-04 21:51"
+  },
+  {
+    "no": "问题0031",
+    "title": "KISSAV 远程发布端无法登录（网络错误，其他项目可正常登录）",
+    "proj": "DX-062",
+    "sev": "中",
+    "status": "处理中",
+    "first_report": "08-05 10:00",
+    "last_active": "08-05 10:09"
   }
 ]
