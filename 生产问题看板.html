@@ -114,15 +114,15 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   <div class="hero-top">
     <div>
       <h1><span class="mark"></span>生产问题看板</h1>
-      <div class="sub">最后更新 · 北京时间 2026-08-06 13:17 ｜ 35 个问题· 带 PMO 督导分析</div>
+      <div class="sub">最后更新 · 北京时间 2026-08-06 15:19 ｜ 37 个问题· 带 PMO 督导分析</div>
     </div>
     <div class="nums" style="color:var(--ink-3);font-size:12px;background:var(--surface);border:1px solid var(--line);padding:5px 14px;border-radius:999px;">35 个问题</div>
   </div>
   <div class="hero-stats">
     <div class="hero-stat"><div class="v nums red">1</div><div class="l">严重</div></div>
     <div class="hero-stat"><div class="v nums amber">9</div><div class="l">高优</div></div>
-    <div class="hero-stat"><div class="v nums green">25</div><div class="l">中等</div></div>
-    <div class="hero-stat"><div class="v nums">22</div><div class="l">处理中</div></div>
+    <div class="hero-stat"><div class="v nums green">27</div><div class="l">中等</div></div>
+    <div class="hero-stat"><div class="v nums">24</div><div class="l">处理中</div></div>
     <div class="hero-stat"><div class="v nums">3</div><div class="l">待处理</div></div>
     <div class="hero-stat"><div class="v nums">10</div><div class="l">已修复</div></div>
   </div>
@@ -130,16 +130,16 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   <div class="filter-bar">
     <span class="filter-label">📅 日期筛选</span>
     <div class="filter-chips" id="dateFilter">
-      <button class="chip active" data-filter="all">全部 <span class="num">35</span></button>
+      <button class="chip active" data-filter="all">全部 <span class="num">37</span></button>
       <button class="chip" data-filter="07-30">07-30 <span class="lbl">周四</span> <span class="num">9</span></button>
       <button class="chip" data-filter="07-31">07-31 <span class="lbl">周五</span> <span class="num">1</span></button>
       <button class="chip" data-filter="08-01">08-01 <span class="lbl">周六</span> <span class="num">9</span></button>
       <button class="chip" data-filter="08-03">08-03 <span class="lbl">周一</span> <span class="num">8</span></button>
       <button class="chip" data-filter="08-04">08-04 <span class="lbl">周二</span> <span class="num">3</span></button>
       <button class="chip" data-filter="08-05">08-05 <span class="lbl">周三</span> <span class="num">3</span></button>
-      <button class="chip" data-filter="08-06">08-06 <span class="lbl">周四</span> <span class="num">2</span></button>
+      <button class="chip" data-filter="08-06">08-06 <span class="lbl">周四</span> <span class="num">4</span></button>
     </div>
-    <span class="filter-info" id="filterInfo">显示全部 35 个问题</span>
+    <span class="filter-info" id="filterInfo">显示全部 37 个问题</span>
   </div>
 </div>
 
@@ -1092,10 +1092,10 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
   <header class="date-head">
     <span class="date-label">📅 08-06</span>
     <span class="date-weekday">周四</span>
-    <span class="date-count">2</span>
+    <span class="date-count">4</span>
     <span class="date-stat">
       处理中
-      <span class="chip" style="background:#ef4444">1</span>
+      <span class="chip" style="background:#ef4444">3</span>
       待处理
       <span class="chip" style="background:#a855f7">0</span>
       已修复
@@ -1157,6 +1157,62 @@ body { background:var(--paper); color:var(--ink); font-family:-apple-system,Blin
     <div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">已修复：08-06 12:48 林笑尘验证备用域名「可以正常登录了」，朔月确认；当日 10:44 上报 → 12:48 恢复（约 2 小时闭环）</div></div>
     <div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">影响评估：91楼凤 后台登录不可用，影响运营后台操作（内容/代理/客服管理）；与 0030（08-04 后台全民代理链接无法连上/域名列表空白，朔月排查后无结论）同属 91楼凤 后台（lfadmin 域名）链路问题；进展：10:44 上报 → 12:48 林笑尘验证备用域名可正常登录，约 2 小时闭环；处理方式为切换备用域名解决，原域名异常根因未完全定位（疑域名解析/入口链路），建议跟进原域名根因避免复发；根因归类：后台可用性/登录链路类问题（域名切换应急）</div></div>
     <div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">1) 已通过备用域名恢复，建议朔月继续定位原域名（lfadmin.nxebpnlcia.work）登录异常的根因（DNS/入口/服务），形成域名切换应急预案；2) 与 0030 并案排查（同属 91楼凤 后台故障，是否同根因/同服务）；3) 请林笑尘继续观察后台各功能（登录/内容/代理/客服）是否稳定；4) 后台可用性类故障近期在 91楼凤 多次出现（0030/0035），建议增加后台健康检查、监控告警与备用域名预案</div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0036" data-no="0036">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0036</span>
+      <span class="tag proj">DX-119</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">平均停留时长统计人数与浏览量不一致（135 vs 113）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-06 14:47</span><span class="dot-sep">·</span>
+      <span>上报 高睿-OL-XHWJ-VN</span><span class="dot-sep">·</span>
+      <span>2 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">抖阴(DX-119) 平均停留时长统计异常：高睿(OL) 08-06 14:47 反馈「浏览量有 135，平均停留时长统计人数只有 113」，两项指标不一致，疑似平均停留时长统计逻辑异常（关联 GSCE-225 GA4 流量来源/平均停留时长统计上线后的数据核对）；朔月(BE) 15:10 受理排查统计逻辑</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-06 14:47</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">高睿-OL-XHWJ-VN</span><span class="t-channel">【DX-119】抖阴（WEB）｜项目群</span></div><div class="t-text">这个好像不对，老哥，浏览量有135，然后平均停留时长，统计人数只有113</div></div></div><div class="t-row"><div class="t-time">08-06 15:10</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">朔月-BE-XHWJ-CN</span><span class="t-channel">【DX-119】抖阴（WEB）｜项目群</span></div><div class="t-text">我看一下统计逻辑</div></div></div></div></div>
+    <div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">朔月(BE) 15:10 查看统计逻辑，对比浏览量统计与平均停留时长统计口径（去重/抽样/埋点触发条件），定位偏差根因</div></div>
+    <div class="detail-section"><div class="detail-label">根因</div><div class="detail-body">待定位：疑平均停留时长统计口径（去重/抽样/触发条件）与浏览量口径不一致，或 GA4 相关统计埋点/上报链路异常（关联 GSCE-225 上线后新增统计）</div></div>
+    <div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">处理中：08-06 14:47 高睿(OL) 上报统计异常 → 朔月 15:10 排查统计逻辑中</div></div>
+    <div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">影响评估：平均停留时长是内容质量核心指标（GSCE-225 GA4 流量来源分析上线后新增统计），统计人数 113 vs 浏览量 135 偏差约 16%，影响运营对内容表现的判断与流量分析准确性；非数据丢失，风险等级中等；根因归类：统计口径类问题（指标定义/去重/抽样/埋点触发不一致），朔月已受理当日排查中</div></div>
+    <div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">1) 朔月对比浏览量与平均停留时长的统计口径差异（去重逻辑/抽样比例/埋点触发条件），定位偏差根因；2) 确认是否需按统一口径补算当日数据或修正统计逻辑；3) 向高睿反馈统计口径说明，确认运营侧预期；4) 统计类指标上线后建议增加双指标一致性校验，避免同类偏差再次出现</div></div>
+  </div>
+</article>
+<article class="issue-card" data-id="no-0037" data-no="0037">
+  <div class="card-summary" onclick="toggleCard(this)">
+    <div class="card-tags">
+      <span class="no-badge">问题0037</span>
+      <span class="tag proj">DX-062</span>
+      <span class="tag sev" style="background:#f59e0b">中</span>
+      <span class="tag status" style="background:#ef4444">处理中</span>
+    </div>
+    <div class="card-title-row">
+      <h3 class="card-title">后台视频无法播放（上传侧正常，视频ID 61551）</h3>
+      <svg class="caret" width="14" height="14" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+    </div>
+    <div class="card-meta">
+      <span>首报 08-06 15:06</span><span class="dot-sep">·</span>
+      <span>上报 大胜-OP-XHWJ-CN</span><span class="dot-sep">·</span>
+      <span>4 条沟通</span>
+    </div>
+  </div>
+  <div class="card-detail">
+    <div class="detail-section"><div class="detail-label">📌 问题描述</div><div class="detail-body">KISSAV(DX-062) 后台单条视频无法播放：大胜(OP) 08-06 15:06 反馈「这条上传的那边说是能播放，我在后台打开是无法播放的」，视频 ID 61551；文龙(TL) 15:07 转派厉飞雨(BE)，厉飞雨 15:07 受理</div></div>
+    <div class="detail-section"><div class="detail-label">⏱ 处理时间线</div><div class="timeline"><div class="t-row"><div class="t-time">08-06 15:06</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">大胜-OP-XHWJ-CN</span><span class="t-channel">【DX-062】KISSAV（WEB）｜项目群</span></div><div class="t-text">KISSAV后台是不是出BUG了，这条上传的那边说是能播放，我在后台打开是无法播放的</div></div></div><div class="t-row"><div class="t-time">08-06 15:07</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">大胜-OP-XHWJ-CN</span><span class="t-channel">【DX-062】KISSAV（WEB）｜项目群</span></div><div class="t-text">视频ID 61551，各位老师麻烦看一下</div></div></div><div class="t-row"><div class="t-time">08-06 15:07</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">文龙-TL-XHWJ-CN</span><span class="t-channel">【DX-062】KISSAV（WEB）｜项目群</span></div><div class="t-text">@stephenxhwj</div></div></div><div class="t-row"><div class="t-time">08-06 15:07</div><div class="t-dot"></div><div class="t-body"><div class="t-meta"><span class="t-who">厉飞雨-BE-XHWJ-VN</span><span class="t-channel">【DX-062】KISSAV（WEB）｜项目群</span></div><div class="t-text">1</div></div></div></div></div>
+    <div class="detail-section"><div class="detail-label">处理方案</div><div class="detail-body">厉飞雨(BE) 15:07 受理，排查视频 61551 后台播放失败原因（转码状态/存储源/后台播放器），对比前台播放是否正常</div></div>
+    <div class="detail-section"><div class="detail-label">根因</div><div class="detail-body">待定位：疑视频 61551 转码未完成/存储源异常或后台播放器兼容问题（上传侧可播、后台不可播，前台未确认）</div></div>
+    <div class="detail-section"><div class="detail-label">当前状态</div><div class="detail-body">处理中：08-06 15:06 大胜(OP) 上报后台无法播放 → 文龙转派厉飞雨 15:07 受理排查中</div></div>
+    <div class="detail-section highlight"><div class="detail-label">🔍 PMO 分析</div><div class="detail-body">影响评估：单条视频（61551）后台无法播放，影响运营后台内容审核/管理操作；上传侧可播放说明不影响前台用户播放，影响面局部，风险等级中等；根因归类：内容链路类问题（转码/存储/播放器），与 KISSAV 历史问题（0031 发布端/0015 封面加载）同属内容管道风险，关注是否复发性；文龙转派厉飞雨已受理，处理时效关注</div></div>
+    <div class="detail-section suggestion"><div class="detail-label">💡 建议</div><div class="detail-body">1) 厉飞雨排查视频 61551 后台播放失败根因（转码状态/存储源/后台播放器）；2) 对比前台播放是否正常，确认影响范围是否仅后台；3) 处理完成后反馈大胜并在后台验证可播放；4) KISSAV 内容链路问题多次出现（0015/0031/0037），建议巡检转码与存储服务稳定性，评估是否需要批量排查存量视频</div></div>
   </div>
 </article>
 
