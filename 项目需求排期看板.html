@@ -223,7 +223,7 @@ body { margin: 0; padding: 28px clamp(16px,4vw,40px) 56px; background: var(--bg)
     <h1>星河无界 · 项目-需求-排期看板</h1>
   </div>
   <div class="meta" style="font-size:12px;color:var(--text-secondary);text-align:right;">
-    <span>最后更新 · 北京时间 2026-08-07 03:09</span>
+    <span>最后更新 · 北京时间 2026-08-07 03:30</span>
   </div>
 </div>
 
@@ -276,8 +276,8 @@ body { margin: 0; padding: 28px clamp(16px,4vw,40px) 56px; background: var(--bg)
 <div class="stats">
   <div><strong>20</strong> 个项目</div>
   <div><strong>4</strong> 位产品经理</div>
-  <div><strong>32</strong> 条在途需求</div>
-  <div><strong>16</strong> 项有排期</div>
+  <div><strong>33</strong> 条在途需求</div>
+  <div><strong>17</strong> 项有排期</div>
 </div>
 
 <div class="filter-bar">
@@ -317,7 +317,32 @@ body { margin: 0; padding: 28px clamp(16px,4vw,40px) 56px; background: var(--bg)
       <span class="people-tag fe">FE: 阿秋(主) 风间(备)</span>
       <span class="people-tag qa">QA: 飞策</span>
     </div>
-    <div class="no-data">暂无排期数据</div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr class="row-new"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-227" target="_blank">GSCE-227</a><span class="new-badge">NEW</span><span class="chg-badge" title="朔月：后端 待排期→0812-0817（08-06 22:03 朔月-BE 在 【JHG-056】91楼凤（APP）项目群 说「后端 开始时间：2026-08-12 完成时间：2026-08-17 工作人员：朔月」）；飞策：测试 待排期→0818（08-06 22:08 飞策-QA 在 【JHG-056】91楼凤（APP）项目群 说「测试+Bug回归 开始时间：8/18 完成时间：8/18 工作人员：飞策」）">改1·朔月后端/飞策测试<span class="chg-tip">
+        <div class="tip-head">排期变更 · 第1次</div>
+        <div class="tip-sec">
+          <div class="tip-row"><span class="tip-k">变更人</span><span class="tip-v">朔月（后端）/飞策（测试）</span></div>
+          <div class="tip-row"><span class="tip-k">变更字段</span><span class="tip-v">后端时间/测试时间</span></div>
+          <div class="tip-row"><span class="tip-k">变化</span><span class="tip-v">后端 待排期→0812-0817；测试 待排期→0818</span></div>
+          <div class="tip-row"><span class="tip-k">影响</span><span class="tip-v">后端/测试已确认，验收（周肥、林笑尘、鲍勃）待确认</span></div>
+        </div>
+        <div class="tip-sec">
+          <div class="tip-title">💬 群聊上下文</div>
+          <div class="tip-msg">08-06 18:28 <b>鲍勃-PM</b>：发出 91凤楼管理后台（GSCE-227）排期表，后端/测试日期待补，前端不需要</div>
+          <div class="tip-msg">08-06 22:03 <b>朔月-BE</b>：后端 开始时间：2026-08-12 完成时间：2026-08-17 工作人员：朔月（确认后端排期）</div>
+          <div class="tip-msg">08-06 22:08 <b>飞策-QA</b>：测试+Bug回归 开始时间：8/18 完成时间：8/18 工作人员：飞策（确认测试排期）</div>
+          <div class="tip-msg">08-06 22:10 <b>鲍勃-PM</b>：排期时间已完成，请朔月、林笑尘确认时间是否需调整；22:11 林笑尘「我这边不需要」</div>
+        </div>
+        <div class="tip-sec">
+          <div class="tip-title">🔍 原因分析</div>
+          <div class="tip-ana">鲍勃(PM) 18:28 发出 GSCE-227（91凤楼管理后台 新增需求）排期表，前端不需要；朔月 22:03 确认后端 0812-0817、飞策 22:08 确认测试 0818；鲍勃 22:10 确认排期完成；验收（周肥、林笑尘、鲍勃）日期待确认。</div>
+        </div>
+      </span></span></td><td>管理后台新增需求</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0812-0817</small></td><td class="role-cell qa">飞策<small>0818</small></td><td class="role-cell be">周肥、林笑尘、鲍勃<small>待排期</small></td><td><span class="tl-date">0812-0818</span></td></tr>
+      </tbody>
+    </table>
   </div>
   <div class="proj-card" data-card="TJ-062" style="">
     <div class="proj-title">
@@ -599,25 +624,26 @@ body { margin: 0; padding: 28px clamp(16px,4vw,40px) 56px; background: var(--bg)
         <tr class="row-done"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-201" target="_blank">GSCE-201</a></td><td>网站seo 需求优化 260728 <span class="done-badge">已上线</span></td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0806-0806</small></td><td><span class="tl-date" style="color:#10b981;font-weight:600;">0801-0806 ✓</span></td></tr>
         <tr class="row-done"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-218" target="_blank">GSCE-218</a></td><td>后台GPT模型升级或更换 <span class="done-badge">已上线</span></td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0804-0804</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0811-0811</small></td><td><span class="tl-date" style="color:#10b981;font-weight:600;">0804-0811 ✓</span></td></tr>
         <tr class="row-done"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-225" target="_blank">GSCE-225</a></td><td>GA4流量来源异常问题及修复方案 <span class="done-badge">已上线</span></td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0805-0805</small></td><td class="role-cell qa">飞策<small>0806-0806</small></td><td class="role-cell be">待排期</td><td><span class="tl-date" style="color:#10b981;font-weight:600;">0805-0806 ✓</span></td></tr>
-        <tr class="row-new"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-233" target="_blank">GSCE-233</a><span class="new-badge">NEW</span><span class="chg-badge" title="朔月：后端 待排期→0808-0811（08-06 18:37 朔月-BE 在 【DX-119】抖阴（WEB）项目群 说「后端 开始时间：2026-08-08 完成时间：2026-08-11 工作人员：朔月」）">改1·朔月后端<span class="chg-tip">
-        <div class="tip-head">排期变更 · 第1次</div>
+        <tr class="row-chg"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-233" target="_blank">GSCE-233</a><span class="new-badge">NEW</span><span class="chg-badge" title="朔月：后端 待排期→0808-0811（08-06 18:37 朔月-BE 在 【DX-119】抖阴（WEB）项目群 说「后端 开始时间：2026-08-08 完成时间：2026-08-11 工作人员：朔月」）；飞策：测试 待排期→0812（08-06 22:02 飞策-QA 在 【DX-119】抖阴（WEB）项目群 说「测试+Bug回归 开始时间：8/12 完成时间：8/12 工作人员：飞策」）">改2·朔月后端/飞策测试<span class="chg-tip">
+        <div class="tip-head">排期变更 · 第2次</div>
         <div class="tip-sec">
           <div class="tip-row"><span class="tip-k">变更人</span><span class="tip-v">朔月（后端）</span></div>
           <div class="tip-row"><span class="tip-k">变更字段</span><span class="tip-v">后端时间</span></div>
           <div class="tip-row"><span class="tip-k">变化</span><span class="tip-v">后端 待排期→0808-0811</span></div>
-          <div class="tip-row"><span class="tip-k">影响</span><span class="tip-v">后端已确认，测试/验收待确认</span></div>
+          <div class="tip-row"><span class="tip-k">影响</span><span class="tip-v">后端已确认，测试已确认，验收待确认</span></div>
         </div>
         <div class="tip-sec">
           <div class="tip-title">💬 群聊上下文</div>
           <div class="tip-msg">08-06 11:25 <b>波林-PM</b>：发出抖阴 网站seo 需求优化 260805（GSCE-233）排期表，后端/测试/验收日期待补</div>
           <div class="tip-msg">08-06 18:24 <b>波林-PM</b>：再次提醒朔月、飞策确认排期</div>
           <div class="tip-msg">08-06 18:37 <b>朔月-BE</b>：后端 开始时间：2026-08-08 完成时间：2026-08-11 工作人员：朔月（确认后端排期）</div>
+        <div class="tip-msg">08-06 22:02 <b>飞策-QA</b>：测试+Bug回归 开始时间：8/12 完成时间：8/12 工作人员：飞策（确认测试排期）</div>
         </div>
         <div class="tip-sec">
           <div class="tip-title">🔍 原因分析</div>
-          <div class="tip-ana">波林(PM) 11:25 发出 GSCE-233（抖阴 网站seo 需求优化 260805）排期表日期待补；18:24 波林再次提醒；朔月 18:33 与周子然确认需求版本后 18:37 确认后端 0808-0811；测试（飞策）/验收（波林、周子然）待确认。</div>
+          <div class="tip-ana">波林(PM) 11:25 发出 GSCE-233（抖阴 网站seo 需求优化 260805）排期表日期待补；18:24 波林再次提醒；朔月 18:33 与周子然确认需求版本后 18:37 确认后端 0808-0811；飞策 22:02 确认测试 0812；验收（波林、周子然）待确认。</div>
         </div>
-      </span></span></td><td>网站seo 需求优化 260805</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0808-0811</small></td><td class="role-cell qa">待排期</td><td class="role-cell be">待排期</td><td><span class="tl-date">0808-0811</span></td></tr>
+      </span></span></td><td>网站seo 需求优化 260805</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0808-0811</small></td><td class="role-cell qa">飞策<small>0812</small></td><td class="role-cell be">待排期</td><td><span class="tl-date">0808-0812</span></td></tr>
 </tbody>
     </table>
   </div>
@@ -867,8 +893,8 @@ body { margin: 0; padding: 28px clamp(16px,4vw,40px) 56px; background: var(--bg)
 <div class="stats">
   <div><strong>20</strong> 个项目</div>
   <div><strong>5</strong> 位运营负责人</div>
-  <div><strong>32</strong> 条在途需求</div>
-  <div><strong>16</strong> 项有排期</div>
+  <div><strong>33</strong> 条在途需求</div>
+  <div><strong>17</strong> 项有排期</div>
 </div>
 
 <div class="filter-bar">
@@ -954,7 +980,32 @@ body { margin: 0; padding: 28px clamp(16px,4vw,40px) 56px; background: var(--bg)
       <span class="people-tag fe">FE: 阿秋(主) 风间(备)</span>
       <span class="people-tag qa">QA: 飞策</span>
     </div>
-    <div class="no-data">暂无排期数据</div>
+    <table class="req-table">
+      <colgroup><col class="c-gsc"><col class="c-req"><col class="c-fe"><col class="c-be"><col class="c-qa"><col class="c-acc"><col class="c-tl"></colgroup>
+      <thead><tr><th>GSCE</th><th>需求</th><th>前端</th><th>后端</th><th>测试</th><th>验收</th><th>排期时间线</th></tr></thead>
+      <tbody>
+        <tr class="row-new"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-227" target="_blank">GSCE-227</a><span class="new-badge">NEW</span><span class="chg-badge" title="朔月：后端 待排期→0812-0817（08-06 22:03 朔月-BE 在 【JHG-056】91楼凤（APP）项目群 说「后端 开始时间：2026-08-12 完成时间：2026-08-17 工作人员：朔月」）；飞策：测试 待排期→0818（08-06 22:08 飞策-QA 在 【JHG-056】91楼凤（APP）项目群 说「测试+Bug回归 开始时间：8/18 完成时间：8/18 工作人员：飞策」）">改1·朔月后端/飞策测试<span class="chg-tip">
+        <div class="tip-head">排期变更 · 第1次</div>
+        <div class="tip-sec">
+          <div class="tip-row"><span class="tip-k">变更人</span><span class="tip-v">朔月（后端）/飞策（测试）</span></div>
+          <div class="tip-row"><span class="tip-k">变更字段</span><span class="tip-v">后端时间/测试时间</span></div>
+          <div class="tip-row"><span class="tip-k">变化</span><span class="tip-v">后端 待排期→0812-0817；测试 待排期→0818</span></div>
+          <div class="tip-row"><span class="tip-k">影响</span><span class="tip-v">后端/测试已确认，验收（周肥、林笑尘、鲍勃）待确认</span></div>
+        </div>
+        <div class="tip-sec">
+          <div class="tip-title">💬 群聊上下文</div>
+          <div class="tip-msg">08-06 18:28 <b>鲍勃-PM</b>：发出 91凤楼管理后台（GSCE-227）排期表，后端/测试日期待补，前端不需要</div>
+          <div class="tip-msg">08-06 22:03 <b>朔月-BE</b>：后端 开始时间：2026-08-12 完成时间：2026-08-17 工作人员：朔月（确认后端排期）</div>
+          <div class="tip-msg">08-06 22:08 <b>飞策-QA</b>：测试+Bug回归 开始时间：8/18 完成时间：8/18 工作人员：飞策（确认测试排期）</div>
+          <div class="tip-msg">08-06 22:10 <b>鲍勃-PM</b>：排期时间已完成，请朔月、林笑尘确认时间是否需调整；22:11 林笑尘「我这边不需要」</div>
+        </div>
+        <div class="tip-sec">
+          <div class="tip-title">🔍 原因分析</div>
+          <div class="tip-ana">鲍勃(PM) 18:28 发出 GSCE-227（91凤楼管理后台 新增需求）排期表，前端不需要；朔月 22:03 确认后端 0812-0817、飞策 22:08 确认测试 0818；鲍勃 22:10 确认排期完成；验收（周肥、林笑尘、鲍勃）日期待确认。</div>
+        </div>
+      </span></span></td><td>管理后台新增需求</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0812-0817</small></td><td class="role-cell qa">飞策<small>0818</small></td><td class="role-cell be">周肥、林笑尘、鲍勃<small>待排期</small></td><td><span class="tl-date">0812-0818</span></td></tr>
+      </tbody>
+    </table>
   </div>
   <div class="proj-card" data-card="TJ-062" style="">
     <div class="proj-title">
@@ -1279,25 +1330,26 @@ body { margin: 0; padding: 28px clamp(16px,4vw,40px) 56px; background: var(--bg)
         <tr class="row-done"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-201" target="_blank">GSCE-201</a></td><td>网站seo 需求优化 260728 <span class="done-badge">已上线</span></td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0806-0806</small></td><td><span class="tl-date" style="color:#10b981;font-weight:600;">0801-0806 ✓</span></td></tr>
         <tr class="row-done"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-218" target="_blank">GSCE-218</a></td><td>后台GPT模型升级或更换 <span class="done-badge">已上线</span></td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0804-0804</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0811-0811</small></td><td><span class="tl-date" style="color:#10b981;font-weight:600;">0804-0811 ✓</span></td></tr>
         <tr class="row-done"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-225" target="_blank">GSCE-225</a></td><td>GA4流量来源异常问题及修复方案 <span class="done-badge">已上线</span></td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0805-0805</small></td><td class="role-cell qa">飞策<small>0806-0806</small></td><td class="role-cell be">待排期</td><td><span class="tl-date" style="color:#10b981;font-weight:600;">0805-0806 ✓</span></td></tr>
-        <tr class="row-new"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-233" target="_blank">GSCE-233</a><span class="new-badge">NEW</span><span class="chg-badge" title="朔月：后端 待排期→0808-0811（08-06 18:37 朔月-BE 在 【DX-119】抖阴（WEB）项目群 说「后端 开始时间：2026-08-08 完成时间：2026-08-11 工作人员：朔月」）">改1·朔月后端<span class="chg-tip">
-        <div class="tip-head">排期变更 · 第1次</div>
+        <tr class="row-chg"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-233" target="_blank">GSCE-233</a><span class="new-badge">NEW</span><span class="chg-badge" title="朔月：后端 待排期→0808-0811（08-06 18:37 朔月-BE 在 【DX-119】抖阴（WEB）项目群 说「后端 开始时间：2026-08-08 完成时间：2026-08-11 工作人员：朔月」）；飞策：测试 待排期→0812（08-06 22:02 飞策-QA 在 【DX-119】抖阴（WEB）项目群 说「测试+Bug回归 开始时间：8/12 完成时间：8/12 工作人员：飞策」）">改2·朔月后端/飞策测试<span class="chg-tip">
+        <div class="tip-head">排期变更 · 第2次</div>
         <div class="tip-sec">
           <div class="tip-row"><span class="tip-k">变更人</span><span class="tip-v">朔月（后端）</span></div>
           <div class="tip-row"><span class="tip-k">变更字段</span><span class="tip-v">后端时间</span></div>
           <div class="tip-row"><span class="tip-k">变化</span><span class="tip-v">后端 待排期→0808-0811</span></div>
-          <div class="tip-row"><span class="tip-k">影响</span><span class="tip-v">后端已确认，测试/验收待确认</span></div>
+          <div class="tip-row"><span class="tip-k">影响</span><span class="tip-v">后端已确认，测试已确认，验收待确认</span></div>
         </div>
         <div class="tip-sec">
           <div class="tip-title">💬 群聊上下文</div>
           <div class="tip-msg">08-06 11:25 <b>波林-PM</b>：发出抖阴 网站seo 需求优化 260805（GSCE-233）排期表，后端/测试/验收日期待补</div>
           <div class="tip-msg">08-06 18:24 <b>波林-PM</b>：再次提醒朔月、飞策确认排期</div>
           <div class="tip-msg">08-06 18:37 <b>朔月-BE</b>：后端 开始时间：2026-08-08 完成时间：2026-08-11 工作人员：朔月（确认后端排期）</div>
+        <div class="tip-msg">08-06 22:02 <b>飞策-QA</b>：测试+Bug回归 开始时间：8/12 完成时间：8/12 工作人员：飞策（确认测试排期）</div>
         </div>
         <div class="tip-sec">
           <div class="tip-title">🔍 原因分析</div>
-          <div class="tip-ana">波林(PM) 11:25 发出 GSCE-233（抖阴 网站seo 需求优化 260805）排期表日期待补；18:24 波林再次提醒；朔月 18:33 与周子然确认需求版本后 18:37 确认后端 0808-0811；测试（飞策）/验收（波林、周子然）待确认。</div>
+          <div class="tip-ana">波林(PM) 11:25 发出 GSCE-233（抖阴 网站seo 需求优化 260805）排期表日期待补；18:24 波林再次提醒；朔月 18:33 与周子然确认需求版本后 18:37 确认后端 0808-0811；飞策 22:02 确认测试 0812；验收（波林、周子然）待确认。</div>
         </div>
-      </span></span></td><td>网站seo 需求优化 260805</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0808-0811</small></td><td class="role-cell qa">待排期</td><td class="role-cell be">待排期</td><td><span class="tl-date">0808-0811</span></td></tr>
+      </span></span></td><td>网站seo 需求优化 260805</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0808-0811</small></td><td class="role-cell qa">飞策<small>0812</small></td><td class="role-cell be">待排期</td><td><span class="tl-date">0808-0812</span></td></tr>
 </tbody>
     </table>
   </div>
@@ -1622,25 +1674,26 @@ body { margin: 0; padding: 28px clamp(16px,4vw,40px) 56px; background: var(--bg)
         <tr><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-200" target="_blank">GSCE-200</a></td><td>视频列表中的发布者 ID 显示为 0的调整</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0731-0731</small></td><td class="role-cell qa">飞策<small>0801-0801</small></td><td class="role-cell be">波林、周子然<small>0803-0803</small></td><td><span class="tl-date">0731-0803</span></td></tr>
         <tr class="row-done"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-201" target="_blank">GSCE-201</a></td><td>网站seo 需求优化 260728 <span class="done-badge">已上线</span></td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0801-0803</small></td><td class="role-cell qa">飞策<small>0805-0805</small></td><td class="role-cell be">波林、周子然<small>0806-0806</small></td><td><span class="tl-date" style="color:#10b981;font-weight:600;">0801-0806 ✓</span></td></tr>
         <tr class="row-done"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-225" target="_blank">GSCE-225</a></td><td>GA4流量来源异常问题及修复方案 <span class="done-badge">已上线</span></td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0805-0805</small></td><td class="role-cell qa">飞策<small>0806-0806</small></td><td class="role-cell be">待排期</td><td><span class="tl-date" style="color:#10b981;font-weight:600;">0805-0806 ✓</span></td></tr>
-      <tr class="row-new"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-233" target="_blank">GSCE-233</a><span class="new-badge">NEW</span><span class="chg-badge" title="朔月：后端 待排期→0808-0811（08-06 18:37 朔月-BE 在 【DX-119】抖阴（WEB）项目群 说「后端 开始时间：2026-08-08 完成时间：2026-08-11 工作人员：朔月」）">改1·朔月后端<span class="chg-tip">
-      <div class="tip-head">排期变更 · 第1次</div>
+      <tr class="row-chg"><td><a class="gsc-link" href="https://jumpjump9988.atlassian.net/browse/GSCE-233" target="_blank">GSCE-233</a><span class="new-badge">NEW</span><span class="chg-badge" title="朔月：后端 待排期→0808-0811（08-06 18:37 朔月-BE 在 【DX-119】抖阴（WEB）项目群 说「后端 开始时间：2026-08-08 完成时间：2026-08-11 工作人员：朔月」）；飞策：测试 待排期→0812（08-06 22:02 飞策-QA 在 【DX-119】抖阴（WEB）项目群 说「测试+Bug回归 开始时间：8/12 完成时间：8/12 工作人员：飞策」）">改2·朔月后端/飞策测试<span class="chg-tip">
+      <div class="tip-head">排期变更 · 第2次</div>
       <div class="tip-sec">
         <div class="tip-row"><span class="tip-k">变更人</span><span class="tip-v">朔月（后端）</span></div>
         <div class="tip-row"><span class="tip-k">变更字段</span><span class="tip-v">后端时间</span></div>
         <div class="tip-row"><span class="tip-k">变化</span><span class="tip-v">后端 待排期→0808-0811</span></div>
-        <div class="tip-row"><span class="tip-k">影响</span><span class="tip-v">后端已确认，测试/验收待确认</span></div>
+        <div class="tip-row"><span class="tip-k">影响</span><span class="tip-v">后端已确认，测试已确认，验收待确认</span></div>
         </div>
       <div class="tip-sec">
         <div class="tip-title">💬 群聊上下文</div>
         <div class="tip-msg">08-06 11:25 <b>波林-PM</b>：发出抖阴 网站seo 需求优化 260805（GSCE-233）排期表，后端/测试/验收日期待补</div>
         <div class="tip-msg">08-06 18:24 <b>波林-PM</b>：再次提醒朔月、飞策确认排期</div>
         <div class="tip-msg">08-06 18:37 <b>朔月-BE</b>：后端 开始时间：2026-08-08 完成时间：2026-08-11 工作人员：朔月（确认后端排期）</div>
+        <div class="tip-msg">08-06 22:02 <b>飞策-QA</b>：测试+Bug回归 开始时间：8/12 完成时间：8/12 工作人员：飞策（确认测试排期）</div>
         </div>
       <div class="tip-sec">
         <div class="tip-title">🔍 原因分析</div>
-        <div class="tip-ana">波林(PM) 11:25 发出 GSCE-233（抖阴 网站seo 需求优化 260805）排期表日期待补；18:24 波林再次提醒；朔月 18:33 与周子然确认需求版本后 18:37 确认后端 0808-0811；测试（飞策）/验收（波林、周子然）待确认。</div>
+        <div class="tip-ana">波林(PM) 11:25 发出 GSCE-233（抖阴 网站seo 需求优化 260805）排期表日期待补；18:24 波林再次提醒；朔月 18:33 与周子然确认需求版本后 18:37 确认后端 0808-0811；飞策 22:02 确认测试 0812；验收（波林、周子然）待确认。</div>
         </div>
-      </span></span></td><td>网站seo 需求优化 260805</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0808-0811</small></td><td class="role-cell qa">待排期</td><td class="role-cell be">待排期</td><td><span class="tl-date">0808-0811</span></td></tr>
+      </span></span></td><td>网站seo 需求优化 260805</td><td class="role-cell na">不需要</td><td class="role-cell be">朔月<small>0808-0811</small></td><td class="role-cell qa">飞策<small>0812</small></td><td class="role-cell be">待排期</td><td><span class="tl-date">0808-0812</span></td></tr>
       </tbody>
     </table>
     </div>
