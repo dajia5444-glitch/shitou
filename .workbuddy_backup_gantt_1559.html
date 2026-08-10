@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星河无界 · 资源甘特图</title>
+<style>
+/* ============ Design Tokens ============ */
+:root {
+  --ink: #334155; --ink-2: #64748b; --ink-3: #94a3b8;
+  --paper: #f8fafc; --surface: #ffffff; --surface-2: #f8fafc;
+  --line: #e2e8f0; --brand: #6366f1; --brand-2: #4f46e5;
+  --accent: #d97706;
+  --fe: #2563eb; --be: #059669; --qa: #7c3aed;
+  --ease: cubic-bezier(.25,1,.5,1);
+  --shadow-sm: 0 1px 3px rgba(51,65,85,.06);
+  --shadow-md: 0 4px 16px rgba(51,65,85,.08);
+}
+* { box-sizing:border-box; margin:0; }
+body { background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI","Microsoft YaHei",sans-serif; font-size:13px; line-height:1.5; padding:28px clamp(16px,4vw,40px) 48px; }
+.nums { font-variant-numeric:tabular-nums; }
+
+/* ============ Hero Header ============ */
+.hero { background:linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); border:1px solid var(--line); border-radius:16px; padding:26px 30px 22px; color:var(--ink); position:relative; overflow:hidden; margin-bottom:18px; box-shadow:var(--shadow-sm); }
+.hero::after { content:""; position:absolute; right:-60px; top:-60px; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle, rgba(99,102,241,.08), transparent 65%); pointer-events:none; }
+.hero-top { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; position:relative; z-index:1; }
+.hero h1 { font-size:clamp(20px,2.4vw,26px); font-weight:700; letter-spacing:.01em; color:#0f172a; display:flex; align-items:center; gap:10px; }
+.hero h1 .mark { width:6px; height:20px; border-radius:3px; background:var(--brand); display:inline-block; }
+.hero .sub { color:var(--ink-3); font-size:11.5px; margin-top:8px; display:flex; gap:16px; flex-wrap:wrap; }
+.hero .sub span { display:inline-flex; align-items:center; gap:5px; }
+.hero .sub .k { color:var(--ink-3); opacity:.7; }
+.hero-stats { display:flex; gap:0; margin-top:20px; border-top:1px solid var(--line); padding-top:16px; flex-wrap:wrap; position:relative; z-index:1; }
+.hero-stat { flex:1; min-width:90px; padding:0 4px; }
+.hero-stat .v { font-size:26px; font-weight:700; letter-spacing:-.02em; color:#0f172a; }
+.hero-stat .l { font-size:11px; color:var(--ink-3); margin-top:2px; }
+.hero-stat .v.fe { color:#4f46e5; } .hero-stat .v.be { color:#059669; } .hero-stat .v.qa { color:#7c3aed; } .hero-stat .v.amber { color:#d97706; }
+
+/* ============ Filter Bar ============ */
+.filter-bar { display:flex; align-items:center; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+.filter-btn { display:inline-flex; align-items:center; gap:7px; padding:7px 18px; font-size:13px; font-weight:500; border-radius:999px; background:var(--surface); color:var(--ink-2); border:1px solid var(--line); cursor:pointer; user-select:none; transition:all 150ms var(--ease); }
+.filter-btn:hover { border-color:#c9c5bc; color:var(--ink); transform:translateY(-1px); }
+.filter-btn.active { background:var(--brand); color:#fff; border-color:var(--brand); box-shadow:var(--shadow-sm); }
+.filter-btn .dot { width:10px; height:10px; border-radius:50%; }
+.filter-btn.active .dot { background:rgba(255,255,255,.85) !important; }
+.filter-btn .cnt { font-size:11px; opacity:.75; }
+
+/* ============ Gantt ============ */
+.gantt-wrap { background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow-sm); overflow:hidden; }
+.gantt-scroll { overflow-x:auto; }
+.gantt { min-width:1150px; }
+.g-person { display:flex; border-bottom:1px solid #f1efe9; transition:background 150ms var(--ease); }
+.g-person:last-child { border-bottom:none; }
+.g-person:hover { background:#fbfaf7; }
+.g-person.hidden { display:none; }
+.g-name { width:150px; flex-shrink:0; display:flex; align-items:center; gap:10px; padding:10px 14px; border-right:1px solid var(--line); background:var(--surface-2); }
+.g-name .role-dot { width:8px; height:8px; border-radius:2px; flex-shrink:0; }
+.g-name .nm b { display:block; font-size:13px; font-weight:600; letter-spacing:.01em; }
+.g-name .nm small { color:var(--ink-3); font-size:10px; }
+.g-lanes { flex:1; display:flex; flex-direction:column; }
+.g-lane { position:relative; height:44px; background:repeating-linear-gradient(90deg, transparent 0, transparent calc(100%/43 - 1px), #f6f5f1 calc(100%/43 - 1px), #f6f5f1 100%/43); }
+.g-lane + .g-lane { border-top:1px dashed #f0ede5; }
+.bar { position:absolute; top:9px; height:26px; border-radius:6px; color:#fff; font-size:10.5px; font-weight:500; line-height:26px; padding:0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer; background:var(--bar,#2563eb); box-shadow:0 1px 3px rgba(28,35,51,.14); transition:transform 150ms var(--ease), box-shadow 150ms var(--ease), opacity 200ms var(--ease); }
+.bar:hover { transform:translateY(-2px); box-shadow:0 5px 14px rgba(28,35,51,.2); z-index:5; }
+.bar.dimmed { opacity:.07; pointer-events:none; }
+.idle { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#c6c2b8; font-size:11px; letter-spacing:.05em; }
+.g-header { display:flex; position:sticky; top:0; z-index:4; background:var(--surface); border-bottom:1px solid var(--line); }
+.g-name-spacer { width:150px; flex-shrink:0; padding:8px 14px; font-size:11px; font-weight:600; color:var(--ink-3); letter-spacing:.08em; text-transform:uppercase; border-right:1px solid var(--line); background:var(--surface-2); }
+.g-days { flex:1; display:flex; }
+.g-days .d { flex:1; padding:8px 0; text-align:center; font-size:10px; color:var(--ink-3); border-left:1px solid #f4f2ec; }
+.today-line { position:absolute; top:0; bottom:0; width:2px; background:var(--accent); z-index:3; pointer-events:none; }
+.today-line::before { content:"●"; position:absolute; top:-9px; left:50%; transform:translateX(-50%); color:var(--accent); font-size:9px; }
+
+/* ============ Popover ============ */
+.popover { display:none; position:fixed; z-index:1000; background:var(--surface); border-radius:12px; box-shadow:0 12px 40px rgba(28,35,51,.18); padding:0; min-width:300px; max-width:400px; overflow:hidden; border:1px solid var(--line); opacity:0; transform:translateY(6px); transition:opacity 180ms var(--ease), transform 180ms var(--ease); }
+.popover.show { display:block; opacity:1; transform:translateY(0); }
+.popover .pop-head { background:var(--brand); color:#fff; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; }
+.popover .pop-head .t { font-size:12px; font-weight:600; letter-spacing:.05em; opacity:.85; }
+.popover .pop-head .gsc { font-size:14px; font-weight:700; }
+.popover .pop-body { padding:14px 16px; }
+.pop-row { display:flex; gap:8px; margin-bottom:8px; font-size:12.5px; }
+.pop-label { color:var(--ink-3); flex-shrink:0; min-width:64px; }
+.pop-val.proj { color:var(--be); font-weight:600; }
+.pop-desc { margin-top:4px; padding:9px 11px; background:var(--surface-2); border-radius:8px; border-left:3px solid var(--brand-2); color:var(--ink); line-height:1.6; font-size:12.5px; }
+.pop-meta { display:flex; gap:12px; align-items:center; margin-top:12px; padding-top:10px; border-top:1px dashed var(--line); font-size:11px; color:var(--ink-3); }
+.pop-meta .role { padding:2px 9px; border-radius:999px; color:#fff; font-weight:500; }
+.pop-meta .date { font-variant-numeric:tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
+</style>
+</head>
+<body>
+<!-- ===== 密码门禁遮罩 ===== -->
+<div id="auth-lock" style="position:fixed;inset:0;z-index:9999;background:rgba(248,250,252,.96);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;">
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:36px 40px;max-width:380px;width:90%;box-shadow:0 12px 40px rgba(51,65,85,.12);text-align:center;">
+    <div style="font-size:36px;margin-bottom:12px;">🔒</div>
+    <div style="font-size:17px;font-weight:700;color:#0f172a;margin-bottom:4px;">星河无界 · 内部看板</div>
+    <div style="font-size:12px;color:#94a3b8;margin-bottom:20px;">请输入访问密码后查看</div>
+    <input id="auth-input" type="password" placeholder="访问密码" autocomplete="off"
+      style="width:100%;padding:11px 14px;font-size:14px;border:1px solid #e2e8f0;border-radius:10px;outline:none;text-align:center;letter-spacing:4px;"
+      onkeydown="if(event.key==='Enter')tryAuth()" />
+    <div id="auth-err" style="font-size:11.5px;color:#ef4444;margin-top:8px;min-height:16px;display:none;">密码错误，请重试</div>
+    <button onclick="tryAuth()" style="width:100%;margin-top:14px;padding:11px;font-size:14px;font-weight:600;color:#fff;background:#6366f1;border:none;border-radius:10px;cursor:pointer;">解锁查看</button>
+  </div>
+</div>
+
+
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <h1><span class="mark"></span>资源甘特图</h1>
+      <div class="sub">
+        <span><span class="k">最后更新</span> 北京时间 2026-08-10 13:41</span>
+        <span><span class="k">时间窗</span> 07-25 ~ 09-05</span>
+        <span><span class="k">提示</span> 点击任务条查看详情</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats"><div class="hero-stat"><div class="v nums">11</div><div class="l">研发人员</div></div><div class="hero-stat"><div class="v nums">46</div><div class="l">排期任务</div></div><div class="hero-stat"><div class="v nums amber">3</div><div class="l">无排期（闲置）</div></div><div class="hero-stat"><div class="v nums fe">3</div><div class="l">前端任务</div></div><div class="hero-stat"><div class="v nums be">23</div><div class="l">后端任务</div></div><div class="hero-stat"><div class="v nums qa">20</div><div class="l">测试任务</div></div></div>
+</div>
+
+<div class="filter-bar"><span class="filter-btn active" data-f="all">全部<span class="cnt nums">46</span></span><span class="filter-btn" data-f="前端"><span class="dot" style="background:var(--fe)"></span>前端<span class="cnt nums">3</span></span><span class="filter-btn" data-f="后端"><span class="dot" style="background:var(--be)"></span>后端<span class="cnt nums">23</span></span><span class="filter-btn" data-f="测试"><span class="dot" style="background:var(--qa)"></span>测试<span class="cnt nums">20</span></span></div><div class="gantt-wrap">
+  <div class="gantt-scroll">
+  <div class="gantt">
+<div class="g-header"><div class="g-name-spacer">人员</div><div class="g-days"><div class="d">7/25</div><div class="d">7/26</div><div class="d">7/27</div><div class="d">7/28</div><div class="d">7/29</div><div class="d">7/30</div><div class="d">7/31</div><div class="d">8/1</div><div class="d">8/2</div><div class="d">8/3</div><div class="d">8/4</div><div class="d">8/5</div><div class="d">8/6</div><div class="d">8/7</div><div class="d">8/8</div><div class="d">8/9</div><div class="d">8/10</div><div class="d">8/11</div><div class="d">8/12</div><div class="d">8/13</div><div class="d">8/14</div><div class="d">8/15</div><div class="d">8/16</div><div class="d">8/17</div><div class="d">8/18</div><div class="d">8/19</div><div class="d">8/20</div><div class="d">8/21</div><div class="d">8/22</div><div class="d">8/23</div><div class="d">8/24</div><div class="d">8/25</div><div class="d">8/26</div><div class="d">8/27</div><div class="d">8/28</div><div class="d">8/29</div><div class="d">8/30</div><div class="d">8/31</div><div class="d">9/1</div><div class="d">9/2</div><div class="d">9/3</div><div class="d">9/4</div><div class="d">9/5</div></div></div><div class="g-person" data-role="前端"><div class="g-name"><span class="role-dot" style="background:#2563eb"></span><div class="nm"><b>鲁子敬</b><small>前端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="bar" data-role="前端" data-info='{&quot;proj_id&quot;: &quot;XHWJ-004&quot;, &quot;proj_name&quot;: &quot;黑料头条（WEB）&quot;, &quot;gsce&quot;: &quot;HGTB-19&quot;, &quot;desc&quot;: &quot;黑料头条新项目开发（前端 HGTB-19 / 后端 HGTB-20）&quot;, &quot;role&quot;: &quot;前端&quot;, &quot;start&quot;: &quot;0807&quot;, &quot;end&quot;: &quot;0821&quot;, &quot;color&quot;: &quot;#6366f1&quot;}' style="left:30.23%;width:34.88%;--bar:#6366f1;" title="HGTB-19 XHWJ-004">HGTB-19 黑料头条新项目开发（前端 HGTB-19 /</div></div></div></div><div class="g-person" data-role="前端"><div class="g-name"><span class="role-dot" style="background:#2563eb"></span><div class="nm"><b>景天</b><small>前端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="bar" data-role="前端" data-info='{&quot;proj_id&quot;: &quot;XHWJ-003&quot;, &quot;proj_name&quot;: &quot;91吃瓜网（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-135&quot;, &quot;desc&quot;: &quot;91吃瓜网 - 产品重做(原型+规格)&quot;, &quot;role&quot;: &quot;前端&quot;, &quot;start&quot;: &quot;0801&quot;, &quot;end&quot;: &quot;0818&quot;, &quot;color&quot;: &quot;#2563eb&quot;}' style="left:16.28%;width:41.86%;--bar:#2563eb;" title="GSCE-135 XHWJ-003">GSCE-135 91吃瓜网 - 产品重做(原型+规格)</div></div></div></div><div class="g-person" data-role="前端"><div class="g-name"><span class="role-dot" style="background:#2563eb"></span><div class="nm"><b>卡比</b><small>前端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="bar" data-role="前端" data-info='{&quot;proj_id&quot;: &quot;XHWJ-001&quot;, &quot;proj_name&quot;: &quot;茶馆（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-166&quot;, &quot;desc&quot;: &quot;51 品茶 web 前端开发（MVP）&quot;, &quot;role&quot;: &quot;前端&quot;, &quot;start&quot;: &quot;0730&quot;, &quot;end&quot;: &quot;0829&quot;, &quot;color&quot;: &quot;#7c3aed&quot;}' style="left:11.63%;width:72.09%;--bar:#7c3aed;" title="GSCE-166 XHWJ-001">GSCE-166 51 品茶 web 前端开发（MVP）</div></div></div></div><div class="g-person" data-role="前端"><div class="g-name"><span class="role-dot" style="background:#2563eb"></span><div class="nm"><b>风间</b><small>前端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="idle">— 暂无排期任务 —</div></div></div></div><div class="g-person" data-role="前端"><div class="g-name"><span class="role-dot" style="background:#2563eb"></span><div class="nm"><b>阿秋</b><small>前端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="idle">— 暂无排期任务 —</div></div></div></div><div class="g-person" data-role="前端"><div class="g-name"><span class="role-dot" style="background:#2563eb"></span><div class="nm"><b>天辰</b><small>前端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="idle">— 暂无排期任务 —</div></div></div></div><div class="g-person" data-role="后端"><div class="g-name"><span class="role-dot" style="background:#059669"></span><div class="nm"><b>朔月</b><small>后端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;TJ-062&quot;, &quot;proj_name&quot;: &quot;51凤楼（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-153&quot;, &quot;desc&quot;: &quot;51凤楼web| 技术seo优化&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0729&quot;, &quot;end&quot;: &quot;0729&quot;, &quot;color&quot;: &quot;#65a30d&quot;}' style="left:9.3%;width:2.33%;--bar:#65a30d;" title="GSCE-153 TJ-062">GSCE-153 51凤楼web| 技术seo优化</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-119&quot;, &quot;proj_name&quot;: &quot;抖阴（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-200&quot;, &quot;desc&quot;: &quot;视频列表中的发布者 ID 显示为 0的调整&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0731&quot;, &quot;end&quot;: &quot;0731&quot;, &quot;color&quot;: &quot;#4f46e5&quot;}' style="left:13.95%;width:2.33%;--bar:#4f46e5;" title="GSCE-200 DX-119">GSCE-200 视频列表中的发布者 ID 显示为 0的调整</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-064&quot;, &quot;proj_name&quot;: &quot;51青楼（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-210&quot;, &quot;desc&quot;: &quot;51青楼｜青楼无县区级分类，SEO 技术优化&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0806&quot;, &quot;end&quot;: &quot;0807&quot;, &quot;color&quot;: &quot;#65a30d&quot;}' style="left:27.91%;width:4.65%;--bar:#65a30d;" title="GSCE-210 DX-064">GSCE-210 51青楼｜青楼无县区级分类，SEO 技术优</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-119&quot;, &quot;proj_name&quot;: &quot;抖阴（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-233&quot;, &quot;desc&quot;: &quot;网站seo 需求优化 260805&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0808&quot;, &quot;end&quot;: &quot;0811&quot;, &quot;color&quot;: &quot;#4f46e5&quot;}' style="left:32.56%;width:9.3%;--bar:#4f46e5;" title="GSCE-233 DX-119">GSCE-233 网站seo 需求优化 260805</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;JHG-056&quot;, &quot;proj_name&quot;: &quot;91楼凤（APP）&quot;, &quot;gsce&quot;: &quot;GSCE-227&quot;, &quot;desc&quot;: &quot;管理后台新增需求&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0812&quot;, &quot;end&quot;: &quot;0815&quot;, &quot;color&quot;: &quot;#dc2626&quot;}' style="left:41.86%;width:9.3%;--bar:#dc2626;" title="GSCE-227 JHG-056">GSCE-227 管理后台新增需求</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-119&quot;, &quot;proj_name&quot;: &quot;抖阴（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-234&quot;, &quot;desc&quot;: &quot;新增后台导出功能&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0812&quot;, &quot;end&quot;: &quot;0813&quot;, &quot;color&quot;: &quot;#4f46e5&quot;}' style="left:41.86%;width:4.65%;--bar:#4f46e5;" title="GSCE-234 DX-119">GSCE-234 新增后台导出功能</div></div></div></div><div class="g-person" data-role="后端"><div class="g-name"><span class="role-dot" style="background:#059669"></span><div class="nm"><b>厉飞雨</b><small>后端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-186&quot;, &quot;desc&quot;: &quot;帖子分享到社媒时展示帖子封面图&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0728&quot;, &quot;end&quot;: &quot;0730&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:6.98%;width:6.98%;--bar:#9333ea;" title="GSCE-186 DX-069">GSCE-186 帖子分享到社媒时展示帖子封面图</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-062&quot;, &quot;proj_name&quot;: &quot;KISSAV（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-185&quot;, &quot;desc&quot;: &quot;网站采集及发布功能优化&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0801&quot;, &quot;end&quot;: &quot;0803&quot;, &quot;color&quot;: &quot;#0d9488&quot;}' style="left:16.28%;width:6.98%;--bar:#0d9488;" title="GSCE-185 DX-062">GSCE-185 网站采集及发布功能优化</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-192&quot;, &quot;desc&quot;: &quot;后端新增标签筛选功能，支持按标签进行筛选与管理&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0807&quot;, &quot;end&quot;: &quot;0808&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:30.23%;width:4.65%;--bar:#9333ea;" title="GSCE-192 DX-069">GSCE-192 后端新增标签筛选功能，支持按标签进行筛选与</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-231&quot;, &quot;desc&quot;: &quot;91hub展示逻辑修改&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0810&quot;, &quot;end&quot;: &quot;0810&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:37.21%;width:2.33%;--bar:#9333ea;" title="GSCE-231 DX-069">GSCE-231 91hub展示逻辑修改</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-221&quot;, &quot;desc&quot;: &quot;AI效能需求（GPT/AI统一迁移Sealion网关）&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0811&quot;, &quot;end&quot;: &quot;0813&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:39.53%;width:6.98%;--bar:#9333ea;" title="GSCE-221 DX-069">GSCE-221 AI效能需求（GPT/AI统一迁移Seal</div></div><div class="g-lane"><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;XHWJ-001&quot;, &quot;proj_name&quot;: &quot;茶馆（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-166&quot;, &quot;desc&quot;: &quot;51 品茶 web 前端开发（MVP）&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0730&quot;, &quot;end&quot;: &quot;0829&quot;, &quot;color&quot;: &quot;#7c3aed&quot;}' style="left:11.63%;width:72.09%;--bar:#7c3aed;" title="GSCE-166 XHWJ-001">GSCE-166 51 品茶 web 前端开发（MVP）</div></div><div class="g-lane"><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;XHWJ-003&quot;, &quot;proj_name&quot;: &quot;91吃瓜网（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-135&quot;, &quot;desc&quot;: &quot;91吃瓜网 - 产品重做(原型+规格)&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0801&quot;, &quot;end&quot;: &quot;0818&quot;, &quot;color&quot;: &quot;#2563eb&quot;}' style="left:16.28%;width:41.86%;--bar:#2563eb;" title="GSCE-135 XHWJ-003">GSCE-135 91吃瓜网 - 产品重做(原型+规格)</div></div><div class="g-lane"><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-062&quot;, &quot;proj_name&quot;: &quot;KISSAV（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-220&quot;, &quot;desc&quot;: &quot;后台GPT模型升级或更换&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0803&quot;, &quot;end&quot;: &quot;0804&quot;, &quot;color&quot;: &quot;#0d9488&quot;}' style="left:20.93%;width:4.65%;--bar:#0d9488;" title="GSCE-220 DX-062">GSCE-220 后台GPT模型升级或更换</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-202&quot;, &quot;desc&quot;: &quot;网站seo 需求优化 260728&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0808&quot;, &quot;end&quot;: &quot;0810&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:32.56%;width:6.98%;--bar:#9333ea;" title="GSCE-202 DX-069">GSCE-202 网站seo 需求优化 260728</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-235&quot;, &quot;desc&quot;: &quot;网站seo 需求优化 260808&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0811&quot;, &quot;end&quot;: &quot;0812&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:39.53%;width:4.65%;--bar:#9333ea;" title="GSCE-235 DX-069">GSCE-235 网站seo 需求优化 260808</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-062&quot;, &quot;proj_name&quot;: &quot;KISSAV（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-226&quot;, &quot;desc&quot;: &quot;GA4流量来源异常问题及修复方案&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0813&quot;, &quot;end&quot;: &quot;0813&quot;, &quot;color&quot;: &quot;#0d9488&quot;}' style="left:44.19%;width:2.33%;--bar:#0d9488;" title="GSCE-226 DX-062">GSCE-226 GA4流量来源异常问题及修复方案</div></div><div class="g-lane"><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-219&quot;, &quot;desc&quot;: &quot;后台GPT模型升级或更换&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0803&quot;, &quot;end&quot;: &quot;0804&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:20.93%;width:4.65%;--bar:#9333ea;" title="GSCE-219 DX-069">GSCE-219 后台GPT模型升级或更换</div></div></div></div><div class="g-person" data-role="后端"><div class="g-name"><span class="role-dot" style="background:#059669"></span><div class="nm"><b>鹏程</b><small>后端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-070&quot;, &quot;proj_name&quot;: &quot;禁漫天堂（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-206&quot;, &quot;desc&quot;: &quot;网站seo 需求优化 260728&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0731&quot;, &quot;end&quot;: &quot;0805&quot;, &quot;color&quot;: &quot;#7c3aed&quot;}' style="left:13.95%;width:13.95%;--bar:#7c3aed;" title="GSCE-206 DX-070">GSCE-206 网站seo 需求优化 260728</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-070&quot;, &quot;proj_name&quot;: &quot;禁漫天堂（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-217&quot;, &quot;desc&quot;: &quot;后台GPT模型升级或更换&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0806&quot;, &quot;end&quot;: &quot;0807&quot;, &quot;color&quot;: &quot;#7c3aed&quot;}' style="left:27.91%;width:4.65%;--bar:#7c3aed;" title="GSCE-217 DX-070">GSCE-217 后台GPT模型升级或更换</div></div><div class="g-lane"><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-999&quot;, &quot;proj_name&quot;: &quot;51漫画（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-216&quot;, &quot;desc&quot;: &quot;51漫画｜网站seo需求优化&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0802&quot;, &quot;end&quot;: &quot;0806&quot;, &quot;color&quot;: &quot;#059669&quot;}' style="left:18.6%;width:11.63%;--bar:#059669;" title="GSCE-216 DX-999">GSCE-216 51漫画｜网站seo需求优化</div><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;XHWJ-004&quot;, &quot;proj_name&quot;: &quot;黑料头条（WEB）&quot;, &quot;gsce&quot;: &quot;HGTB-19&quot;, &quot;desc&quot;: &quot;黑料头条新项目开发（前端 HGTB-19 / 后端 HGTB-20）&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0807&quot;, &quot;end&quot;: &quot;0821&quot;, &quot;color&quot;: &quot;#6366f1&quot;}' style="left:30.23%;width:34.88%;--bar:#6366f1;" title="HGTB-19 XHWJ-004">HGTB-19 黑料头条新项目开发（前端 HGTB-19 /</div></div></div></div><div class="g-person" data-role="后端"><div class="g-name"><span class="role-dot" style="background:#059669"></span><div class="nm"><b>李瑞</b><small>后端</small></div></div><div class="g-lanes"><div class="g-lane"><div class="bar" data-role="后端" data-info='{&quot;proj_id&quot;: &quot;DX-055&quot;, &quot;proj_name&quot;: &quot;茶馆（APP）&quot;, &quot;gsce&quot;: &quot;GSCE-205&quot;, &quot;desc&quot;: &quot;[后台]财务管理-元宝日志 加APP版本/设备信息&quot;, &quot;role&quot;: &quot;后端&quot;, &quot;start&quot;: &quot;0803&quot;, &quot;end&quot;: &quot;0803&quot;, &quot;color&quot;: &quot;#dc2626&quot;}' style="left:20.93%;width:2.33%;--bar:#dc2626;" title="GSCE-205 DX-055">GSCE-205 [后台]财务管理-元宝日志 加APP版本/</div></div></div></div><div class="g-person" data-role="测试"><div class="g-name"><span class="role-dot" style="background:#7c3aed"></span><div class="nm"><b>飞策</b><small>测试</small></div></div><div class="g-lanes"><div class="g-lane"><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;TJ-062&quot;, &quot;proj_name&quot;: &quot;51凤楼（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-153&quot;, &quot;desc&quot;: &quot;51凤楼web| 技术seo优化&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0730&quot;, &quot;end&quot;: &quot;0730&quot;, &quot;color&quot;: &quot;#65a30d&quot;}' style="left:11.63%;width:2.33%;--bar:#65a30d;" title="GSCE-153 TJ-062">GSCE-153 51凤楼web| 技术seo优化</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-186&quot;, &quot;desc&quot;: &quot;帖子分享到社媒时展示帖子封面图&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0801&quot;, &quot;end&quot;: &quot;0801&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:16.28%;width:2.33%;--bar:#9333ea;" title="GSCE-186 DX-069">GSCE-186 帖子分享到社媒时展示帖子封面图</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-062&quot;, &quot;proj_name&quot;: &quot;KISSAV（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-185&quot;, &quot;desc&quot;: &quot;网站采集及发布功能优化&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0804&quot;, &quot;end&quot;: &quot;0804&quot;, &quot;color&quot;: &quot;#0d9488&quot;}' style="left:23.26%;width:2.33%;--bar:#0d9488;" title="GSCE-185 DX-062">GSCE-185 网站采集及发布功能优化</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-062&quot;, &quot;proj_name&quot;: &quot;KISSAV（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-220&quot;, &quot;desc&quot;: &quot;后台GPT模型升级或更换&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0805&quot;, &quot;end&quot;: &quot;0805&quot;, &quot;color&quot;: &quot;#0d9488&quot;}' style="left:25.58%;width:2.33%;--bar:#0d9488;" title="GSCE-220 DX-062">GSCE-220 后台GPT模型升级或更换</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-070&quot;, &quot;proj_name&quot;: &quot;禁漫天堂（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-206&quot;, &quot;desc&quot;: &quot;网站seo 需求优化 260728&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0806&quot;, &quot;end&quot;: &quot;0806&quot;, &quot;color&quot;: &quot;#7c3aed&quot;}' style="left:27.91%;width:2.33%;--bar:#7c3aed;" title="GSCE-206 DX-070">GSCE-206 网站seo 需求优化 260728</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-070&quot;, &quot;proj_name&quot;: &quot;禁漫天堂（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-217&quot;, &quot;desc&quot;: &quot;后台GPT模型升级或更换&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0808&quot;, &quot;end&quot;: &quot;0808&quot;, &quot;color&quot;: &quot;#7c3aed&quot;}' style="left:32.56%;width:2.33%;--bar:#7c3aed;" title="GSCE-217 DX-070">GSCE-217 后台GPT模型升级或更换</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-192&quot;, &quot;desc&quot;: &quot;后端新增标签筛选功能，支持按标签进行筛选与管理&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0810&quot;, &quot;end&quot;: &quot;0810&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:37.21%;width:2.33%;--bar:#9333ea;" title="GSCE-192 DX-069">GSCE-192 后端新增标签筛选功能，支持按标签进行筛选与</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-202&quot;, &quot;desc&quot;: &quot;网站seo 需求优化 260728&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0811&quot;, &quot;end&quot;: &quot;0812&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:39.53%;width:4.65%;--bar:#9333ea;" title="GSCE-202 DX-069">GSCE-202 网站seo 需求优化 260728</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-119&quot;, &quot;proj_name&quot;: &quot;抖阴（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-234&quot;, &quot;desc&quot;: &quot;新增后台导出功能&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0814&quot;, &quot;end&quot;: &quot;0814&quot;, &quot;color&quot;: &quot;#4f46e5&quot;}' style="left:46.51%;width:2.33%;--bar:#4f46e5;" title="GSCE-234 DX-119">GSCE-234 新增后台导出功能</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;JHG-056&quot;, &quot;proj_name&quot;: &quot;91楼凤（APP）&quot;, &quot;gsce&quot;: &quot;GSCE-227&quot;, &quot;desc&quot;: &quot;管理后台新增需求&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0817&quot;, &quot;end&quot;: &quot;0817&quot;, &quot;color&quot;: &quot;#dc2626&quot;}' style="left:53.49%;width:2.33%;--bar:#dc2626;" title="GSCE-227 JHG-056">GSCE-227 管理后台新增需求</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;XHWJ-003&quot;, &quot;proj_name&quot;: &quot;91吃瓜网（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-135&quot;, &quot;desc&quot;: &quot;91吃瓜网 - 产品重做(原型+规格)&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0819&quot;, &quot;end&quot;: &quot;0826&quot;, &quot;color&quot;: &quot;#2563eb&quot;}' style="left:58.14%;width:18.6%;--bar:#2563eb;" title="GSCE-135 XHWJ-003">GSCE-135 91吃瓜网 - 产品重做(原型+规格)</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;XHWJ-001&quot;, &quot;proj_name&quot;: &quot;茶馆（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-166&quot;, &quot;desc&quot;: &quot;51 品茶 web 前端开发（MVP）&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0830&quot;, &quot;end&quot;: &quot;0905&quot;, &quot;color&quot;: &quot;#7c3aed&quot;}' style="left:83.72%;width:16.28%;--bar:#7c3aed;" title="GSCE-166 XHWJ-001">GSCE-166 51 品茶 web 前端开发（MVP）</div></div><div class="g-lane"><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-119&quot;, &quot;proj_name&quot;: &quot;抖阴（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-200&quot;, &quot;desc&quot;: &quot;视频列表中的发布者 ID 显示为 0的调整&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0801&quot;, &quot;end&quot;: &quot;0801&quot;, &quot;color&quot;: &quot;#4f46e5&quot;}' style="left:16.28%;width:2.33%;--bar:#4f46e5;" title="GSCE-200 DX-119">GSCE-200 视频列表中的发布者 ID 显示为 0的调整</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-219&quot;, &quot;desc&quot;: &quot;后台GPT模型升级或更换&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0805&quot;, &quot;end&quot;: &quot;0805&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:25.58%;width:2.33%;--bar:#9333ea;" title="GSCE-219 DX-069">GSCE-219 后台GPT模型升级或更换</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-999&quot;, &quot;proj_name&quot;: &quot;51漫画（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-216&quot;, &quot;desc&quot;: &quot;51漫画｜网站seo需求优化&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0807&quot;, &quot;end&quot;: &quot;0807&quot;, &quot;color&quot;: &quot;#059669&quot;}' style="left:30.23%;width:2.33%;--bar:#059669;" title="GSCE-216 DX-999">GSCE-216 51漫画｜网站seo需求优化</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-064&quot;, &quot;proj_name&quot;: &quot;51青楼（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-210&quot;, &quot;desc&quot;: &quot;51青楼｜青楼无县区级分类，SEO 技术优化&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0810&quot;, &quot;end&quot;: &quot;0810&quot;, &quot;color&quot;: &quot;#65a30d&quot;}' style="left:37.21%;width:2.33%;--bar:#65a30d;" title="GSCE-210 DX-064">GSCE-210 51青楼｜青楼无县区级分类，SEO 技术优</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-069&quot;, &quot;proj_name&quot;: &quot;91Hub（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-231&quot;, &quot;desc&quot;: &quot;91hub展示逻辑修改&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0811&quot;, &quot;end&quot;: &quot;0812&quot;, &quot;color&quot;: &quot;#9333ea&quot;}' style="left:39.53%;width:4.65%;--bar:#9333ea;" title="GSCE-231 DX-069">GSCE-231 91hub展示逻辑修改</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-062&quot;, &quot;proj_name&quot;: &quot;KISSAV（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-226&quot;, &quot;desc&quot;: &quot;GA4流量来源异常问题及修复方案&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0817&quot;, &quot;end&quot;: &quot;0817&quot;, &quot;color&quot;: &quot;#0d9488&quot;}' style="left:53.49%;width:2.33%;--bar:#0d9488;" title="GSCE-226 DX-062">GSCE-226 GA4流量来源异常问题及修复方案</div><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;XHWJ-004&quot;, &quot;proj_name&quot;: &quot;黑料头条（WEB）&quot;, &quot;gsce&quot;: &quot;HGTB-19&quot;, &quot;desc&quot;: &quot;黑料头条新项目开发（前端 HGTB-19 / 后端 HGTB-20）&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0825&quot;, &quot;end&quot;: &quot;0831&quot;, &quot;color&quot;: &quot;#6366f1&quot;}' style="left:72.09%;width:16.28%;--bar:#6366f1;" title="HGTB-19 XHWJ-004">HGTB-19 黑料头条新项目开发（前端 HGTB-19 /</div></div><div class="g-lane"><div class="bar" data-role="测试" data-info='{&quot;proj_id&quot;: &quot;DX-119&quot;, &quot;proj_name&quot;: &quot;抖阴（WEB）&quot;, &quot;gsce&quot;: &quot;GSCE-233&quot;, &quot;desc&quot;: &quot;网站seo 需求优化 260805&quot;, &quot;role&quot;: &quot;测试&quot;, &quot;start&quot;: &quot;0812&quot;, &quot;end&quot;: &quot;0812&quot;, &quot;color&quot;: &quot;#4f46e5&quot;}' style="left:41.86%;width:2.33%;--bar:#4f46e5;" title="GSCE-233 DX-119">GSCE-233 网站seo 需求优化 260805</div></div></div></div>
+</div>
+  </div>
+  </div>
+
+<div class="popover" id="popover"></div>
+
+<script>
+(function(){
+  // 今日线（动态当前日期）
+  const dates = [];
+  let d = new Date(2026, 6, 25);
+  const end = new Date(2026, 8, 5);
+  while (d <= end) { dates.push(new Date(d)); d.setDate(d.getDate()+1); }
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const di = dates.findIndex(x => x.getTime() === today.getTime());
+  if (di >= 0) {
+    document.querySelectorAll('.g-lane').forEach(lane => {
+      const line = document.createElement('div');
+      line.className = 'today-line';
+      line.style.left = (di / dates.length * 100) + '%';
+      lane.appendChild(line);
+    });
+  }
+
+  // 角色筛选
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.f;
+      document.querySelectorAll('.g-person').forEach(row => {
+        row.classList.toggle('hidden', !(f === 'all' || row.dataset.role === f));
+      });
+      document.querySelectorAll('.bar').forEach(bar => {
+        bar.classList.toggle('dimmed', !(f === 'all' || bar.dataset.role === f));
+      });
+    };
+  });
+
+  // 点击任务条 → 悬浮窗
+  const pop = document.getElementById('popover');
+  const roleColor = {'前端':'#2563eb','后端':'#059669','测试':'#7c3aed'};
+  document.querySelectorAll('.bar[data-info]').forEach(bar => {
+    bar.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const info = JSON.parse(bar.dataset.info);
+      pop.innerHTML = `
+        <div class="pop-head">
+          <span class="t">任务详情</span>
+          <span class="gsc nums"><a href="https://jumpjump9988.atlassian.net/browse/${info.gsce}" target="_blank" style="color:#fff;text-decoration:none;">${info.gsce}</a></span>
+        </div>
+        <div class="pop-body">
+          <div class="pop-row"><span class="pop-label">所属项目</span><span class="pop-val proj">${info.proj_id} ${info.proj_name}</span></div>
+          <div class="pop-row"><span class="pop-label">需求描述</span></div>
+          <div class="pop-desc">${info.desc}</div>
+          <div class="pop-meta">
+            <span class="role" style="background:${roleColor[info.role]}">${info.role}</span>
+            <span class="date">${info.start} ~ ${info.end}</span>
+          </div>
+        </div>
+      `;
+      pop.classList.add('show');
+      const rect = bar.getBoundingClientRect();
+      const popH = 210, popW = 340;
+      let top = rect.bottom + 8, left = rect.left;
+      if (top + popH > window.innerHeight) top = rect.top - popH - 8;
+      if (left + popW > window.innerWidth) left = window.innerWidth - popW - 14;
+      if (left < 10) left = 10;
+      pop.style.top = top + 'px';
+      pop.style.left = left + 'px';
+    });
+  });
+  document.addEventListener('click', () => pop.classList.remove('show'));
+  pop.addEventListener('click', e => e.stopPropagation());
+})();
+</script>
+<script>
+(function() {
+  var KEY = "xhwj_auth_v2";
+  var OBF = "_O^Q";
+  function authVerify(val) {
+    if (typeof val !== "string") return false;
+    var ob = "";
+    for (var i=0;i<val.length;i++){ ob += String.fromCharCode(val.charCodeAt(i) + 7); }
+    return ob === OBF;
+  }
+  function check() {
+    try {
+      var v = localStorage.getItem(KEY);
+      if (!v) return false;
+      var parts = v.split("|");
+      if (parts.length !== 2) return false;
+      var today = new Date().toISOString().slice(0,10);
+      return parts[0] === OBF && parts[1] === today;
+    } catch(e) { return false; }
+  }
+  window.tryAuth = function() {
+    var inp = document.getElementById("auth-input");
+    var err = document.getElementById("auth-err");
+    var val = inp.value.trim();
+    if (authVerify(val)) {
+      try {
+        localStorage.setItem(KEY, OBF + "|" + new Date().toISOString().slice(0,10));
+      } catch(e) {}
+      var lock = document.getElementById("auth-lock");
+      if (lock) lock.style.display = "none";
+      document.body.style.overflow = "";
+      return true;
+    }
+    err.style.display = "block";
+    inp.value = "";
+    inp.focus();
+    return false;
+  };
+  if (check()) {
+    var lock = document.getElementById("auth-lock");
+    if (lock) lock.style.display = "none";
+  } else {
+    document.body.style.overflow = "hidden";
+    var inp = document.getElementById("auth-input");
+    if (inp) inp.focus();
+  }
+})();
+</script>
+
+</body>
+</html>
