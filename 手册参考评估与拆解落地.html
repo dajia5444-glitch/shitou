@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《无极项目与需求管理手册》参考评估与逐步拆解落地</title>
+<style>
+:root{--ink:#334155;--ink-2:#64748b;--ink-3:#94a3b8;--paper:#f8fafc;--surface:#fff;--line:#e2e8f0;--accent:#6366f1;--accent-soft:#eef2ff;--red:#ef4444;--amber:#f97316;--green:#22c55e;--ease:cubic-bezier(.25,1,.5,1);--shadow-sm:0 1px 3px rgba(51,65,85,.06);--shadow-md:0 4px 16px rgba(51,65,85,.1)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI","Microsoft YaHei",sans-serif;font-size:13px;line-height:1.6;padding:28px clamp(16px,4vw,44px) 60px}
+.hero{background:linear-gradient(135deg,#fff 0%,#f1f5f9 100%);border:1px solid var(--line);border-radius:16px;padding:28px 32px 24px;margin-bottom:22px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.09),transparent 65%)}
+.hero h1{font-size:clamp(20px,2.4vw,26px);font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+.hero h1 .mark{width:6px;height:24px;border-radius:3px;background:var(--accent);display:inline-block}
+.hero .sub{color:var(--ink-3);font-size:11.5px;margin-top:8px;letter-spacing:.03em;position:relative;z-index:1}
+.sec{margin-bottom:26px}
+.sec-title{font-size:17px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.sec-title .icon{width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+.sec-desc{color:var(--ink-3);font-size:11.5px;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm)}
+th{background:#f1f5f9;color:#475569;font-size:12px;font-weight:700;padding:10px 14px;text-align:left}
+td{padding:10px 14px;font-size:12.5px;border-top:1px solid var(--line);vertical-align:top}
+tr:hover td{background:#f8fafc}
+.star{color:var(--amber);font-weight:700}
+.maybe{color:var(--ink-3)}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.phase-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.p-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;color:#fff}
+.p0{background:var(--red)}.p1{background:var(--amber)}.p2{background:var(--accent)}.p3{background:#64748b}
+.p-title{font-size:15px;font-weight:700;color:#0f172a}
+.p-time{margin-left:auto;font-size:11px;color:var(--ink-3)}
+.phase ul{list-style:none;padding:0;margin:0}
+.phase li{padding:6px 0 6px 22px;position:relative;font-size:13px}
+.phase li::before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:700}
+.phase li b{color:#0f172a}
+.phase li .tag{display:inline-block;font-size:10.5px;padding:1px 8px;border-radius:6px;margin-left:6px;background:var(--accent-soft);color:var(--accent);vertical-align:1px}
+.phase li .why{color:var(--ink-3);font-size:11.5px;display:block;margin-top:2px}
+.note{background:var(--accent-soft);border:1px solid #c7d2fe;border-radius:12px;padding:16px 20px;color:#3730a3;font-size:13px;margin-bottom:14px}
+.note b{color:#312e81}
+.warn{background:#fff7ed;border:1px solid #fdba74;border-radius:12px;padding:16px 20px;color:#7c2d12;font-size:13px;margin-bottom:14px}
+.warn b{color:#9a3412}
+@media(max-width:640px){table{font-size:11px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1><span class="mark"></span>《无极项目与需求管理手册》参考评估与拆解落地</h1>
+  <div class="sub">手册 V2.1（2026-08-04）· 评估对星河无界的可参考性 · 拆解为 4 个可接受的小阶段 · 生成时间：2026-08-10 23:06</div>
+</div>
+
+<div class="warn">
+  <b>结论先行：</b>手册质量很高，结构完整（四类场景 → 10 步流程 → 角色入口 → 验收五章 → 风险控制），但它是为「无极」定制的全量制度（约 6 大章节、验收规则 5 章、岗位标准 5 类、清单 7 套），<b>直接平移给星河无界必然水土不服</b>——你们的组织架构、工具链（灯塔 vs GSCE/Jira）、项目规模和人员习惯都不同。正确做法是<b>「借条款、不借制度」</b>：只抽取对治你们真实问题的条款，按 4 个阶段逐步立规则，每个阶段不超过 3 条。
+</div>
+
+<div class="sec">
+  <div class="sec-title"><span class="icon" style="background:#6366f1">◎</span>手册 vs 星河无界六大问题 · 参考性对照</div>
+  <div class="sec-desc">★=高度参考（直接对治痛点）｜◐=部分参考（需裁剪）｜○=暂不引入（成本高/不适用）</div>
+  <table>
+    <tr><th style="width:22%">星河无界问题</th><th style="width:44%">手册对应条款</th><th>参考度</th></tr>
+    <tr><td><b>1. 研发资源瓶颈</b></td><td>任务冲突升级规则（直属领导→副总→总经理逐级上报）；「暂停推进」机制（阻塞项记录责任人和恢复条件）；开发中禁止临时增改需求</td><td><span class="star">★ 冲突升级机制直接可用</span><br><span class="maybe">○ 不解决「人不够」本身（需另立资源决策）</span></td></tr>
+    <tr><td><b>2. 需求优先级混乱</b></td><td>优先级由运营主管确认并作为业务排序依据；「同优先级冲突」按升级规则上报裁定；开发中禁止口头插需求；变更须走影响评估+决策+留痕四步</td><td><span class="star">★★ 最强参考，直接对治</span></td></tr>
+    <tr><td><b>3. 生产问题根治不力</b></td><td>验收分级三档（重大/常规/微调）；紧急下线时限（合规≤30分钟/一般≤2小时）；发布时间窗口（周二至五 9:30-20:00，避免周一/周末/下班前）；上线后30分钟核查+24小时数据回流；紧急上线审批</td><td><span class="star">★★ 发布时间窗口+30分钟核查立即见效</span></td></tr>
+    <tr><td><b>4. 验收/测试职责不清</b></td><td>测试准入（冒烟100%才收提测）；三方联合验收（产品/运营/UI各签结论，任一方不过不上线）；跨环节问题裁定9条（功能打不开=技术、配置对不对=运营、数据不准三段切分、P2≤3放行）；交接卡点（下游有权拒收）</td><td><span class="star">★★ 直接对治，可先引 9 条裁定中的 4 条</span></td></tr>
+    <tr><td><b>5. 排期/文档质量差</b></td><td>需求受理四步（业务事实→主管审核→产品承接，禁止直接找技术）；需求信息七项来源表（问题/目标/优先级/验收标准必填）；排期消息置顶+技术负责人复核</td><td><span class="star">★ 需求信息必填项可裁剪为 4 项</span></td></tr>
+    <tr><td><b>6. 知识不沉淀</b></td><td>资料统一归档（方案/评审/排期/变更/测试/验收/发布）；重大问题必须复盘（延期/返工/重大Bug/上线事故）</td><td><span class="maybe">◐ 复盘机制可引，归档依赖工具链</span></td></tr>
+  </table>
+</div>
+
+<div class="sec">
+  <div class="sec-title"><span class="icon" style="background:#22c55e">➤</span>逐步拆解路线：4 个阶段，每阶段 ≤3 条规则</div>
+  <div class="sec-desc">原则：每条规则都绑定一个星河无界刚发生的真实案例，用「事」说服人，不靠「制度」压人</div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="p-badge p0">阶段 0</span><span class="p-title">止血三规则（本周）</span><span class="p-time">对治问题 2 / 3</span></div>
+    <ul>
+      <li><b>发布时间窗口</b>：周二至周五 09:30-20:00 发布；周一/周末/下班前不发，确需发布须督导知晓<span class="tag">问题3</span><span class="why">绑定案例：豆腐 8/8 建议「周一上线避免周六风险，不然出问题周日没人」——团队已有共识，只需制度化</span></li>
+      <li><b>上线红线</b>：产品+运营+测试三方确认才能上线；上线后 30 分钟首轮核查<span class="tag">问题4</span><span class="why">绑定案例：茶馆APP加载问题 8/10 用户仍反馈打不开——上线后无人盯，一周未发现复发</span></li>
+      <li><b>优先级冲突上报</b>：同一开发手上出现同优先级冲突，报督导裁定；口头插需求必须落到排期表<span class="tag">问题2</span><span class="why">绑定案例：厉飞雨「手上全是相同优先级」、文龙「同优先级的怎么搞」——把混乱升级为可裁决</span></li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="p-badge p1">阶段 1</span><span class="p-title">验收与职责边界（两周内）</span><span class="p-time">对治问题 4 / 5</span></div>
+    <ul>
+      <li><b>测试准入</b>：冒烟测试通过率 100% 才收提测；未达标测试有权驳回，延期责任归开发<span class="tag">问题4</span><span class="why">手册原文条款；对治「提测质量参差、测试返工」</span></li>
+      <li><b>验收分级</b>：常规更新及以上留验收单；配置微调谁改谁自检+30分钟盯一下<span class="tag">问题3/4</span><span class="why">先引用手册 5.2 节，简版验收单即可</span></li>
+      <li><b>跨环节问题裁定（引 4 条）</b>：功能/播放打不开=技术（配置对不对=运营）；数据统计不准三段切分；迭代导致存量异常=运营发现+技术修复；P2 Bug 放行统一 ≤3 个<span class="tag">问题3</span><span class="why">手册 5.4 节 9 条中先引最常用的 4 条，其余遇到再补</span></li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="p-badge p2">阶段 2</span><span class="p-title">需求受理与变更管控（一个月内）</span><span class="p-time">对治问题 2 / 5</span></div>
+    <ul>
+      <li><b>需求受理四步</b>：运营/SEO 提需求→运营主管审核→产品承接→排期；禁止跳过主管直接找研发<span class="tag">问题5</span><span class="why">手册核心；对治「需求文档贴错群、需求描述不清、直接私聊研发」</span></li>
+      <li><b>需求信息必填 4 项</b>：问题背景 / 业务目标 / 优先级 / 验收标准；缺项退回补充<span class="tag">问题5</span><span class="why">从手册七项来源表裁剪为 4 项，降低填写门槛</span></li>
+      <li><b>变更留痕</b>：开发中禁止临时口头增改需求；改动必须书面记录并同步前端/后端/测试<span class="tag">问题2</span><span class="why">对治「运营中途插需求、口头变更」——星河无界插需求常态化的正式解药</span></li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="phase-head"><span class="p-badge p3">阶段 3</span><span class="p-title">复盘归档与持续机制（持续）</span><span class="p-time">对治问题 1 / 6</span></div>
+    <ul>
+      <li><b>重大问题复盘</b>：延期/返工/重大 Bug/上线事故，1 周内出改进闭环记录<span class="tag">问题6</span><span class="why">对治「抖阴数据问题查 4 天、茶馆问题一周未愈」——无复盘就无改进</span></li>
+      <li><b>根因档案库</b>：生产问题解决后归档（根因+方案）到 GSCE 知识库，新项目开工对照「踩坑清单」<span class="tag">问题6</span></li>
+      <li><b>资源冲突升级路径</b>：排期冲突→督导（直属）裁定→分管副总→钱总终裁，冲突未解决前不得擅改已确认排期<span class="tag">问题1</span><span class="why">手册升级规则，适配星河无界的汇报线</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title"><span class="icon" style="background:#f97316">⚑</span>落地技巧（提高接受度）</div>
+  <div class="note">
+    <b>① 借条款不借制度：</b>只抽 4 阶段 12 条，不把整套手册搬进来；手册原文放链接，需要时查证。<br>
+    <b>② 用案例说服：</b>每条规则绑定一个刚发生的真实事件（豆腐的周一上线、厉飞雨的同优先级、茶馆的一周未愈），先讲事再立规。<br>
+    <b>③ 试点再推广：</b>阶段 0-1 先在 2 个群试点（建议 91Hub + 茶馆APP，问题最集中），验证 2 周再全量。<br>
+    <b>④ 翻译成自家语言：</b>「灯塔」→ GSCE/Jira 需求卡；「运维」→ 你们的发布人/李瑞；「联合验收单」→ 简化成群内接龙确认即可起步。<br>
+    <b>⑤ 每条规则都要「督导可检查」：</b>比如发布时间窗口——看群里上线通知的时间即可检查；优先级冲突——看排期表是否有同人同优先级；让规则可审计，才有约束力。<br>
+    <b>⑥ 不求一步到位：</b>先立「止血三规则」（本周就能宣布执行），跑顺了再加阶段 1。制度是长出来的，不是搬进来的。
+  </div>
+</div>
+
+</body>
+</html>

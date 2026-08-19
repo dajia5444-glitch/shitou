@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星河无界 · 聊天记录 AI 分析看板</title>
+<style>
+:root{--ink:#334155;--ink-2:#64748b;--ink-3:#94a3b8;--paper:#f8fafc;--surface:#fff;--line:#e2e8f0;--accent:#6366f1;--accent-soft:#eef2ff;--red:#ef4444;--amber:#f97316;--green:#22c55e;--ease:cubic-bezier(.25,1,.5,1);--shadow-sm:0 1px 3px rgba(51,65,85,.06);--shadow-md:0 4px 16px rgba(51,65,85,.1)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI","Microsoft YaHei",sans-serif;font-size:13px;line-height:1.55;padding:28px clamp(16px,4vw,40px) 56px}
+.hero{background:linear-gradient(135deg,#fff 0%,#f1f5f9 100%);border:1px solid var(--line);border-radius:16px;padding:26px 30px 22px;margin-bottom:20px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.08),transparent 65%)}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;position:relative;z-index:1}
+.hero h1{font-size:clamp(20px,2.4vw,26px);font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px}
+.hero h1 .mark{width:6px;height:22px;border-radius:3px;background:var(--accent);display:inline-block}
+.hero .sub{color:var(--ink-3);font-size:11.5px;margin-top:6px;letter-spacing:.03em}
+.hero-stats{display:flex;gap:0;margin-top:20px;border-top:1px solid var(--line);padding-top:16px;flex-wrap:wrap;position:relative;z-index:1}
+.hero-stat{flex:1;min-width:88px;padding:0 4px}
+.hero-stat .v{font-size:26px;font-weight:700;color:#0f172a}
+.hero-stat .l{font-size:11px;color:var(--ink-3);margin-top:2px}
+.v.red{color:var(--red)!important}.v.amber{color:var(--amber)!important}.v.green{color:var(--green)!important}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:9px 18px;border-radius:10px;background:var(--surface);border:1px solid var(--line);cursor:pointer;font-size:13px;font-weight:600;color:var(--ink-2);transition:all .2s var(--ease)}
+.tab:hover{border-color:var(--accent);color:var(--accent)}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.tab .n{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:rgba(0,0,0,.12);font-size:11px;margin-left:6px}
+.tab.active .n{background:rgba(255,255,255,.25)}
+.panel{display:none}.panel.active{display:block}
+.sec{margin-bottom:24px}
+.sec-title{font-size:16px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px}
+.sec-desc{color:var(--ink-3);font-size:11.5px;margin:4px 0 12px}
+.overall{background:var(--accent-soft);border:1px solid #c7d2fe;border-radius:12px;padding:16px 20px;margin-bottom:20px;color:#3730a3;font-size:13px;white-space:pre-wrap}
+.overall b{color:#312e81}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow-sm);transition:box-shadow .2s var(--ease);display:flex;flex-direction:column;gap:10px}
+.proj:hover{box-shadow:var(--shadow-md)}
+.proj-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.proj-name{font-weight:700;color:#0f172a;font-size:13.5px}
+.status-pill{font-size:11px;padding:3px 10px;border-radius:8px;font-weight:600;background:#e2e8f0;color:#475569;white-space:nowrap}
+.status-pill.st-red{background:#fef2f2;color:#dc2626}.status-pill.st-green{background:#f0fdf4;color:#16a34a}.status-pill.st-blue{background:#eef2ff;color:#4f46e5}
+.proj-progress{font-size:12.5px;color:var(--ink);background:var(--surface-2,#f8fafc);border:1px solid var(--line);border-radius:10px;padding:10px 12px;white-space:pre-wrap}
+.proj-progress b{color:var(--ink-2);font-size:11px;margin-right:4px}
+.proj-block ul{list-style:none;padding:0;margin:0}
+.proj-block li{font-size:12px;color:var(--ink);padding:4px 0 4px 16px;position:relative}
+.proj-block li::before{content:"·";position:absolute;left:4px;color:var(--ink-3)}
+.proj-block li.ok{color:var(--green)}.proj-block li.dim{color:var(--ink-3)}
+.blk-t{font-size:11px;font-weight:700;margin-bottom:2px}
+.risk-t{color:var(--amber)}.done-t{color:var(--green)}
+.issue-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.issue{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow-sm)}
+.issue-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.c-dialog{font-weight:700;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:8px;font-size:12px}
+.status{font-size:11px;padding:3px 8px;border-radius:6px;font-weight:600}
+.status.resolved{background:#f0fdf4;color:#16a34a}.status.open{background:#fef2f2;color:#dc2626}
+.issue-body{font-size:12.5px;color:var(--ink);white-space:pre-wrap}
+.issue-meta{color:var(--ink-3);font-size:11px;margin-top:8px}
+.empty{color:var(--ink-3);text-align:center;padding:40px;background:var(--surface);border:1px dashed var(--line);border-radius:12px}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.stat-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat-box .t{font-size:11px;color:var(--ink-3);margin-bottom:6px}
+.stat-box .bar{height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;margin-top:6px}
+.stat-box .bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.stat-box .bar i.red{background:var(--red)}.stat-box .bar i.amber{background:var(--amber)}
+@media(max-width:640px){.proj-grid,.issue-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <h1><span class="mark"></span>聊天记录 AI 分析看板</h1>
+      <div class="sub">AI 督导视角 · 覆盖 19 个关注群 · 分析生成：2026-08-11 08:23:25</div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="v">19</div><div class="l">关注项目群</div></div>
+    <div class="hero-stat"><div class="v amber">4</div><div class="l">生产问题待跟进</div></div>
+    <div class="hero-stat"><div class="v green">11</div><div class="l">生产问题已解决</div></div>
+    <div class="hero-stat"><div class="v red">14</div><div class="l">有风险项目</div></div>
+    <div class="hero-stat"><div class="v">19</div><div class="l">有活跃状态</div></div>
+  </div>
+</div>
+
+<div class="overall"><b>📌 督导摘要</b>
+【整体情况】19个项目群近一个月（7月中-8/10）交付节奏密集：91Hub、KISSAV、禁漫天堂、抖阴、51漫画、51青楼等持续完成排期-开发-测试-验收-上线闭环；茶馆WEB、黑料头条、91吃瓜网、禁漫APP、每日大赛、51探花等新项目集群并行开发，其中茶馆WEB（MVP）、黑料头条、禁漫APP排期已明确。
+【重点风险】1) 资源瓶颈加剧：厉飞雨（91hub+吃瓜网+KISSAV+茶馆WEB）、朔月（抖阴+楼凤+成人导航+陌陌1v1）、鹏程（禁漫+漫画+黑料头条+青楼）多项目并行，91hub优先导致吃瓜网顺延8天，新项目测试排队（禁漫APP测试8/17-8/24，黑料头条25号才开始）；2) 茶馆APP图片/视频加载问题（上海/广东地区）从8/5持续到8/10未根治，疑似CDN/DNS/私人DNS投毒，多轮排查中；3) 滴滴APP视频切片批量失败（8/10，回调域名8/3失效）；4) 生产问题根因定位慢（抖阴数据统计查4天，根因=缺executeDelay定时任务）。
+【生产问题】一个月内识别约25个生产/线上问题：资源加载类（茶馆APP打不开/51漫画打不开/91楼凤H5访问不了）、数据类（抖阴数据不更新/禁漫章节错乱/滴滴切片/51青楼视频不同步/91楼凤后台无数据）、接口类（滴滴golang NULL/茶馆IM/陌陌1v1在线状态）、安全类（禁漫XSS）、环境类（抖阴500/51凤楼落地页）。待跟进4个（茶馆加载、滴滴切片、禁漫XSS、楼凤需求搁置），其余已闭环。
+【建议】督导优先：1) 茶馆APP加载问题限时根治（责任人+48h根因报告）；2) 滴滴切片回调恢复；3) 新项目集群人力缺口拍板（黑料头条/茶馆WEB/禁漫APP/吃瓜网并行）；4) 建立全局需求优先级矩阵（厉飞雨同优先级冲突已多次出现）；5) 生产问题根因归档（定时任务/域名/回调坑各项目重复踩）。</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('proj')">📋 项目分析 <span class="n">19</span></div>
+  <div class="tab" onclick="switchTab('prod')">🔴 生产问题 <span class="n">15</span></div>
+</div>
+
+<div id="panel-proj" class="panel active">
+  <div class="sec">
+    <div class="sec-title">项目进度与风险</div>
+    <div class="sec-desc">AI 逐群精读聊天记录后总结：进度状态 / 风险 / 关键进展</div>
+    <div class="proj-grid"><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-013】滴滴</span><span class="status-pill st-blue">存在生产问题</span></div>
+  <div class="proj-progress"><b>进度</b> 8/6 用户详情查询接口问题（golang强类型无法接收php NULL字段）已修复提测；8/7 测试完成。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>8/10 视频切片批量失败：回调地址8/3已失效到8/10才发现，切片任务全部失败，排查mp4.accept配置中</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>8/7 用户详情接口问题闭环</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-048】海角社区</span><span class="status-pill st-blue">低活跃</span></div>
+  <div class="proj-progress"><b>进度</b> 8/1 GA4统计代码替换；8/5 后端开发拉群。近一月无实质进展。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li class="ok">无显著风险</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>GA4代码已替换</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-055】茶馆</span><span class="status-pill st-blue">存在生产问题</span></div>
+  <div class="proj-progress"><b>进度</b> 需求密集：GSCE-190用户列表上次活动时间、GSCE-193推广渠道统计、GSCE-207黑榜评论审核、GSCE-208用户列表加类型、GSCE-211新落地页、GSCE-232评审后台多选、GSCE-238资源API导出，7-8月持续排期交付。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>图片/视频加载问题持续一周+：7月底上海用户无法充值（华为X7），8/5-8/10 图片空白/一直转圈/打不开（上海/广东/湖北，疑似CDN/DNS/私人DNS投毒），8/10 17:40仍反馈打不开</li><li>IM客服消息不同步（8/6，IM服务器维护导致，已解决）</li><li>7/30 后台24万元宝来源显示&#x27;未知&#x27;（解冻任务switch缺default分支，已定位修复）</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>24万元宝&#x27;未知&#x27;来源根因已定位（代码健壮性问题）</li><li>GSCE-207/208/238 等排期确认交付</li><li>8/8 用户类型字段问题查清（后台手动标记）</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-062】KISSAV</span><span class="status-pill st-blue">正常交付</span></div>
+  <div class="proj-progress"><b>进度</b> 需求密集交付：GSCE-185采集发布优化（8/4上线）、GSCE-219 GPT模型升级（8/4上线）、GSCE-187 SEO优化（8/7经风险评审上线）、GSCE-226 GA4流量修复（8/10验收上线）。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>SEO性能优化需求改动面大（首屏图片/CSS/缓存），已明确高风险项不做</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>GSCE-185/219/187/226 全部上线闭环</li><li>m3u8正则bug修复上线（8/7）</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-064】51青楼</span><span class="status-pill st-blue">正常交付</span></div>
+  <div class="proj-progress"><b>进度</b> 7/29 h265上线；GSCE-210 SEO优化8/1上线；8/5 广告过期仍展示bug修复（前端过滤）；8/8 视频同步+广告问题修复上线；8/10 线上回归完成。新后端兰科8/4接手。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>8/8 因处理抖阴线上问题，青楼提测顺延</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>广告过期/视频同步问题修复上线</li><li>8/10 线上回归通过</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-069】91Hub</span><span class="status-pill st-blue">需求密集交付</span></div>
+  <div class="proj-progress"><b>进度</b> 7-8月需求持续：GSCE-186分享封面、GSCE-192标签筛选（8/7-8/8）、GSCE-202 SEO（8/8上线）、GSCE-219 GPT（8/4）、GSCE-221 AI效能、GSCE-231展示逻辑修改、GSCE-235 SEO（8/11-8/12排期）。8/5明确91hub需求优先。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>资源紧张：厉飞雨多项目并行（91hub+吃瓜网+KISSAV+茶馆WEB），8/5出现&#x27;手上全是相同优先级&#x27;冲突</li><li>发布端切片卡住（8/6）、分类页置顶失效（8/9）、短视频刷新闪现（8/10，已修复上线）</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>GSCE-202 SEO+发布时间字段合并上线（8/8）</li><li>两个线上修复当日闭环（8/10）</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-070】禁漫天堂</span><span class="status-pill st-blue">存在安全事项</span></div>
+  <div class="proj-progress"><b>进度</b> 7月：异常流量定位（采集/刷量）、GSCE-178原创小说调整、SEO GSCE-206、GPT GSCE-217、GA4 GSCE-224交付；8月：SEO/GA4验收上线、算法疲劳机制优化、8/10 本版需求验收完成。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>XSS问题：8/10 排查处理完毕（代码已处理、数据清洗中），与SEO一起明天上线，上线前勿查看评论列表</li><li>章节错乱/缺失/重复（8/4-8/8，采集脚本幂等性问题，已修复）</li><li>7/31 数据库连接超时（审核失败，环境问题）</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>8/10 禁漫验收通过可上线</li><li>章节目录修复功能上线（缺章自动补）</li><li>XSS已处理待上线</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-073】91成人导航</span><span class="status-pill st-blue">正常交付</span></div>
+  <div class="proj-progress"><b>进度</b> 7/27 广告位适配修复上线；GSCE-203 精品APP接入广告中心（7/30完成）；8/4 随机网址/最近加入功能逻辑问题下架；8/7 首页弹窗广告UI评审。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li class="ok">无显著风险</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>GSCE-203 广告中心接入完成</li><li>8/7 弹窗广告评审完成</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-119】抖阴</span><span class="status-pill st-blue">正常交付</span></div>
+  <div class="proj-progress"><b>进度</b> 7月：RSS建设GSCE-142、标签筛选GSCE-191、展示逻辑GSCE-157、发布者ID修复GSCE-200、SEO GSCE-201；8月：GPT GSCE-218（8/4）、GA4 GSCE-225、SEO GSCE-233（8/8-8/11）、GSCE-234后台导出（8/12-8/16）。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>浏览/停留数据不更新：8/6发现，8/9定位根因（缺executeDelay定时任务），排查4天</li><li>小说采集定时任务PHP内存耗尽（8/6，已处理）</li><li>测试服500（8/7环境问题已处理）</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>8/9 数据统计根因定位解决</li><li>GSCE-234排期确认（8/16预定上线）</li><li>批量任务作为先锋组供其他项目抄作业</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【DX-999】51漫画</span><span class="status-pill st-blue">正常交付</span></div>
+  <div class="proj-progress"><b>进度</b> 7/30 定时脚本异常修复；7/31 中转页打不开紧急修复；SEO GSCE-216（8/2-8/6）；8/7 分类页type参数404问题（需验收方拍板）；8/10 GSCE-236 SEO排期确认+上线回归通过。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>7/31 网站打不开（中转页，用户量翻2-3倍服务器压力），紧急修复</li><li>分类页type参数测试服/正式服不一致（8/7）</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>8/10 上线完成线上回归通过</li><li>搜索问题已修复</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【JHG-039】陌陌1v1</span><span class="status-pill st-blue">低活跃</span></div>
+  <div class="proj-progress"><b>进度</b> 7/10 主播在线状态问题修复（Logout/Disconnect区分、5分钟宽限、2分钟兜底清理）；7/13 后台用户ID搜索失败修复。之后低活跃。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li class="ok">无显著风险</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>在线状态问题专业修复方案落地（7/11）</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【JHG-056】91楼凤</span><span class="status-pill st-blue">需求搁置</span></div>
+  <div class="proj-progress"><b>进度</b> 7月：验证码发不过来（7/9已修复）、审核帖子用户不存在（7/21已修复）、H5访问不了（7/28）；8月：管理后台需求GSCE-227排期（后端8/12-8/15、测试8/17），8/10 鲍勃通知需求暂时搁置。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>管理后台需求8/10搁置（原因待确认）</li><li>8/7 后台数据统计无数据（恒睿定时任务被关）</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>7-8月多个bug闭环（验证码/审核/访问）</li><li>APK测试完成PWA待测</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【TJ-062/063】51凤楼（APP/WEB）</span><span class="status-pill st-blue">正常交付</span></div>
+  <div class="proj-progress"><b>进度</b> 历史最老项目（3月起）。3-6月大量测试反馈（UI/埋点/评论等）及&#x27;探花社区&#x27;迭代交付；7月：SEO工程GSCE-150/153、顶部菜单等GSCE-195/197/198优化迭代；8月：测试环境落地页加载失败修复（8/7）、测试通过可验收（8/8）。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>8/6 迷药广告跳转404（排查中）</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>8/8 测试环境通过可验收</li><li>&#x27;探花社区&#x27;迭代完成</li><li>埋点体系完善</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【XHWJ-001】茶馆</span><span class="status-pill st-blue">开发阶段（新项目）</span></div>
+  <div class="proj-progress"><b>进度</b> 新项目MVP：UI分阶段交付（7/28、7/31、8/3）；前端卡比7/30-8/29、后端厉飞雨7/30-8/29、测试飞策8/30-9/5。UI曾延期1-2天（处理官网插队）。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>新项目开发周期长（MVP约1个月），接口复用存在不确定性</li><li>8/4 画面故障（已重发）</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>排期已确认（8/29提测、9/5测试完成）</li><li>UI阶段交付中</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【XHWJ-002】禁漫天堂</span><span class="status-pill st-blue">开发阶段（新项目）</span></div>
+  <div class="proj-progress"><b>进度</b> 新项目：前端风间7/18-8/15、后端李瑞7/17-8/10；测试排期待定。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>测试资源：8/17-8/24测试该APP，影响其他项目测试排期</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>前后端开发推进中（8月中下旬完成）</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【XHWJ-003】91吃瓜网</span><span class="status-pill st-red">存在延期风险</span></div>
+  <div class="proj-progress"><b>进度</b> 新项目：前端景天8/1-8/18、后端厉飞雨（原8/10，因91hub优先顺延至8/18）；测试8/19-8/26（与禁漫APP并行）。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>排期顺延8天（91hub需求优先导致），8/7确认延期</li><li>后端未完成前接口不通，前端受阻</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>8/7 新排期确认（测试8/19-8/26）</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【XHWJ-004】黑料头条</span><span class="status-pill st-blue">新项目开发中</span></div>
+  <div class="proj-progress"><b>进度</b> 6月启动规划；7/1原型评审；8/4 UI完成评审；前端鲁子敬8/7-8/21、后端鹏程8/7-8/21、测试8/25-8/31、验收8/31-9/2；8/6 讨论提测/验收流程分离。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li>测试资源紧张：8/17-8/24测禁漫APP，黑料头条25号才测试</li><li>6月模板不可用/需求澄清反复（早期）</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>排期已确认（8/7-9/2）</li><li>UI完成进入开发</li><li>验收与测试分离优化讨论落地</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【XHWJ-005】每日大赛</span><span class="status-pill st-blue">低活跃（新项目）</span></div>
+  <div class="proj-progress"><b>进度</b> 新项目：原型绘制中（8月初），新前端同学接入熟悉。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li class="ok">无显著风险</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>原型推进中</li></ul></div>
+</div><div class="proj">
+  <div class="proj-head"><span class="proj-name">【XHWJ-006】51探花</span><span class="status-pill st-blue">低活跃（新项目）</span></div>
+  <div class="proj-progress"><b>进度</b> 新项目：原型预计8/12完成（小宜处理完每日大赛后）。</div>
+  <div class="proj-block"><div class="blk-t risk-t">⚠️ 风险</div><ul><li class="ok">无显著风险</li></ul></div>
+  <div class="proj-block"><div class="blk-t done-t">✅ 关键进展</div><ul><li>原型排期明确（8/12）</li></ul></div>
+</div></div>
+  </div>
+</div>
+<div id="panel-prod" class="panel">
+  <div class="sec">
+    <div class="sec-title">生产问题</div>
+    <div class="sec-desc">AI 从聊天记录中识别并跟踪的生产/线上问题（自动推断解决状态）</div>
+    <div class="issue-grid"><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-055】茶馆</span><span class="status open">🔴 待跟进</span></div>
+  <div class="issue-body">图片/视频无法加载、一直转圈、打不开（7月底起上海/广东/湖北多地区用户反馈，疑似CDN/DNS/私人DNS投毒，8/10 17:40仍反馈打不开）</div>
+  <div class="issue-meta">首见 07-29 · 最近 08-10 17:40</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-013】滴滴</span><span class="status open">🔴 待跟进</span></div>
+  <div class="issue-body">视频切片批量失败：回调地址8/3失效至8/10才发现，切片任务全部失败（mp4.accept配置排查中）</div>
+  <div class="issue-meta">首见 08-10 · 最近 08-10 21:24</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-070】禁漫天堂</span><span class="status open">🔴 待跟进</span></div>
+  <div class="issue-body">XSS安全问题：评论列表XSS，代码已处理、数据清洗中，与SEO一起上线</div>
+  <div class="issue-meta">首见 08-10 · 最近 08-10 20:22</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【JHG-056】91楼凤</span><span class="status open">🔴 待跟进</span></div>
+  <div class="issue-body">管理后台新增需求暂时搁置（GSCE-227）</div>
+  <div class="issue-meta">首见 08-10 · 最近 08-10 10:10</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-055】茶馆</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">IM客服消息不同步（8/6 IM服务器维护导致）；7/30 24万元宝&#x27;未知&#x27;来源（switch缺default分支）</div>
+  <div class="issue-meta">首见 07-30 · 最近 08-07 10:36</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-062】KISSAV</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">远程发布端进不去（8/5）；后台视频无法播放m3u8正则bug（8/6-8/7修复上线）</div>
+  <div class="issue-meta">首见 08-05 · 最近 08-07 17:01</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-069】91Hub</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">发布端切片卡住（8/6）；分类页置顶失效（8/9）；短视频刷新闪现（8/10修复上线）</div>
+  <div class="issue-meta">首见 08-06 · 最近 08-10 17:21</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-070】禁漫天堂</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">章节错乱/缺失/重复（8/4-8/8，采集脚本幂等性）；7/31数据库连接超时</div>
+  <div class="issue-meta">首见 07-31 · 最近 08-08 12:17</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-119】抖阴</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">浏览/停留数据不更新（8/6-8/9，根因缺executeDelay定时任务）；小说采集PHP内存耗尽（8/6）；测试服500（8/7）</div>
+  <div class="issue-meta">首见 08-06 · 最近 08-09 22:01</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-999】51漫画</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">网站打不开（7/31中转页，用户量翻倍服务器压力）；分类页type参数404（8/7）</div>
+  <div class="issue-meta">首见 07-31 · 最近 08-07 22:13</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【JHG-039】陌陌1v1</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">主播在线状态异常（7/10-7/11修复：Logout/Disconnect区分+5分钟宽限）；后台用户ID搜索失败（7/13）</div>
+  <div class="issue-meta">首见 07-09 · 最近 07-13</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【JHG-056】91楼凤</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">验证码发不过来（7/9）；审核帖子用户不存在（7/21）；H5访问不了（7/28）；后台数据统计无数据（8/7恒睿定时任务被关）</div>
+  <div class="issue-meta">首见 07-09 · 最近 08-07 10:39</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【TJ-062/063】51凤楼（APP/WEB）</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">广告跳转404（8/6）；测试环境落地页加载失败（8/7修复）</div>
+  <div class="issue-meta">首见 08-06 · 最近 08-08 10:31</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-064】51青楼</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">广告过期仍展示（8/5修复）；视频未同步（8/8修复上线）</div>
+  <div class="issue-meta">首见 08-05 · 最近 08-08 10:23</div>
+</div><div class="issue">
+  <div class="issue-head"><span class="c-dialog">【DX-073】91成人导航</span><span class="status resolved">✅ 已解决</span></div>
+  <div class="issue-body">首页广告位PC/移动端适配问题（7/27修复上线）；广告无法跳转（7/28）</div>
+  <div class="issue-meta">首见 07-27 · 最近 07-28</div>
+</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title">📊 对话活跃度</div>
+  <div class="sec-desc">20 个关注群按消息量排序</div>
+  <div class="stat-row"><div class="stat-box"><div class="t">TJ-062/063 · 7482条</div><div class="bar"><i class="red" style="width:100%"></i></div></div><div class="stat-box"><div class="t">DX-070 · 1008条</div><div class="bar"><i class="amber" style="width:13%"></i></div></div><div class="stat-box"><div class="t">DX-119 · 737条</div><div class="bar"><i class="amber" style="width:9%"></i></div></div><div class="stat-box"><div class="t">DX-055 · 818条</div><div class="bar"><i class="" style="width:10%"></i></div></div><div class="stat-box"><div class="t">DX-069 · 559条</div><div class="bar"><i class="" style="width:7%"></i></div></div><div class="stat-box"><div class="t">DX-999 · 352条</div><div class="bar"><i class="" style="width:4%"></i></div></div><div class="stat-box"><div class="t">DX-062 · 252条</div><div class="bar"><i class="" style="width:3%"></i></div></div><div class="stat-box"><div class="t">XHWJ-001 · 279条</div><div class="bar"><i class="" style="width:3%"></i></div></div><div class="stat-box"><div class="t">DX-064 · 204条</div><div class="bar"><i class="" style="width:2%"></i></div></div><div class="stat-box"><div class="t">DX-073 · 195条</div><div class="bar"><i class="" style="width:2%"></i></div></div><div class="stat-box"><div class="t">JHG-056 · 168条</div><div class="bar"><i class="" style="width:2%"></i></div></div><div class="stat-box"><div class="t">XHWJ-004 · 103条</div><div class="bar"><i class="" style="width:1%"></i></div></div></div>
+</div>
+
+<script>
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(el=>el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('panel-'+t).classList.add('active');
+}
+</script>
+</body>
+</html>

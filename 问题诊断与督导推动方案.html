@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星河无界 · 问题诊断与督导推动方案（19项目群）</title>
+<style>
+:root{--ink:#334155;--ink-2:#64748b;--ink-3:#94a3b8;--paper:#f8fafc;--surface:#fff;--line:#e2e8f0;--accent:#6366f1;--accent-soft:#eef2ff;--red:#ef4444;--amber:#f97316;--green:#22c55e;--ease:cubic-bezier(.25,1,.5,1);--shadow-sm:0 1px 3px rgba(51,65,85,.06);--shadow-md:0 4px 16px rgba(51,65,85,.1)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI","Microsoft YaHei",sans-serif;font-size:13px;line-height:1.6;padding:28px clamp(16px,4vw,44px) 60px}
+.hero{background:linear-gradient(135deg,#fff 0%,#f1f5f9 100%);border:1px solid var(--line);border-radius:16px;padding:28px 32px 24px;margin-bottom:22px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.09),transparent 65%)}
+.hero h1{font-size:clamp(20px,2.6vw,28px);font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+.hero h1 .mark{width:6px;height:24px;border-radius:3px;background:var(--accent);display:inline-block}
+.hero .sub{color:var(--ink-3);font-size:11.5px;margin-top:8px;letter-spacing:.03em;position:relative;z-index:1}
+.verdict{background:#fff7ed;border:1px solid #fdba74;border-radius:14px;padding:18px 22px;margin-bottom:22px;color:#7c2d12;font-size:13.5px}
+.verdict b{color:#9a3412}
+.sec{margin-bottom:26px}
+.sec-title{font-size:17px;font-weight:700;color:#0f172a;display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.sec-title .icon{width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+.sec-desc{color:var(--ink-3);font-size:11.5px;margin-bottom:14px}
+.issue{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.issue-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.issue-num{font-size:12px;font-weight:700;background:var(--red);color:#fff;padding:3px 10px;border-radius:8px}
+.issue-title{font-size:15px;font-weight:700;color:#0f172a}
+.sev{margin-left:auto;font-size:11px;padding:3px 10px;border-radius:8px;font-weight:600}
+.sev.high{background:#fef2f2;color:#dc2626}.sev.mid{background:#fff7ed;color:#ea580c}.sev.low{background:#eff6ff;color:#2563eb}
+.ev{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0;font-size:12px;color:var(--ink-2)}
+.ev::before{content:"📌 聊天证据  ";color:var(--ink-3);font-size:11px}
+.issue-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin:8px 0}
+.g-item{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12px}
+.g-item b{color:#0f172a;display:block;margin-bottom:4px}
+.g-item span{color:var(--ink-2)}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.plan-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.plan-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;color:#fff}
+.plan-badge.now{background:var(--red)}.plan-badge.week{background:var(--amber)}.plan-badge.keep{background:var(--accent)}
+.plan-title{font-size:15px;font-weight:700;color:#0f172a}
+.plan ul{list-style:none;padding:0;margin:0}
+.plan li{padding:7px 0 7px 22px;position:relative;font-size:13px;color:var(--ink)}
+.plan li::before{content:"▸";position:absolute;left:4px;color:var(--accent);font-weight:700}
+.plan li b{color:#0f172a}
+.plan li .tag{display:inline-block;font-size:10.5px;padding:1px 8px;border-radius:6px;margin-left:6px;background:var(--accent-soft);color:var(--accent);vertical-align:1px}
+.tip{background:var(--accent-soft);border:1px solid #c7d2fe;border-radius:12px;padding:16px 20px;color:#3730a3;font-size:13px}
+.tip b{color:#312e81}
+@media(max-width:640px){.issue-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1><span class="mark"></span>星河无界 · 问题诊断与督导推动方案</h1>
+  <div class="sub">仅基于 19 个项目群 1955 条聊天记录（08-03 ~ 08-10）重新分析 · 已排除管理讨论群 · 督导（PMO）视角 · 生成时间：2026-08-10 23:01</div>
+</div>
+
+<div class="verdict">
+  <b>⚡ 总体判断：</b>19 个项目群交付节奏整体健康（91Hub/KISSAV/51漫画/禁漫天堂/抖阴等本周完成上线闭环），但<b>结构性矛盾突出</b>：核心研发人力（厉飞雨/朔月/鹏程/李瑞/兰科）多项目并行导致排期连环顺延，叠加<b>需求优先级管理混乱</b>（多个需求同优先级、产品/运营各自喊优先、无全局排序）和生产问题根治不力（茶馆APP加载问题一周未愈），形成「资源紧张 → 排期顺延 → 生产问题挤占人力 → 更紧张」的恶性循环。
+</div>
+
+<div class="sec">
+  <div class="sec-title"><span class="icon" style="background:#ef4444">!</span>六大核心问题诊断</div>
+  <div class="sec-desc">按严重度排序，每条附 19 个项目群聊天记录证据</div>
+
+  <div class="issue">
+    <div class="issue-head"><span class="issue-num">问题 1</span><span class="issue-title">研发资源瓶颈 · 核心人力过载</span><span class="sev high">🔴 高</span></div>
+    <div style="font-size:12.5px">后端核心人力集中在厉飞雨、朔月、鹏程、李瑞、兰科几人，同一人并行 4-5 个需求+新项目，排期连环顺延；测试资源同样紧张。</div>
+    <div class="ev">厉飞雨（91Hub 08-05）：「是的，还有4个需求和吃瓜网的新项目在开发」</div>
+    <div class="ev">周子然（91Hub 08-05）：「新项目最好有单独的人做 不然也会卡着…如果人不够的 只能暂时先这样啦」</div>
+    <div class="ev">文龙（91Hub 08-05）：「那就把新项目的排期往后改一下吧，先搞91」→ 91吃瓜网排期顺延8天（08-07）</div>
+    <div class="ev">飞策（51漫画 08-05）：「我这边明天排期的有三个需求任务并行」</div>
+    <div class="issue-grid">
+      <div class="g-item"><b>直接影响</b><span>吃瓜网顺延8天、新项目排期后移、测试排队一周+</span></div>
+      <div class="g-item"><b>根因</b><span>人员规模小、技能面集中、并行项目（19个）超出承载力</span></div>
+      <div class="g-item"><b>恶化因素</b><span>生产问题/优先级变更持续挤占开发人力</span></div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-head"><span class="issue-num">问题 2</span><span class="issue-title">需求优先级管理混乱 · 同优先级冲突</span><span class="sev high">🔴 高</span></div>
+    <div style="font-size:12.5px">多个需求被标为「最高优先级」，开发无法取舍；产品/运营各自喊优先，优先级调整随口就来，缺乏全局排序机制。</div>
+    <div class="ev">波林（91Hub 08-05）：「厉飞雨现在手上全是相同优先级的，所以我确认一下」</div>
+    <div class="ev">文龙（91Hub 08-05）：「同优先级的怎么搞」</div>
+    <div class="ev">齐泽西（91Hub 08-05）：「产品这边 不知道优先级的情况吗？」</div>
+    <div class="ev">安靖（91Hub 08-05）：「帮忙把这个需求 排在优先级最高 其他的需求可以往后排」</div>
+    <div class="issue-grid">
+      <div class="g-item"><b>直接影响</b><span>排期反复调整、开发被打断、跨群协调成本高、吃瓜网/新项目被牺牲</span></div>
+      <div class="g-item"><b>根因</b><span>无全局优先级排序（P0/P1/P2矩阵），优先级由需求方口头定义</span></div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-head"><span class="issue-num">问题 3</span><span class="issue-title">生产问题根治不力 · 反复/拖尾</span><span class="sev high">🔴 高</span></div>
+    <div style="font-size:12.5px">茶馆APP图片/视频加载问题持续一周（8/5-8/10）未根治，用户反复反馈；滴滴切片批量失败；抖阴数据统计问题排查 4 天才定位根因。</div>
+    <div class="ev">茶馆APP：8/5 起多用户反馈「无法显示图片、一直转圈、打不开」，8/10 17:40 用户仍反馈打不开（上海/广东，疑似CDN/DNS投毒，多次调整域名未根治）</div>
+    <div class="ev">滴滴：8/10「带视频的帖子切片切不过去…回调地址没有收到外部服务的信号」（排查 mp4.accept 配置）</div>
+    <div class="ev">抖阴：8/6 发现数据不更新 → 8/9 才定位「少了一个定时任务（executeDelay）」</div>
+    <div class="issue-grid">
+      <div class="g-item"><b>直接影响</b><span>用户流失风险、运营数据失真、技术人力被大量占用</span></div>
+      <div class="g-item"><b>根因</b><span>问题无责任人/时限/验证标准；根因定位依赖个人经验；同类坑各项目重复踩</span></div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-head"><span class="issue-num">问题 4</span><span class="issue-title">验收/测试流程职责边界不清</span><span class="sev mid">🟠 中</span></div>
+    <div style="font-size:12.5px">提测、测试验证、验收三个环节职责边界模糊，验收与测试混在一起导致验收失真，需反复返工。</div>
+    <div class="ev">齐泽西（黑料头条 08-06）：「提测到测试服本身就是测试验证的，验收是为了验证测试…混在一起等于验收和测试做的是一个活，意义不大，出现了bug最后还是需要技术去处理」</div>
+    <div class="ev">周子然（黑料头条 08-06）：「把我这边验收时间分开吧，9月2号」→ 验收与测试排期被迫拆分</div>
+    <div class="ev">波林/周子然/飞策（抖阴 08-04）：「测试可以和我们运营同步验收吗」→ 验收流程随意性大</div>
+    <div class="issue-grid">
+      <div class="g-item"><b>直接影响</b><span>验收失真、返工、上线质量风险</span></div>
+      <div class="g-item"><b>根因</b><span>验收/测试职责无明文规范，靠各项目自行约定</span></div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-head"><span class="issue-num">问题 5</span><span class="issue-title">排期与需求文档质量参差</span><span class="sev mid">🟠 中</span></div>
+    <div style="font-size:12.5px">排期表字段大量「待补」、人员名写错、需求链接跳转错误、排期一天内多次修改，增加沟通成本。</div>
+    <div class="ev">齐泽西（91吃瓜网 08-05）：「这个排期 人员名字不要写错了，工作人员叫飞策 不是飞测」</div>
+    <div class="ev">豆腐（91楼凤 08-07）：「贴错了？」→ 鲍勃：需求卡 227 点击跳转到 150</div>
+    <div class="ev">文龙（91楼凤 08-07）：「后端这块的排期要做一下微调，调好后重新发下」→ 一天内排期修改 3+ 次</div>
+    <div class="ev">抖阴 GSCE-234 排期表：后端/测试/验收时间均为「【待补】」，反复确认多轮才定</div>
+    <div class="issue-grid">
+      <div class="g-item"><b>直接影响</b><span>计划可信度低、协调成本高</span></div>
+      <div class="g-item"><b>根因</b><span>排期模板无必填校验；验收方/资源在排期阶段未锁定</span></div>
+    </div>
+  </div>
+
+  <div class="issue">
+    <div class="issue-head"><span class="issue-num">问题 6</span><span class="issue-title">知识不沉淀 · 跨项目重复踩坑</span><span class="sev low">🔵 中低</span></div>
+    <div style="font-size:12.5px">项目间经验不共享：抖阴踩过的定时任务/采集配置坑，其他项目（51漫画搜索、滴滴切片）继续踩；域名/CDN配置知识分散在个人。</div>
+    <div class="ev">抖阴缺 executeDelay 定时任务导致数据不更新（8/9 定位）→ 文龙（抖阴 08-04）：「朔月这边是这个批量任务的先锋组，你做完后，提测验证，没问题了，别的项目直接抄作业」</div>
+    <div class="ev">茶馆APP 域名配置需核对 git 仓库 lcg.txt + 前端内置 API 域名列表，知识散落各处（8/10 排查中）</div>
+    <div class="issue-grid">
+      <div class="g-item"><b>直接影响</b><span>同类问题重复发生、定位慢</span></div>
+      <div class="g-item"><b>根因</b><span>无知识库/根因档案沉淀机制</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title"><span class="icon" style="background:#6366f1">➤</span>督导推动方案</div>
+  <div class="sec-desc">按「立即止血 → 本周建制 → 持续机制」三层推进，每条给出具体动作</div>
+
+  <div class="plan">
+    <div class="plan-head"><span class="plan-badge now">立即</span><span class="plan-title">止血：本周内 5 件事</span></div>
+    <ul>
+      <li><b>茶馆APP加载问题限时根治</b>：指定唯一责任人（后端+运维双人），48h 内输出根因分析报告（CDN/DNS/域名配置逐一验证），给出修复方案+上线验证标准，上报钱总知晓 <span class="tag">问题3</span></li>
+      <li><b>滴滴切片失败闭环</b>：跟进 mp4.accept 配置修复，确认失败任务重排验证通过后再关闭 <span class="tag">问题3</span></li>
+      <li><b>禁漫天堂 XSS 上线确认</b>：明早上线前复核评论列表清洗完成、SEO+XSS 一起上线 <span class="tag">问题3</span></li>
+      <li><b>91吃瓜网重新排期</b>：与厉飞雨确认 91hub 需求优先级后，给出吃瓜网新排期，明确补偿机制（测试并行/人力支援） <span class="tag">问题1</span></li>
+      <li><b>新项目人力缺口拍板</b>：黑料头条 + 茶馆WEB + XHWJ-002 三个并行新项目，评估是否新增人手/外包，找 HRBP 或钱总确认预算 <span class="tag">问题1</span></li>
+    </ul>
+  </div>
+
+  <div class="plan">
+    <div class="plan-head"><span class="plan-badge week">本周</span><span class="plan-title">建制：把规则立起来</span></div>
+    <ul>
+      <li><b>全局需求优先级矩阵</b>：督导牵头，产品（波林/大藜/小宜/鲍勃）+技术TL（文龙/周子然）三方确认每个需求的 P0/P1/P2 等级；同一人手上不允许出现两个同优先级冲突 <span class="tag">问题2</span></li>
+      <li><b>资源盘点会议</b>：盘点 19 个项目人力负载，明确优先级排序（哪些项目可暂缓/冻结），与优先级矩阵对齐 <span class="tag">问题1</span></li>
+      <li><b>生产问题跟踪清单上线</b>：用现有生产问题看板，每个问题强制字段：责任人 / 根因 / 解决时限 / 验证标准；日报同步状态 <span class="tag">问题3</span></li>
+      <li><b>验收/测试职责规范</b>：明确「提测→测试验证→验收→上线」各环节负责人和确认动作，验收与测试分离，输出留痕 <span class="tag">问题4</span></li>
+      <li><b>排期模板补必填校验</b>：「待补」不允许提交，验收人/测试人/链接在排期阶段必须锁定 <span class="tag">问题5</span></li>
+    </ul>
+  </div>
+
+  <div class="plan">
+    <div class="plan-head"><span class="plan-badge keep">持续</span><span class="plan-title">机制：长期运行规则</span></div>
+    <ul>
+      <li><b>优先级变更走评审</b>：临时提高需求优先级必须评估影响（被挤掉的需求/延期天数），督导知情并审批 <span class="tag">问题2</span></li>
+      <li><b>问题根因档案库</b>：每个生产问题解决后归档（根因+解决方案）到 GSCE/知识库，新项目开工前对照检查「踩坑清单」 <span class="tag">问题6</span></li>
+      <li><b>督导每日日报机制</b>：每日 AI 日报（已有模板）+ 每周问题复盘会（过生产问题清单，关一个销一个） <span class="tag">问题3</span></li>
+      <li><b>关键人备份</b>：核心后端（厉飞雨/朔月/鹏程）结对/文档化，避免单点 <span class="tag">问题1</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="tip">
+  <b>💡 督导杠杆建议：</b>本轮分析最大新增洞察是<b>需求优先级混乱</b>——厉飞雨手上全是「最高优先级」，等于没有优先级。你作为 PMO 的最大杠杆是「<b>建一个优先级矩阵</b>」：所有需求进 P0/P1/P2 池，同一人不同时接两个 P0；任何"这个最重要"的口头要求，都要落到矩阵里换掉另一个需求。优先级清晰了，资源分配、排期顺延、插队问题会同步缓解。配合「未验收不上线」的红线，形成闭环。
+</div>
+
+</body>
+</html>

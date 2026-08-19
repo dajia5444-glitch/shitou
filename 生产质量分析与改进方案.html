@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生产质量分析与改进方案</title>
+<style>
+:root{--ink:#334155;--ink-2:#64748b;--ink-3:#94a3b8;--paper:#f8fafc;--surface:#fff;--line:#e2e8f0;--accent:#1d4ed8;--accent-soft:#eff6ff;--red:#dc2626;--amber:#d97706;--green:#16a34a;--teal:#0d9488;--teal-soft:#f0fdfa;--ease:cubic-bezier(.25,1,.5,1);--shadow-sm:0 1px 3px rgba(51,65,85,.06);--shadow-md:0 4px 16px rgba(51,65,85,.1)}
+*{box-sizing:border-box;margin:0}
+body{background:#eef1f6;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI","Microsoft YaHei","Songti SC",serif;font-size:14px;line-height:1.7;padding:36px clamp(16px,5vw,60px) 60px}
+.page{background:#fff;max-width:920px;margin:0 auto 24px;border-radius:6px;box-shadow:0 4px 24px rgba(51,65,85,.10);padding:52px 60px;border-top:4px solid var(--accent)}
+@media(max-width:640px){.page{padding:28px 20px}}
+.cover{text-align:center;padding:70px 40px}
+.cover .org{color:var(--ink-3);font-size:13px;letter-spacing:.3em;margin-bottom:40px}
+.cover h1{font-size:30px;color:#0f172a;font-weight:700;letter-spacing:.05em;margin-bottom:16px}
+.cover .meta{color:var(--ink-3);font-size:13px;line-height:2}
+h2{font-size:19px;color:#0f172a;margin:34px 0 14px;padding-left:12px;border-left:4px solid var(--accent);font-weight:700}
+h3{font-size:15px;color:var(--ink);margin:20px 0 8px;font-weight:600}
+p{color:var(--ink);margin:8px 0;text-align:justify}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:#f8fafc;color:#475569;font-weight:600;padding:10px 12px;border:1px solid var(--line);text-align:left}
+td{padding:10px 12px;border:1px solid var(--line);vertical-align:top}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.kpi{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:16px;text-align:center}
+.kpi .v{font-size:26px;font-weight:700;color:var(--accent)}
+.kpi .l{font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.kpi.good .v{color:var(--green)}.kpi.warn .v{color:var(--amber)}.kpi.alert .v{color:var(--red)}
+.badge{display:inline-block;font-size:11px;padding:2px 10px;border-radius:10px;font-weight:600;margin-right:6px}
+.b-good{background:#f0fdf4;color:#16a34a}.b-warn{background:#fffbeb;color:#d97706}.b-alert{background:#fef2f2;color:#dc2626}
+.src{display:inline-block;font-size:11px;padding:2px 9px;border-radius:6px;font-weight:700;margin-right:6px;color:#fff}
+.src-z{background:var(--accent)}.src-x{background:var(--teal)}.src-t{background:var(--amber)}
+.src-e{background:#7c3aed}
+.plan{border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0;background:#fcfcfd}
+.plan .ph{font-weight:700;color:var(--accent);margin-bottom:6px}
+.plan ul{margin:4px 0 4px 20px}
+.plan li{margin:4px 0}
+.support{border:1px solid #bfdbfe;background:#eff6ff;border-radius:10px;padding:16px 20px;margin:12px 0}
+.support li{margin:6px 0 6px 18px;color:#1e3a8a}
+.quote{border-left:3px solid #cbd5e1;padding:8px 16px;color:var(--ink-2);font-size:13px;margin:14px 0;background:#fafafa}
+.issue-card{border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:14px 0;background:#fcfcfd}
+.issue-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.issue-n{font-size:12px;font-weight:700;background:var(--accent);color:#fff;padding:3px 10px;border-radius:8px;white-space:nowrap}
+.issue-n.imp{background:#7c3aed}
+.irow{margin:6px 0;font-size:13px}
+.irow b{color:#0f172a;margin-right:6px}
+.irow .lab{display:inline-block;min-width:64px;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:6px}
+.lab-desc{background:#f1f5f9;color:#475569}.lab-case{background:#eff6ff;color:#1d4ed8}.lab-reason{background:#fffbeb;color:#d97706}.lab-sol{background:#f0fdf4;color:#16a34a}
+.irow.case{background:#f8fafc;border-radius:8px;padding:8px 12px;margin-left:0}
+.irow.sol{margin-top:8px}
+.gaps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+.gap{border:1px solid #fca5a5;background:#fef2f2;border-radius:10px;padding:14px 16px}
+.gap .v{font-size:24px;font-weight:700;color:var(--red)}
+.gap .l{font-size:12px;color:#7f1d1d;margin-top:4px}
+.concl{border:1px solid #bfdbfe;background:#eff6ff;border-radius:10px;padding:14px 18px;margin:16px 0;color:#1e3a8a;font-size:13px}
+.concl b{color:#1d4ed8}
+.flag{color:var(--amber);font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="page cover">
+  <div class="org">星 河 无 界</div>
+  <h1>生产质量分析与改进方案</h1>
+  <div class="meta">
+    汇报人：督导石头<br>
+    数据口径：禅道「星河无界」产品 BUG 100 条 + 禅道 / 线下表 / TG 群聊三源交叉
+  </div>
+</div>
+
+<div class="page">
+  <h2>一、近期工作成效</h2>
+  <p>近两个月（7-8 月），19 个项目整体保持稳定交付节奏，多个需求按期完成「排期-开发-测试-验收-上线」全流程闭环。经对项目运行情况梳理：</p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">19</div><div class="l">在管项目数</div></div>
+    <div class="kpi"><div class="v">75+</div><div class="l">交付/验收确认记录</div></div>
+    <div class="kpi"><div class="v">100</div><div class="l">星河无界禅道 BUG 登记</div></div>
+    <div class="kpi good"><div class="v">88%</div><div class="l">禅道登记 bug 闭环率</div></div>
+    <div class="kpi warn"><div class="v">73%</div><div class="l">生产问题闭环率（群聊口径）</div></div>
+  </div>
+  <p>茶馆APP、51青楼、KISSAV、91Hub、禁漫天堂、51漫画、抖阴等项目均完成多轮上线及线上回归；新项目方面，91吃瓜网（按黑料吃瓜网复制改造，涉及 WEB 与 H5 端）、禁漫天堂APP（免费版新项目）等已确认排期并进入开发，其余新项目处于原型与排期确认阶段，整体按节奏推进。</p>
+  <div class="quote">执行力验证：星河无界禅道口径下，100 条 BUG 中已闭环 88 条（<b>88.0%</b>），与三源交叉口径的禅道闭环率 88% 高度一致；修复中位时长 1 天、重开率 0%，说明星河无界团队的 BUG 处理执行力与一次修准率均处于健康水平。</div>
+</div>
+
+<div class="page">
+  <h2>二、生产质量数据总览与覆盖度分析</h2>
+  <p>本期质量分析采用<b>双口径交叉验证</b>：① 禅道口径——基于禅道「星河无界」产品 2026.7.25–8.13 全部 BUG 数据（100 条），评估类型分布、处理效率与闭环情况；② 三源核对口径——<span class="src src-z">禅道</span>正式缺陷登记、<span class="src src-x">线下表</span>生产问题台账、<span class="src src-t">TG 群聊</span>一线生产反馈，三源合计识别 <b>126 条</b>问题记录（去重前）。两者互为补充：禅道口径回答「问题集中在哪」，三源口径回答「信息是否漏登记」。</p>
+
+  <h3>2.1 禅道 BUG 评估视角（星河无界产品 · 2026.7.25–8.13）</h3>
+  <div class="kpis">
+    <div class="kpi"><div class="v">100</div><div class="l">星河无界 BUG 样本</div></div>
+    <div class="kpi good"><div class="v">88</div><div class="l">已闭环（88.0%）</div></div>
+    <div class="kpi"><div class="v">12</div><div class="l">激活未闭环（12.0%）</div></div>
+    <div class="kpi warn"><div class="v">98.9%</div><div class="l">TOP2 类型占比</div></div>
+    <div class="kpi"><div class="v">1天</div><div class="l">修复中位处理时长</div></div>
+    <div class="kpi good"><div class="v">0%</div><div class="l">已修复重开率</div></div>
+    <div class="kpi warn"><div class="v">3</div><div class="l">处理超 3 天 BUG</div></div>
+  </div>
+  <table>
+    <tr><th style="width:16%">TOP 类型</th><th style="width:34%">典型表现</th><th>与三源案例印证</th></tr>
+    <tr><td><b>代码错误</b><br><span class="badge b-alert">占已闭环 52%</span></td><td>接口/逻辑/展示代码缺陷，为最主要问题类型</td><td>91hub 置顶条件搜索报错（#42140）；91hub 最多观看/收藏页 404（#41703/41704）；51pc 安装包报毒（#41123）</td></tr>
+    <tr><td><b>配置相关</b><br><span class="badge b-warn">占已闭环 47%</span></td><td>SEO 配置、sitemap、上报接口、定时任务等配置类缺陷</td><td>51漫画 IndexNow/sitemap/SEO 标题一批 8 条（#41914–41925）；抖阴浏览采样未更新（#41047 激活）；91hub 首页布局缺失（#41705）</td></tr>
+    <tr><td>性能问题</td><td>性能类缺陷</td><td>1 条（已闭环）</td></tr>
+  </table>
+  <p>效率侧：已闭环 BUG 中位处理时长 <b>1 天</b>，响应敏捷；仅 <b>3 条</b>处理超过 3 天，重开率 <b>0%</b>，说明「一次修准率」良好。当前 12 条激活 BUG 中，<b>8 条集中在 51漫画 SEO 批量问题</b>（8/11 集中登记、指派鹏程），属单批集中待办，需限期清零。</p>
+
+  <h3>2.2 问题类型分布（三源口径）</h3>
+  <table>
+    <tr><th style="width:18%">问题类型</th><th style="width:10%">频次</th><th>代表案例</th><th style="width:34%">核心根因</th></tr>
+    <tr><td>资源/媒体加载异常</td><td>~15 次</td><td>茶馆APP 图片加载问题一周未愈（上海/广东 CDN/DNS）</td><td>CDN/DNS 无监控、复现困难、上线无盯防</td></tr>
+    <tr><td>数据类（采集/同步/统计）</td><td>~12 次</td><td>抖阴数据不更新查了 4 天；滴滴切片回调失效 8 天才发现</td><td>定时任务体系脆弱、无数据对账、脚本幂等性不足</td></tr>
+    <tr><td>流程/环境配置类</td><td>~8 次</td><td>51漫画 测试服/正式服不一致；KISSAV 404 页 description 漏改</td><td>环境漂移、验收清单缺失</td></tr>
+    <tr><td>接口/跨系统对接类</td><td>~6 次</td><td>滴滴 golang 无法收 PHP NULL；IM 域名失效</td><td>契约无文档、外部依赖无告警</td></tr>
+    <tr><td>安全/合规类</td><td>1 次（严重）</td><td>禁漫天堂 WEB 评论列表 XSS（跨站脚本）漏洞</td><td>安全测试未纳入验收标准</td></tr>
+    <tr><td>前端/展示类</td><td>~4 次</td><td>91Hub 刷新闪现</td><td>缓存/状态管理、多端验证不足</td></tr>
+  </table>
+  <p>从时间维度看，问题量随项目数量增长有所上升（7-8 月项目并行度最高，8 月为历史峰值），属于业务扩张期的正常伴随现象。需要特别说明：<b>三源合并后仍不能视为全量</b>，覆盖缺口在 2.5 节量化呈现。</p>
+
+  <h3>2.3 三源数据概况</h3>
+  <p>三个信息源高度互补、互相不可替代，任一单一信息源都会漏掉 30%~70% 的问题，这也解释了此前"基于群聊统计"天然存在缺口的原因。</p>
+  <table>
+    <tr><th style="width:16%">信息源</th><th style="width:24%">覆盖定位</th><th style="width:12%">记录量</th><th style="width:20%">时间窗口</th><th>主要问题构成 / 闭环情况</th></tr>
+    <tr><td><span class="src src-z">禅道</span>正式登记</td><td>星河无界产品缺陷全流程登记</td><td>100 条</td><td>7/25 ~ 8/13</td><td>以测试环境为主（约 88 条），线上/生产 12 条；已关闭/已解决 88 条（88%），激活未闭环 12 条</td></tr>
+    <tr><td><span class="src src-x">线下表</span>生产台账</td><td>商城+IM 生产问题专项台账</td><td>11 条</td><td>7-8 月</td><td>订单状态、IM 消息、iOS 闪退等生产问题为主；P0 3 条；已修复 3 条，其余 8 条在途</td></tr>
+    <tr><td><span class="src src-t">TG 群聊</span>一线反馈</td><td>19 个项目群生产反馈扫描</td><td>15 条结构化（约 25 个生产问题）</td><td>7月中 ~ 8/10</td><td>加载/数据/接口/安全类生产问题；已闭环 11 条（73%），待跟进 4 条</td></tr>
+  </table>
+
+  <h3>2.4 三源交叉重叠（可互为印证的共性问题）</h3>
+  <table>
+    <tr><th style="width:34%">重叠问题</th><th style="width:22%"><span class="src src-z">禅道</span></th><th style="width:22%"><span class="src src-x">线下表</span></th><th><span class="src src-t">TG 群聊</span></th></tr>
+    <tr><td>抖阴 浏览/采样数据未更新</td><td>#41047 激活（P1）</td><td>—</td><td>待跟进（8/6-8/9 定位为定时任务缺失）</td></tr>
+    <tr><td>91hub 置顶数据不展示</td><td>#41570 已解决</td><td>—</td><td>已闭环（8/9）</td></tr>
+    <tr><td>91hub 短视频刷新闪现</td><td>#41583 已解决</td><td>—</td><td>已闭环（8/10）</td></tr>
+    <tr><td>茶馆 充值通道异常</td><td>#39146 已解决</td><td>—</td><td>有提及（7月底充值受阻）</td></tr>
+    <tr><td>51漫画 type 参数 404</td><td>#41240 已解决</td><td>—</td><td>已闭环（8/7 待验收拍板）</td></tr>
+    <tr><td>51青楼 过期广告仍展示</td><td>#40656 已解决</td><td>—</td><td>已闭环（8/8）</td></tr>
+    <tr><td>元宝余额购买校验</td><td>#40775 已解决</td><td>BUG-02 已修复</td><td>—</td></tr>
+  </table>
+
+  <h3>2.5 覆盖缺口量化</h3>
+  <div class="gaps">
+    <div class="gap"><div class="v">≈73%</div><div class="l">线下表 11 条中 8 条（订单状态跳变、iOS 闪退、IM 卡顿、聊天记录留存等）在其他信息源<b>无任何记录</b></div></div>
+    <div class="gap"><div class="v">3/4</div><div class="l">TG 待跟进的 4 个生产问题（茶馆加载、滴滴切片、禁漫 XSS）中 3 个<b>未进禅道</b>；禅道 12 条线上问题中约 6 条群聊未提及</div></div>
+    <div class="gap"><div class="v">126→115+</div><div class="l">三源合计 126 条记录，去重后独立问题约 115+；此前"467 条讨论"仅为群聊<b>单源口径</b></div></div>
+  </div>
+  <div class="concl"><b>结论：</b>两个口径互相印证、指向同一结论——<b>「登记分散」+「类型集中」</b>。三源交叉核对暴露问题登记入口分散（禅道 / 线下表 / 群聊并行、口径不一），是"统计不全"的直接原因；禅道评估暴露星河无界问题类型高度集中（代码错误 52% + 配置相关 47%，合计 98.9%）。因此改进方案两大核心为：<b>统一问题登记（以禅道为唯一数据源、其余渠道周度归并）</b>与<b>按类型预防（TOP 高频类型专项治理，重点是代码错误与配置类）</b>。</div>
+</div>
+
+<div class="page">
+  <h2>三、重点问题与原因分析</h2>
+<p>结合禅道评估与三源交叉核对结果，梳理出当前最值得关注的五类共性问题。每类问题均附典型案例与解决措施，原因更多指向<b>机制与体系建设</b>层面，而非个别人员执行：</p>
+
+<div class="issue-card">
+  <div class="issue-head"><span class="issue-n">问题一</span><span class="issue-title">问题发现机制以人工反馈为主</span></div>
+  <div class="irow"><span class="lab lab-desc">问题描述</span>多数问题由业务方或用户反馈后才进入处理流程，主动监测手段尚未全面覆盖，个别问题的发现时效存在提升空间。</div>
+  <div class="irow case"><span class="lab lab-case">典型案例</span>茶馆APP 资源加载异常，多地用户陆续反馈后团队才启动排查，期间用户侧体验持续受影响；抖阴 关键数据统计异常（禅道 #41047 至今激活），业务侧数日后才发现数据未更新。</div>
+  <div class="irow"><span class="lab lab-reason">原因分析</span>监控告警体系尚未覆盖数据与基础设施层面，依赖人工巡检与用户反馈兜底。</div>
+  <div class="irow sol"><span class="lab lab-sol">解决措施</span>建立上线后 30 分钟首轮核查 + 关键数据 24 小时复核机制；对核心业务数据建立"应到量"基准，异常自动提示，缩短发现时间。</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-head"><span class="issue-n">问题二</span><span class="issue-title">同类问题存在跨项目重复出现</span></div>
+  <div class="irow"><span class="lab lab-desc">问题描述</span>定时任务配置、域名回调等基础设施类问题，在不同项目间多次出现相似情况，解决经验未能共享。</div>
+  <div class="irow case"><span class="lab lab-case">典型案例</span>抖阴 数据统计异常，排查数日后定位为定时任务缺失（禅道 #41043 定时任务报错）；滴滴 因回调地址失效，切片任务批量失败且数日未被发现；91楼凤 因平行团队（恒睿）关闭定时任务，后台数据中断。</div>
+  <div class="irow"><span class="lab lab-reason">原因分析</span>经验沉淀与知识共享机制尚不完善，基础设施配置分散在各项目与个人。</div>
+  <div class="irow sol"><span class="lab lab-sol">解决措施</span>建立基础设施台账（CDN/域名/回调地址/定时任务统一登记并明确负责人）；沉淀问题根因档案库，新项目开工前对照检查。</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-head"><span class="issue-n">问题三</span><span class="issue-title">测试与正式环境一致性待加强</span></div>
+  <div class="irow"><span class="lab lab-desc">问题描述</span>个别需求在测试环境验证通过后，正式环境出现表现差异；验收清单覆盖范围有提升空间。禅道 100 条中测试环境 bug 占约 88 条，也印证提测质量仍有波动。</div>
+  <div class="irow case"><span class="lab lab-case">典型案例</span>51漫画 分类页在测试环境返回异常、正式环境正常（禅道 #41240 与群聊一致），需人工核实拍板；KISSAV 上线后发现有 SEO 字段（404 页面描述）未按规范修改；91hub 线上 3 个列表页 404（禅道 #41702/41703/41704，已闭环）。</div>
+  <div class="irow"><span class="lab lab-reason">原因分析</span>验收标准化清单尚在完善中，测试与正式环境配置基线缺少一致性核验。</div>
+  <div class="irow sol"><span class="lab lab-sol">解决措施</span>上线检查单覆盖功能/SEO/空态/多端/安全项；增加测试与正式环境一致性核验步骤，防止环境差异导致的上线偏差。</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-head"><span class="issue-n">问题四</span><span class="issue-title">多项目并行下资源匹配需优化</span></div>
+  <div class="irow"><span class="lab lab-desc">问题描述</span>7-8 月新老项目并行度较高，个别核心开发同学同时承载多个项目排期，出现过排期顺延情况。</div>
+  <div class="irow case"><span class="lab lab-case">典型案例</span>厉飞雨 同时承接 4 个需求及 1 个新项目开发，出现多需求同优先级需跨群协调的情况；91吃瓜网 因优先级调整，排期顺延 8 天；测试资源同样紧张（禁漫APP 8/17-8/24 测试，黑料头条 25 号才开始）。</div>
+  <div class="irow"><span class="lab lab-reason">原因分析</span>全局需求优先级排序机制待建立，人力负载缺乏统一视图与裁决机制。</div>
+  <div class="irow sol"><span class="lab lab-sol">解决措施</span>建立全局需求优先级矩阵（P0/P1/P2），同一人避免同时承接多个同优先级需求；优先级冲突按升级规则逐级处理（直属→分管副总→总经理）；新项目人力配置方案提请评估。</div>
+</div>
+
+<div class="issue-card">
+  <div class="issue-head"><span class="issue-n">问题五</span><span class="issue-title">问题登记入口分散，形成信息孤岛</span></div>
+  <div class="irow"><span class="lab lab-desc">问题描述</span>生产问题分散登记于禅道、线下表与群聊，三源并行、口径不一，导致全量统计困难，并存在跟进遗漏风险。</div>
+  <div class="irow case"><span class="lab lab-case">典型案例</span>线下表 BUG-01（订单状态跳变「确认收货」）与 BUG-06（iOS 发帖闪退）均属高严重生产问题，但禅道与群聊均无记录；IM 消息乱序（线下表 BUG-04）在禅道无对应登记；茶馆加载问题在群聊持续一周+，禅道始终无登记。</div>
+  <div class="irow"><span class="lab lab-reason">原因分析</span>缺统一问题登记规范，各角色按习惯选择渠道（测试用禅道、运营用线下表、协作靠群聊），无强制归并机制。</div>
+  <div class="irow sol"><span class="lab lab-sol">解决措施</span>明确"生产问题一律进禅道"并强制字段（环境/严重度/责任人/时限）；线下表与群聊作为发现渠道、周度归并进禅道；问题闭环看板以禅道为唯一数据源，关一个销一个。</div>
+</div>
+
+<div class="quote">总体判断：星河无界团队执行力和问题响应能力良好（禅道闭环 88%、修复中位 1 天、重开率 0%），当前主要短板在于<b>机制性保障</b>——监测、沉淀、标准化与<b>统一登记</b>四个环节，外加<b>类型集中度高</b>（代码错误+配置相关占 98.9%）带来的重复返工成本，均为可通过制度化建设补齐的部分。</div>
+</div>
+
+<div class="page">
+  <h2>四、改进方案与推进计划</h2>
+  <p>聚焦前面五个核心问题，只保留可执行、可检查的动作。每条措施都写明<b>动作</b>与<b>检查点</b>：</p>
+
+  <div class="plan">
+    <ul>
+      <li><b>存量 BUG 清零</b>：禅道 12 条激活（含严重级 #41047）+ TG 待跟进 4 条，逐条指定责任人、解决时限与验收标准。<br><span style="color:#16a34a">检查点：8/31 前禅道激活数为 0，逐条销号留痕。</span></li>
+      <li><b>上线双查</b>：发布后 30 分钟内首轮核查、关键数据 24 小时内复核，防止问题过夜才发现。<br><span style="color:#16a34a">检查点：每次上线执行并留记录，纳入发布日志。</span></li>
+      <li><b>问题统一进禅道</b>：生产问题一律在禅道登记（强制环境/严重度/责任人/时限四字段），线下表与群聊问题每周五归并一次，闭环看板以禅道为唯一数据源。<br><span style="color:#16a34a">检查点：质量报告只对禅道数据复盘，线下表/群聊不再单独统计。</span></li>
+      <li><b>配置类上线必检</b>：上线检查单强制覆盖 IndexNow / sitemap / nofollow / alt / JSON-LD / 繁体文案 6 项配置检查，阻断 51漫画类批量问题重演。<br><span style="color:#16a34a">检查点：上线单缺项不放行，产品+技术+测试三方签字后方可发布。</span></li>
+      <li><b>需求受理标准化</b>：业务提需→主管审核→产品承接→排期四步走，禁止绕过主管直接对接研发；优先级冲突按"直属→分管副总→总经理"逐级升级。<br><span style="color:#16a34a">检查点：排期表中不存在未经验收标准确认的需求，冲突需求有升级记录；需领导确认升级路径。</span></li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
